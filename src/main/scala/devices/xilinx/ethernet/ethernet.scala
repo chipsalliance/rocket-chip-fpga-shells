@@ -1,4 +1,3 @@
-// See LICENSE for license details.
 package sifive.fpgashells.devices.xilinx.ethernet
 
 import chisel3._

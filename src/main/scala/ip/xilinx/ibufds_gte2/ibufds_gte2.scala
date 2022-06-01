@@ -1,4 +1,3 @@
-// See LICENSE for license details.
 package sifive.fpgashells.ip.xilinx.ibufds_gte2
 
 import Chisel._

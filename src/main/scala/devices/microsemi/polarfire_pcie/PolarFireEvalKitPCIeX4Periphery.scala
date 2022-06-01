@@ -1,4 +1,3 @@
-// See LICENSE for license details.
 package sifive.fpgashells.devices.microsemi.polarfireevalkitpciex4
 
 import Chisel._

@@ -1,4 +1,3 @@
-// See LICENSE for license details.
 package sifive.fpgashells.ip.xilinx.xxv_ethernet
 
 import chisel3._

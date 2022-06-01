@@ -1,4 +1,3 @@
-// See LICENSE for license details.
 package sifive.fpgashells.ip.xilinx.vc707mig
 
 import Chisel._

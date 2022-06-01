@@ -1,4 +1,3 @@
-// See LICENSE for license details.
 package sifive.fpgashells.shell.xilinx
 
 import chisel3._

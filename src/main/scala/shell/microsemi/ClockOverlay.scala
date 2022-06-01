@@ -1,4 +1,3 @@
-// See LICENSE for license details.
 package sifive.fpgashells.shell.microsemi
 
  import chisel3._

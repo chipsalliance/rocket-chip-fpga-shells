@@ -1,4 +1,3 @@
-// See LICENSE for license details.
 package sifive.fpgashells.devices.xilinx.xilinxvcu118mig
 
 import Chisel._

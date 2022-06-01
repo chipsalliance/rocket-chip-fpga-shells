@@ -1,4 +1,3 @@
-package sifive.fpgashells.shell
 
 import chisel3._
 import chisel3.experimental.{Analog, attach}

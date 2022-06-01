@@ -1,4 +1,3 @@
-package sifive.fpgashells.ip.xilinx.arty100tmig
 
 import Chisel._
 import chisel3.experimental.{Analog,attach}

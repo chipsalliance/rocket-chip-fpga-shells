@@ -1,4 +1,3 @@
-// See LICENSE for license details.
 package sifive.fpgashells.ip.microsemi.polarfireccc
 
 import Chisel._
