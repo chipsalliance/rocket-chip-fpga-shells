@@ -1,8 +1,10 @@
-# fpga-shells
+# FPGA Shells for the Rocket Chip Generator
 
-An FPGA shell is a Chisel module designed to wrap any SiFive core configuration.
-The goal of the fpga-shell system is to reduce the number of wrappers to have only
+An FPGA shell is a Chisel module designed to wrap any Rocket Chip subsystem configuration.
+The goal of the fpga-shell system is to reduce the number of wrappers so as to have only
 one for each physical device rather than one for every combination of physical device and core configuration.
+
+This repository replaces https://github.com/sifive/fpga-shells
 
 Each shell consists of Overlays which use dependency injection to create and connect peripheral device interfaces in an FPGADesign to the toplevel shell module.
 
