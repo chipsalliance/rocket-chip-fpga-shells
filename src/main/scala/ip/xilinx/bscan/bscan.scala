@@ -6,7 +6,7 @@ import chisel3.experimental.{ExtModule, Analog, attach}
 object JTAGTUNNEL {
   def apply (DUT_TCK: Bool, DUT_TMS: Bool, DUT_TDI: Bool, DUT_TDO:Bool, DUT_TDO_en: Bool): Unit = {
     val inst_jtag_tunnel = Module(new JTAGTUNNEL())
-    DUT_TCK := inst_jtag_tunnel.jtag_tck.asBool()
+    DUT_TCK := inst_jtag_tunnel.jtag_tck.asBool
     DUT_TMS := inst_jtag_tunnel.jtag_tms
     DUT_TDI := inst_jtag_tunnel.jtag_tdi
     inst_jtag_tunnel.jtag_tdo := DUT_TDO
@@ -34,7 +34,7 @@ class BSCANE2 extends ExtModule(Map("JTAG_CHAIN" -> 4)) {
   val UPDATE = IO(Output(Bool()))
 }
 
-class JTAGTUNNEL extends MultiIOModule {
+class JTAGTUNNEL extends Module {
   val jtag_tck: Clock = IO(Output(Clock()))
   val jtag_tms: Bool = IO(Output(Bool()))
   val jtag_tdi: Bool = IO(Output(Bool()))
