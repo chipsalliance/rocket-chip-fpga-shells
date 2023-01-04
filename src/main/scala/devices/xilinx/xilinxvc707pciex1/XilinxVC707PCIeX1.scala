@@ -55,7 +55,8 @@ class XilinxVC707PCIeX1(implicit p: Parameters, val crossing: ClockCrossingType 
 
   val intnode: IntOutwardNode = axi_to_pcie_x1.intnode
 
-  lazy val module = new LazyRawModuleImp(this) {
+  lazy val module = new Impl
+  class Impl extends LazyRawModuleImp(this) {
     val io = IO(new Bundle {
       val port = new XilinxVC707PCIeX1IO
     })

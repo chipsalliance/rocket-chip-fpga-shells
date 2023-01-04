@@ -41,7 +41,8 @@ class XilinxVCU118MIGIsland(c : XilinxVCU118MIGParams)(implicit p: Parameters) e
       supportsRead  = TransferSizes(1, 256*8))),
     beatBytes = 8)))
 
-  lazy val module = new LazyModuleImp(this) {
+  lazy val module = new Impl
+  class Impl extends LazyModuleImp(this) {
     val io = IO(new Bundle {
       val port = new XilinxVCU118MIGIO(depth)
     })
@@ -148,7 +149,8 @@ class XilinxVCU118MIG(c : XilinxVCU118MIGParams)(implicit p: Parameters) extends
   val node: TLInwardNode =
     island.crossAXI4In(island.node) := yank.node := deint.node := indexer.node := toaxi4.node := buffer.node
 
-  lazy val module = new LazyModuleImp(this) {
+  lazy val module = new Impl
+  class Impl extends LazyModuleImp(this) {
     val io = IO(new Bundle {
       val port = new XilinxVCU118MIGIO(depth)
     })

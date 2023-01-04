@@ -62,7 +62,8 @@ class PolarFireEvalKitPCIeX4(implicit p: Parameters) extends LazyModule with Has
     IntSyncCrossingSource(alreadyRegistered = true) := axi_to_pcie.intnode
   }
 
-  lazy val module = new LazyModuleImp(this) {
+  lazy val module = new Impl
+  class Impl extends LazyModuleImp(this) {
     val io = IO(new Bundle {
       val port = new PolarFireEvalKitPCIeX4IO
     })

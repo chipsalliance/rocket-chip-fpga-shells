@@ -24,8 +24,8 @@ abstract class SwitchXilinxPlacedOverlay(name: String, di: SwitchDesignInput, si
     val boardIO = ios.take(cutAt)
     val packageIO = ios.drop(cutAt)
 
-    (boardPin   zip boardIO)   foreach { case (pin, io) => shell.xdc.addBoardPin  (io, pin) }
-    (packagePin zip packageIO) foreach { case (pin, io) =>
+    (boardPin.toSeq   zip boardIO)   foreach { case (pin, io) => shell.xdc.addBoardPin  (io, pin) }
+    (packagePin.toSeq zip packageIO) foreach { case (pin, io) =>
       shell.xdc.addPackagePin(io, pin)
       shell.xdc.addIOStandard(io, ioStandard)
     }

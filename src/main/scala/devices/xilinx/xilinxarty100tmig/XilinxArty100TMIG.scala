@@ -40,7 +40,8 @@ class XilinxArty100TMIGIsland(c : XilinxArty100TMIGParams, val crossing: ClockCr
       supportsRead  = TransferSizes(1, 64))),
     beatBytes = 8)))
 
-  lazy val module = new LazyRawModuleImp(this) {
+  lazy val module = new Impl
+  class Impl extends LazyRawModuleImp(this) {
     val io = IO(new Bundle {
       val port = new XilinxArty100TMIGIO(depth)
     })
@@ -160,7 +161,8 @@ class XilinxArty100TMIG(c : XilinxArty100TMIGParams, crossing: ClockCrossingType
   val node: TLInwardNode =
     island.crossAXI4In(island.node) := yank.node := deint.node := indexer.node := toaxi4.node := buffer.node
 
-  lazy val module = new LazyModuleImp(this) {
+  lazy val module = new Impl
+  class Impl extends LazyModuleImp(this) {
     val io = IO(new Bundle {
       val port = new XilinxArty100TMIGIO(depth)
     })
