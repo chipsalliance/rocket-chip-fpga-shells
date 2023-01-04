@@ -217,7 +217,8 @@ class VC707AXIToPCIeX1(implicit p:Parameters) extends LazyModule
 
   val intnode = IntSourceNode(IntSourcePortSimple(resources = device.int))
 
-  lazy val module = new LazyModuleImp(this) {
+  lazy val module = new Impl
+  class Impl extends LazyModuleImp(this) {
     // The master on the control port must be AXI-lite
     require (control.edges.in(0).master.endId == 1)
     // Must have exactly the right number of idBits

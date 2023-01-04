@@ -313,7 +313,8 @@ class DiplomaticXDMA(c: XDMAParams)(implicit p:Parameters) extends LazyModule
 
   val intnode = IntSourceNode(IntSourcePortSimple(num = 3, resources = device.int))
 
-  lazy val module = new LazyRawModuleImp(this) {
+  lazy val module = new Impl
+  class Impl extends LazyRawModuleImp(this) {
     // The master on the control port must be AXI-lite
     require (control.edges.in(0).master.endId == 1)
     // Must have the right number of slave idBits

@@ -121,7 +121,8 @@ class XXVEthernetBlackBox(c: XXVEthernetParams) extends BlackBox
 
 class DiplomaticXXVEthernet(c: XXVEthernetParams)(implicit p:Parameters) extends LazyModule
 {
-  lazy val module = new LazyRawModuleImp(this) {
+  lazy val module = new Impl
+  class Impl extends LazyRawModuleImp(this) {
     val io = IO(new Bundle {
       val pads   = new XXVEthernetPads
       val mac    = new XXVEthernetMAC

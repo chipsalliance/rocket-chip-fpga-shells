@@ -41,7 +41,8 @@ class PolarFireEvalKitDDR4Island(c : PolarFireEvalKitDDR4Params)(implicit p: Par
       supportsRead  = TransferSizes(1, 128))),
     beatBytes = 8)))
 
-  lazy val module = new LazyModuleImp(this) {
+  lazy val module = new Impl
+  class Impl extends LazyModuleImp(this) {
     val io = IO(new Bundle {
       val port = new PolarFireEvalKitDDR4IO(depth)
     })
@@ -151,7 +152,8 @@ class PolarFireEvalKitDDR4(c : PolarFireEvalKitDDR4Params)(implicit p: Parameter
   val node: TLInwardNode =
     island.crossAXI4In(island.node) := yank.node := deint.node := indexer.node := toaxi4.node := buffer.node
 
-  lazy val module = new LazyModuleImp(this) {
+  lazy val module = new Impl
+  class Impl extends LazyModuleImp(this) {
     val io = IO(new Bundle {
       val port = new PolarFireEvalKitDDR4IO(depth)
     })

@@ -213,7 +213,8 @@ class PolarFirePCIeX4(implicit p:Parameters) extends LazyModule
 
   val intnode = IntSourceNode(IntSourcePortSimple(resources = device.int))
 
-  lazy val module = new LazyModuleImp(this) {
+  lazy val module = new Impl
+  class Impl extends LazyModuleImp(this) {
     // Must have exactly the right number of idBits
     require (slave.edges.in(0).bundle.idBits == 4)
     require (master.edges.out(0).bundle.dataBits == 64)
