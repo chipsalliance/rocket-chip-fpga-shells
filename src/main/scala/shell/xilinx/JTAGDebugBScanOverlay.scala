@@ -19,7 +19,7 @@ abstract class JTAGDebugBScanXilinxPlacedOverlay(name: String, di: JTAGDebugBSca
 
     JTAGTUNNEL(tmp_tck, tmp_tms, tmp_tdi, tmp_tdo, tmp_tdo_en)
 
-    jtagDebugSink.bundle.TCK := tmp_tck.asClock()
+    jtagDebugSink.bundle.TCK := tmp_tck.asClock
     jtagDebugSink.bundle.TMS := tmp_tms
     jtagDebugSink.bundle.TDI := tmp_tdi
     tmp_tdo := jtagDebugSink.bundle.TDO.data
