@@ -2,7 +2,7 @@ package sifive.fpgashells.shell
 
 import chisel3._
 import chisel3.experimental.{DataMirror, IO}
-import freechips.rocketchip.config._
+import org.chipsalliance.cde.config._
 import freechips.rocketchip.util._
 import freechips.rocketchip.diplomacy._
 

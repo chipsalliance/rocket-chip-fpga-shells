@@ -1,7 +1,7 @@
 package sifive.fpgashells.devices.xilinx.xilinxvc707mig
 
 import Chisel._
-import freechips.rocketchip.config._
+import org.chipsalliance.cde.config._
 import freechips.rocketchip.subsystem.BaseSubsystem
 import freechips.rocketchip.diplomacy.{LazyModule, LazyModuleImp, AddressRange}
 

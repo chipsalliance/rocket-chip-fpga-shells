@@ -1,7 +1,7 @@
 package sifive.fpgashells.shell.xilinx
 
 import chisel3._
-import freechips.rocketchip.config._
+import org.chipsalliance.cde.config._
 import freechips.rocketchip.diplomacy._
 import sifive.fpgashells.clocks._
 import sifive.fpgashells.devices.xilinx.allinxaxku040mig.{AlinxAxku040MIG, AlinxAxku040MIGParams}

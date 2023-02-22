@@ -2,7 +2,7 @@ package sifive.fpgashells.ip.xilinx.xxv_ethernet
 
 import chisel3._
 import chisel3.util._
-import freechips.rocketchip.config._
+import org.chipsalliance.cde.config._
 import freechips.rocketchip.diplomacy._
 
 class nfmac10g extends BlackBox {

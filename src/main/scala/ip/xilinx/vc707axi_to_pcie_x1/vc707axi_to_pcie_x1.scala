@@ -1,7 +1,7 @@
 package sifive.fpgashells.ip.xilinx.vc707axi_to_pcie_x1
 
 import Chisel._
-import freechips.rocketchip.config._
+import org.chipsalliance.cde.config._
 import freechips.rocketchip.diplomacy._
 import freechips.rocketchip.amba.axi4._
 import freechips.rocketchip.interrupts._

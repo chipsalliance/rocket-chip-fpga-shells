@@ -1,7 +1,7 @@
 package sifive.fpgashells.shell
 
 import chisel3._
-import freechips.rocketchip.config._
+import org.chipsalliance.cde.config._
 import freechips.rocketchip.diplomacy._
 
 //Core-To-Shell Reset Overlay: No IOs, but passes a Bool into the shell to be orred into the pllReset, allowing core signals to reset the shell

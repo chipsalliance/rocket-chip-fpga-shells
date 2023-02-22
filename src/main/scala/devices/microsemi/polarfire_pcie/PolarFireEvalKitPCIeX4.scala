@@ -3,7 +3,7 @@ package sifive.fpgashells.devices.microsemi.polarfireevalkitpciex4
 import Chisel._
 import freechips.rocketchip.amba.axi4._
 //import freechips.rocketchip.coreplex.CacheBlockBytes
-import freechips.rocketchip.config.Parameters
+import org.chipsalliance.cde.config.Parameters
 import freechips.rocketchip.diplomacy._
 import freechips.rocketchip.tilelink._
 import freechips.rocketchip.interrupts._

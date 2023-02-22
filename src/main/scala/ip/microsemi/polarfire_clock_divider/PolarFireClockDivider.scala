@@ -4,7 +4,7 @@ import Chisel._
 import chisel3.experimental.{Analog,attach}
 import freechips.rocketchip.util.{ElaborationArtefacts}
 import freechips.rocketchip.util.GenericParameterizedBundle
-import freechips.rocketchip.config._
+import org.chipsalliance.cde.config._
 
 // Black Box for Actel:SgCore:PF_CLK_DIV:1.0.101
 

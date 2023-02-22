@@ -3,7 +3,7 @@ package sifive.fpgashells.devices.microsemi.polarfireddr3
 import Chisel._
 import chisel3.experimental.{Analog,attach}
 import freechips.rocketchip.amba.axi4._
-import freechips.rocketchip.config.Parameters
+import org.chipsalliance.cde.config.Parameters
 //import freechips.rocketchip.coreplex._
 import freechips.rocketchip.subsystem._
 import freechips.rocketchip.diplomacy._

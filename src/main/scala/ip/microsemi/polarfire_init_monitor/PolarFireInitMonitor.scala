@@ -2,7 +2,7 @@ package sifive.fpgashells.ip.microsemi.polarfireinitmonitor
 
 import Chisel._
 import freechips.rocketchip.util.{ElaborationArtefacts}
-import freechips.rocketchip.config._
+import org.chipsalliance.cde.config._
 
 // Black Box for Microsemi PolarFire Clock Conditioning Circuit (CCC) Actel:SgCore:PF_INIT_MONITOR:2.0.103
 
