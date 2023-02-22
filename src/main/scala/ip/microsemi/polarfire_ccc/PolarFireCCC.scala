@@ -2,7 +2,7 @@ package sifive.fpgashells.ip.microsemi.polarfireccc
 
 import Chisel._
 import freechips.rocketchip.util.{ElaborationArtefacts}
-import freechips.rocketchip.config._
+import org.chipsalliance.cde.config._
 
 import sifive.fpgashells.clocks._
 

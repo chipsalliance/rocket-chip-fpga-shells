@@ -4,7 +4,7 @@ import chisel3._
 import chisel3.experimental.{Analog, attach}
 import chisel3.util.HasBlackBoxInline
 
-import freechips.rocketchip.config.Field
+import org.chipsalliance.cde.config.Field
 
 case object FPGAFrequencyKey extends Field[Double](100.0)
 

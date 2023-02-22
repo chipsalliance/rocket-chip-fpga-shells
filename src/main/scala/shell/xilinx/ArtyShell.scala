@@ -4,7 +4,7 @@ import Chisel._
 import chisel3.{Input, Output, RawModule, withClockAndReset}
 import chisel3.experimental.{attach, Analog}
 
-import freechips.rocketchip.config._
+import org.chipsalliance.cde.config._
 import freechips.rocketchip.devices.debug._
 
 import sifive.blocks.devices.gpio._

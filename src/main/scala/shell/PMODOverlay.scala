@@ -1,7 +1,7 @@
 package sifive.fpgashells.shell
 
 import chisel3._
-import freechips.rocketchip.config._
+import org.chipsalliance.cde.config._
 import freechips.rocketchip.diplomacy._
 import sifive.blocks.devices.gpio._
 import freechips.rocketchip.tilelink.TLBusWrapper

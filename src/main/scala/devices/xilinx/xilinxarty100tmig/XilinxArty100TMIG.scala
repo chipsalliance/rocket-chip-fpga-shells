@@ -3,7 +3,7 @@ package sifive.fpgashells.devices.xilinx.xilinxarty100tmig
 import Chisel._
 import chisel3.experimental.{Analog,attach}
 import freechips.rocketchip.amba.axi4._
-import freechips.rocketchip.config.Parameters
+import org.chipsalliance.cde.config.Parameters
 import freechips.rocketchip.subsystem._
 import freechips.rocketchip.diplomacy._
 import freechips.rocketchip.tilelink._
