@@ -2,7 +2,7 @@ package sifive.fpgashells.ip.xilinx.alinx_axku040mig
 
 import chisel3._
 import chisel3.experimental.{Analog, ExtModule}
-import chipsalliance.rocketchip.config.Parameters
+import org.chipsalliance.cde.config.Parameters
 import freechips.rocketchip.util.ElaborationArtefacts
 
 // format: off
