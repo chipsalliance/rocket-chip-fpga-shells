@@ -46,7 +46,9 @@ class AlinxAxku040MIGIsland(c: AlinxAxku040MIGParams)(implicit p: Parameters)
       )
     )
   )
-  lazy val module = new LazyModuleImp(this) {
+  lazy val module = new Impl
+
+  class Impl extends LazyModuleImp(this) {
 
     val auxio = IO(new AlinxAxku040MIGAuxPads)
     val ddr4_port = IO(new AlinxAxku040MIGDDRPads)
@@ -121,7 +123,9 @@ class AlinxAxku040MIG(c: AlinxAxku040MIGParams)(implicit p: Parameters) extends 
   val node: TLInwardNode = buffer.node
   island.crossAXI4In(island.node) := yank.node := deint.node := indexer.node := toaxi4.node := buffer.node
 
-  lazy val module = new LazyModuleImp(this) {
+  lazy val module = new Impl
+
+  class Impl extends LazyModuleImp(this) {
     val auxio = IO(new AlinxAxku040MIGAuxPads)
     val ddr4_port = IO(new AlinxAxku040MIGDDRPads).suggestName("c0_ddr4")
 
