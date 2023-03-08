@@ -306,6 +306,7 @@ abstract class Arty100TShellBasicOverlays()(implicit p: Parameters) extends Seri
 
 class Arty100TShell()(implicit p: Parameters) extends Arty100TShellBasicOverlays
 {
+  val resetPin = InModuleBody { Wire(Bool()) }
   // PLL reset causes
   val pllReset = InModuleBody { Wire(Bool()) }
 
@@ -313,8 +314,9 @@ class Arty100TShell()(implicit p: Parameters) extends Arty100TShellBasicOverlays
 
   // Place the sys_clock at the Shell if the user didn't ask for it
   p(ClockInputOverlayKey).foreach(_.place(ClockInputDesignInput()))
+  override lazy val module = new Impl
+  class Impl extends LazyRawModuleImp(this) {
 
-  override lazy val module = new LazyRawModuleImp(this) {
     val reset = IO(Input(Bool()))
     xdc.addBoardPin(reset, "reset")
 
@@ -325,6 +327,8 @@ class Arty100TShell()(implicit p: Parameters) extends Arty100TShellBasicOverlays
     }
     val powerOnReset = PowerOnResetFPGAOnly(sysclk)
     sdc.addAsyncPath(Seq(powerOnReset))
+
+    resetPin := reset_ibuf.io.O
 
     pllReset :=
       (!reset_ibuf.io.O) || powerOnReset //Arty100T is active low reset
