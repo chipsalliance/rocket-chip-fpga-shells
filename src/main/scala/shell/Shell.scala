@@ -5,10 +5,6 @@ import org.chipsalliance.cde.config._
 import freechips.rocketchip.diplomacy._
 
 import chisel3.experimental.ChiselAnnotation
-import firrtl._
-import firrtl.analyses._
-import firrtl.annotations._
-//import firrtl.ir._
 import freechips.rocketchip.util.DontTouch
 
 case object DesignKey extends Field[Parameters => LazyModule]
