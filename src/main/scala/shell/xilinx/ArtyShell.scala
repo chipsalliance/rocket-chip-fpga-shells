@@ -181,6 +181,7 @@ abstract class ArtyShell(implicit val p: Parameters) extends RawModule {
   // Debug JTAG
   //---------------------------------------------------------------------
 
+  /* see chipsalliance/rocket-chip#3279
   def connectDebugJTAG(dut: HasPeripheryDebugModuleImp): SystemJTAGIO = {
 
     require(dut.debug.isDefined, "Connecting JTAG requires that debug module exists")
@@ -229,6 +230,7 @@ abstract class ArtyShell(implicit val p: Parameters) extends RawModule {
 
     djtag
   }
+  */
 
   //---------------------------------------------------------------------
   // UART

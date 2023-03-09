@@ -63,6 +63,7 @@ trait HasDebugJTAG { this: VC707Shell =>
   val jtag_TDI             = IO(Input(Bool()))
   val jtag_TDO             = IO(Output(Bool()))
 
+  /* See chipsalliance/rocket-chip#3279
   def connectDebugJTAG(dut: HasPeripheryDebugModuleImp, fmcxm105: Boolean = true): SystemJTAGIO = {
   
     require(dut.debug.isDefined, "Connecting JTAG requires that debug module exists")
@@ -123,6 +124,7 @@ trait HasDebugJTAG { this: VC707Shell =>
     dut_ndreset    := dut.debug.get.ndreset
     djtag
   }
+  */
 }
 
 trait HasVC707ChipLink { this: VC707Shell =>

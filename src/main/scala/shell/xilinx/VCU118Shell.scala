@@ -204,6 +204,7 @@ abstract class VCU118Shell(implicit val p: Parameters) extends RawModule {
   // Debug JTAG
   //---------------------------------------------------------------------
 
+  /* See chipsalliance/rocket-chip#3279
   def connectDebugJTAG(dut: HasPeripheryDebugModuleImp): SystemJTAGIO = {
     require(dut.debug.isDefined, "Connecting JTAG requires that debug module exists")
     val djtag     = dut.debug.get.systemjtag.get
@@ -220,6 +221,7 @@ abstract class VCU118Shell(implicit val p: Parameters) extends RawModule {
     dut_ndreset    := dut.debug.get.ndreset
     djtag
   }
+  */
 
   //-----------------------------------------------------------------------
   // UART
