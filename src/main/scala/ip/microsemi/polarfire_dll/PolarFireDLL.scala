@@ -1,6 +1,7 @@
 package sifive.fpgashells.ip.microsemi.polarfiredll
 
 import Chisel._
+import chisel3.BlackBox
 import chisel3.experimental.{Analog,attach}
 import freechips.rocketchip.util.{ElaborationArtefacts}
 import freechips.rocketchip.util.GenericParameterizedBundle

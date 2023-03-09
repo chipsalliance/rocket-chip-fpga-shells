@@ -1,6 +1,7 @@
 package sifive.fpgashells.ip.xilinx.ibufds_gte2
 
 import Chisel._
+import chisel3.BlackBox
 
 //IP : xilinx unisim IBUFDS_GTE2
 //Differential Signaling Input Buffer

@@ -1,6 +1,7 @@
 package sifive.fpgashells.ip.microsemi.polarfireccc
 
 import Chisel._
+import chisel3.BlackBox
 import freechips.rocketchip.util.{ElaborationArtefacts}
 import org.chipsalliance.cde.config._
 

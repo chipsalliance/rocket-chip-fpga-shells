@@ -1,6 +1,7 @@
 package sifive.fpgashells.ip.microsemi.polarfirepcierootport
 
 import Chisel._
+import chisel3.BlackBox
 import org.chipsalliance.cde.config._
 import freechips.rocketchip.diplomacy._
 import freechips.rocketchip.amba.axi4._
