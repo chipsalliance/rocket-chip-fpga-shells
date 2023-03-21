@@ -610,7 +610,7 @@ abstract class PolarFireEvalKitShell(implicit val p: Parameters) extends RawModu
   fpga_jtag.io.UTDODRV_2   := UInt("b0")
   fpga_jtag.io.UTDODRV_3   := UInt("b0")
   
-  def connectDebugJTAG(dut: HasPeripheryDebugModuleImp): SystemJTAGIO = {
+  def connectDebugJTAG(dut: HasPeripheryDebug): SystemJTAGIO = {
     val djtag     = dut.debug.systemjtag.get
 
     djtag.jtag.TCK          := fpga_jtag.io.TGT_TCK
