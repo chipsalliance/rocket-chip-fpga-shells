@@ -63,7 +63,7 @@ trait HasDebugJTAG { this: VC707Shell =>
   val jtag_TDI             = IO(Input(Bool()))
   val jtag_TDO             = IO(Output(Bool()))
 
-  def connectDebugJTAG(dut: HasPeripheryDebugModuleImp, fmcxm105: Boolean = true): SystemJTAGIO = {
+  def connectDebugJTAG(dut: HasPeripheryDebug, fmcxm105: Boolean = true): SystemJTAGIO = {
   
     require(dut.debug.isDefined, "Connecting JTAG requires that debug module exists")
     ElaborationArtefacts.add(

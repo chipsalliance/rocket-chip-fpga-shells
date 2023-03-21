@@ -204,7 +204,7 @@ abstract class VCU118Shell(implicit val p: Parameters) extends RawModule {
   // Debug JTAG
   //---------------------------------------------------------------------
 
-  def connectDebugJTAG(dut: HasPeripheryDebugModuleImp): SystemJTAGIO = {
+  def connectDebugJTAG(dut: HasPeripheryDebug): SystemJTAGIO = {
     require(dut.debug.isDefined, "Connecting JTAG requires that debug module exists")
     val djtag     = dut.debug.get.systemjtag.get
     djtag.jtag.TCK := jtag_TCK
