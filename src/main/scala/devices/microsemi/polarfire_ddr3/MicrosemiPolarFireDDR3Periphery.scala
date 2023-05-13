@@ -5,6 +5,7 @@ import org.chipsalliance.cde.config._
 //import freechips.rocketchip.coreplex.HasMemoryBus
 import freechips.rocketchip.subsystem.BaseSubsystem
 import freechips.rocketchip.diplomacy.{LazyModule, LazyModuleImp, AddressRange}
+import freechips.rocketchip.tilelink.{TLWidthWidget}
 
 case object MemoryMicrosemiDDR3Key extends Field[PolarFireEvalKitDDR3Params]
 
@@ -14,7 +15,7 @@ trait HasMemoryPolarFireEvalKitDDR3 { this: BaseSubsystem =>
 
   val polarfireddrsubsys = LazyModule(new PolarFireEvalKitDDR3(p(MemoryMicrosemiDDR3Key)))
 
-  polarfireddrsubsys.node := mbus.toDRAMController(Some("PolarFireDDR"))()
+  mbus.coupleTo("PolarFireDDR") { polarfireddrsubsys.node := TLWidthWidget(mbus.beatBytes) := _ }
 }
 
 trait HasMemoryPolarFireEvalKitDDR3Bundle {

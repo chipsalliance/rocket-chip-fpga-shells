@@ -4,6 +4,7 @@ import Chisel._
 import org.chipsalliance.cde.config._
 import freechips.rocketchip.subsystem.BaseSubsystem
 import freechips.rocketchip.diplomacy.{LazyModule, LazyModuleImp, AddressRange}
+import freechips.rocketchip.tilelink.{TLWidthWidget}
 
 case object MemoryXilinxDDRKey extends Field[XilinxVCU118MIGParams]
 
@@ -12,7 +13,7 @@ trait HasMemoryXilinxVCU118MIG { this: BaseSubsystem =>
 
   val xilinxvcu118mig = LazyModule(new XilinxVCU118MIG(p(MemoryXilinxDDRKey)))
 
-  xilinxvcu118mig.node := mbus.toDRAMController(Some("xilinxvcu118mig"))()
+  mbus.coupleTo("xilinxvcu118mig") { xilinxvcu118mig.node := TLWidthWidget(mbus.beatBytes) := _ }
 }
 
 trait HasMemoryXilinxVCU118MIGBundle {
