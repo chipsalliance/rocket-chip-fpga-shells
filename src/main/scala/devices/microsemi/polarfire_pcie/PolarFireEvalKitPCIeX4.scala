@@ -1,6 +1,6 @@
 package sifive.fpgashells.devices.microsemi.polarfireevalkitpciex4
 
-import Chisel._
+import chisel3._ 
 import freechips.rocketchip.amba.axi4._
 //import freechips.rocketchip.coreplex.CacheBlockBytes
 import org.chipsalliance.cde.config.Parameters
@@ -14,8 +14,8 @@ import sifive.fpgashells.ip.microsemi.polarfirepcierootport._
 
 trait PolarFireEvalKitPCIeRefClk extends Bundle{
 //TODO: bring reference clock connection in here
-  val REFCLK_rxp = Bool(INPUT)
-  val REFCLK_rxn = Bool(INPUT)
+  val REFCLK_rxp = Input(Bool())
+  val REFCLK_rxn = Input(Bool())
 }
 
 class PolarFireEvalKitPCIeX4Pads extends Bundle 
@@ -27,7 +27,7 @@ class PolarFireEvalKitPCIeX4IO extends Bundle
     with PolarFirePCIeIOSerial
     with PolarFirePCIeIODebug
     with PolarFirePCIeIOClocksReset {
-  val axi_ctl_aresetn = Bool(INPUT)
+  val axi_ctl_aresetn = Input(Bool())
 }
 
 class PolarFireEvalKitPCIeX4(implicit p: Parameters) extends LazyModule with HasCrossing {

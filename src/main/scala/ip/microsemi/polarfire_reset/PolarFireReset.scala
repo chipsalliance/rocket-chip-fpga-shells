@@ -1,6 +1,6 @@
 package sifive.fpgashells.ip.microsemi.polarfirereset
 
-import Chisel._
+import chisel3._
 import chisel3.experimental.{Analog,attach}
 import freechips.rocketchip.util.{ElaborationArtefacts}
 import freechips.rocketchip.util.GenericParameterizedBundle
@@ -10,13 +10,13 @@ import org.chipsalliance.cde.config._
 
 trait PolarFireResetIOPads extends Bundle {
 
-    val CLK             = Clock(INPUT)
-    val EXT_RST_N       = Bool(INPUT)
-    val FF_US_RESTORE   = Bool(INPUT)
-    val INIT_DONE       = Bool(INPUT)
-    val PLL_LOCK        = Bool(INPUT)
-    val SS_BUSY         = Bool(INPUT)
-    val FABRIC_RESET_N  = Bool(OUTPUT)
+    val CLK             = Input(Clock())
+    val EXT_RST_N       = Input(Bool())
+    val FF_US_RESTORE   = Input(Bool())
+    val INIT_DONE       = Input(Bool())
+    val PLL_LOCK        = Input(Bool())
+    val SS_BUSY         = Input(Bool())
+    val FABRIC_RESET_N  = Output(Bool())
 }
 
 //scalastyle:off

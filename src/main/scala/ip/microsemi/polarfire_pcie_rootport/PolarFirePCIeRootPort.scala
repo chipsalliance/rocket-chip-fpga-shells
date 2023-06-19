@@ -1,6 +1,6 @@
 package sifive.fpgashells.ip.microsemi.polarfirepcierootport
 
-import Chisel._
+import chisel3._
 import org.chipsalliance.cde.config._
 import freechips.rocketchip.diplomacy._
 import freechips.rocketchip.amba.axi4._
@@ -9,49 +9,48 @@ import freechips.rocketchip.interrupts._
 import freechips.rocketchip.util.{ElaborationArtefacts}
 
 
-import chisel3.{Input, Output}
 import chisel3.experimental.attach
 
 // Black Box for Microsemi PolarFire PCIe root port
 
 trait PolarFirePCIeIOSerial extends Bundle {
   //serial external pins
-  val PCIESS_LANE_TXD0_N    = Bool(OUTPUT)
-  val PCIESS_LANE_TXD0_P    = Bool(OUTPUT)
-  val PCIESS_LANE_TXD1_N    = Bool(OUTPUT)
-  val PCIESS_LANE_TXD1_P    = Bool(OUTPUT)
-  val PCIESS_LANE_TXD2_N    = Bool(OUTPUT)
-  val PCIESS_LANE_TXD2_P    = Bool(OUTPUT)
-  val PCIESS_LANE_TXD3_N    = Bool(OUTPUT)
-  val PCIESS_LANE_TXD3_P    = Bool(OUTPUT)
+  val PCIESS_LANE_TXD0_N    = Output(Bool())
+  val PCIESS_LANE_TXD0_P    = Output(Bool())
+  val PCIESS_LANE_TXD1_N    = Output(Bool())
+  val PCIESS_LANE_TXD1_P    = Output(Bool())
+  val PCIESS_LANE_TXD2_N    = Output(Bool())
+  val PCIESS_LANE_TXD2_P    = Output(Bool())
+  val PCIESS_LANE_TXD3_N    = Output(Bool())
+  val PCIESS_LANE_TXD3_P    = Output(Bool())
   
-  val PCIESS_LANE_RXD0_N    = Bool(INPUT)
-  val PCIESS_LANE_RXD0_P    = Bool(INPUT)
-  val PCIESS_LANE_RXD1_N    = Bool(INPUT)
-  val PCIESS_LANE_RXD1_P    = Bool(INPUT)
-  val PCIESS_LANE_RXD2_N    = Bool(INPUT)
-  val PCIESS_LANE_RXD2_P    = Bool(INPUT)
-  val PCIESS_LANE_RXD3_N    = Bool(INPUT)
-  val PCIESS_LANE_RXD3_P    = Bool(INPUT)
+  val PCIESS_LANE_RXD0_N    = Input(Bool())
+  val PCIESS_LANE_RXD0_P    = Input(Bool())
+  val PCIESS_LANE_RXD1_N    = Input(Bool())
+  val PCIESS_LANE_RXD1_P    = Input(Bool())
+  val PCIESS_LANE_RXD2_N    = Input(Bool())
+  val PCIESS_LANE_RXD2_P    = Input(Bool())
+  val PCIESS_LANE_RXD3_N    = Input(Bool())
+  val PCIESS_LANE_RXD3_P    = Input(Bool())
 }
 
 trait PolarFirePCIeIOClocksReset extends Bundle {
   //clock, reset, control
-  val APB_S_PCLK                    = Clock(INPUT)
-  val APB_S_PRESET_N                = Bool(INPUT)
+  val APB_S_PCLK                    = Input(Clock())
+  val APB_S_PRESET_N                = Input(Bool())
   
-  val AXI_CLK                       = Clock(INPUT)
-  val AXI_CLK_STABLE                = Bool(INPUT)
+  val AXI_CLK                       = Input(Clock())
+  val AXI_CLK_STABLE                = Input(Bool())
   
-  val PCIE_1_TL_CLK_125MHz          = Clock(INPUT)
-  val PCIE_1_TX_BIT_CLK             = Clock(INPUT)
-  val PCIE_1_TX_PLL_REF_CLK         = Clock(INPUT)
-  val PCIE_1_TX_PLL_LOCK            = Bool(INPUT)
+  val PCIE_1_TL_CLK_125MHz          = Input(Clock())
+  val PCIE_1_TX_BIT_CLK             = Input(Clock())
+  val PCIE_1_TX_PLL_REF_CLK         = Input(Clock())
+  val PCIE_1_TX_PLL_LOCK            = Input(Bool())
   
-  val PCIESS_LANE0_CDR_REF_CLK_0    = Clock(INPUT)
-  val PCIESS_LANE1_CDR_REF_CLK_0    = Clock(INPUT)
-  val PCIESS_LANE2_CDR_REF_CLK_0    = Clock(INPUT)
-  val PCIESS_LANE3_CDR_REF_CLK_0    = Clock(INPUT)
+  val PCIESS_LANE0_CDR_REF_CLK_0    = Input(Clock())
+  val PCIESS_LANE1_CDR_REF_CLK_0    = Input(Clock())
+  val PCIESS_LANE2_CDR_REF_CLK_0    = Input(Clock())
+  val PCIESS_LANE3_CDR_REF_CLK_0    = Input(Clock())
 }
 
 trait PolarFirePCIeIODebug extends Bundle {
@@ -72,92 +71,92 @@ class polarfire_pcie_rp() extends BlackBox
                       with PolarFirePCIeIOClocksReset {
 
     // APB control interface
-    val APB_S_PADDR     = Bits(INPUT,26)
-    val APB_S_PENABLE   = Bool(INPUT)
-    val APB_S_PSEL      = Bool(INPUT)
-    val APB_S_PWDATA    = Bits(INPUT,32)
-    val APB_S_PWRITE    = Bool(INPUT)
-    val APB_S_PRDATA    = Bits(OUTPUT,32)
-    val APB_S_PREADY    = Bool(OUTPUT)    
-    val APB_S_PSLVERR   = Bool(OUTPUT)
+    val APB_S_PADDR     = Input(Bits(26.W))
+    val APB_S_PENABLE   = Input(Bool())
+    val APB_S_PSEL      = Input(Bool())
+    val APB_S_PWDATA    = Input(Bits(32.W))
+    val APB_S_PWRITE    = Input(Bool())
+    val APB_S_PRDATA    = Output(Bits(32.W))
+    val APB_S_PREADY    = Output(Bool())    
+    val APB_S_PSLVERR   = Output(Bool())
 
     //axi slave
-    val PCIESS_AXI_1_S_ARREADY  = Bool(OUTPUT)
-    val PCIESS_AXI_1_S_AWREADY  = Bool(OUTPUT)
-    val PCIESS_AXI_1_S_BID      = Bits(OUTPUT,4)
-    val PCIESS_AXI_1_S_BRESP    = Bits(OUTPUT,2)
-    val PCIESS_AXI_1_S_BVALID   = Bool(OUTPUT)
-    val PCIESS_AXI_1_S_RDATA    = Bits(OUTPUT,64)
-    val PCIESS_AXI_1_S_RID      = Bits(OUTPUT,4)
-    val PCIESS_AXI_1_S_RLAST    = Bool(OUTPUT)
-    val PCIESS_AXI_1_S_RRESP    = Bits(OUTPUT,2)
-    val PCIESS_AXI_1_S_RVALID   = Bool(OUTPUT)
-    val PCIESS_AXI_1_S_WREADY   = Bool(OUTPUT)
+    val PCIESS_AXI_1_S_ARREADY  = Output(Bool())
+    val PCIESS_AXI_1_S_AWREADY  = Output(Bool())
+    val PCIESS_AXI_1_S_BID      = Output(Bits(4.W))
+    val PCIESS_AXI_1_S_BRESP    = Output(Bits(2.W))
+    val PCIESS_AXI_1_S_BVALID   = Output(Bool())
+    val PCIESS_AXI_1_S_RDATA    = Output(Bits(64.W))
+    val PCIESS_AXI_1_S_RID      = Output(Bits(4.W))
+    val PCIESS_AXI_1_S_RLAST    = Output(Bool())
+    val PCIESS_AXI_1_S_RRESP    = Output(Bits(2.W))
+    val PCIESS_AXI_1_S_RVALID   = Output(Bool())
+    val PCIESS_AXI_1_S_WREADY   = Output(Bool())
     
-    val PCIESS_AXI_1_S_ARADDR   = Bits(INPUT,32)
-    val PCIESS_AXI_1_S_ARBURST  = Bits(INPUT,2)
-    val PCIESS_AXI_1_S_ARID     = Bits(INPUT,4)
-    val PCIESS_AXI_1_S_ARLEN    = Bits(INPUT,8)
-    val PCIESS_AXI_1_S_ARSIZE   = Bits(INPUT,2)
-    val PCIESS_AXI_1_S_ARVALID  = Bool(INPUT)
-    val PCIESS_AXI_1_S_AWADDR   = Bits(INPUT,32)
-    val PCIESS_AXI_1_S_AWBURST  = Bits(INPUT,2)
-    val PCIESS_AXI_1_S_AWID     = Bits(INPUT,4)
-    val PCIESS_AXI_1_S_AWLEN    = Bits(INPUT,8)
-    val PCIESS_AXI_1_S_AWSIZE   = Bits(INPUT,2)
-    val PCIESS_AXI_1_S_AWVALID  = Bool(INPUT)
-    val PCIESS_AXI_1_S_BREADY   = Bool(INPUT)
-    val PCIESS_AXI_1_S_RREADY   = Bool(INPUT)
-    val PCIESS_AXI_1_S_WDATA    = Bits(INPUT,64)
-    val PCIESS_AXI_1_S_WLAST    = Bool(INPUT)
-    val PCIESS_AXI_1_S_WSTRB    = Bits(INPUT,8)
-    val PCIESS_AXI_1_S_WVALID   = Bool(INPUT)
+    val PCIESS_AXI_1_S_ARADDR   = Input(Bits(32.W))
+    val PCIESS_AXI_1_S_ARBURST  = Input(Bits(2.W))
+    val PCIESS_AXI_1_S_ARID     = Input(Bits(4.W))
+    val PCIESS_AXI_1_S_ARLEN    = Input(Bits(8.W))
+    val PCIESS_AXI_1_S_ARSIZE   = Input(Bits(2.W))
+    val PCIESS_AXI_1_S_ARVALID  = Input(Bool())
+    val PCIESS_AXI_1_S_AWADDR   = Input(Bits(32.W))
+    val PCIESS_AXI_1_S_AWBURST  = Input(Bits(2.W))
+    val PCIESS_AXI_1_S_AWID     = Input(Bits(4.W))
+    val PCIESS_AXI_1_S_AWLEN    = Input(Bits(8.W))
+    val PCIESS_AXI_1_S_AWSIZE   = Input(Bits(2.W))
+    val PCIESS_AXI_1_S_AWVALID  = Input(Bool())
+    val PCIESS_AXI_1_S_BREADY   = Input(Bool())
+    val PCIESS_AXI_1_S_RREADY   = Input(Bool())
+    val PCIESS_AXI_1_S_WDATA    = Input(Bits(64.W))
+    val PCIESS_AXI_1_S_WLAST    = Input(Bool())
+    val PCIESS_AXI_1_S_WSTRB    = Input(Bits(8.W))
+    val PCIESS_AXI_1_S_WVALID   = Input(Bool())
     
     //axi master
-    val PCIESS_AXI_1_M_ARADDR   = Bits(OUTPUT,32)
-    val PCIESS_AXI_1_M_ARBURST  = Bits(OUTPUT,2)
-    val PCIESS_AXI_1_M_ARID     = Bits(OUTPUT,4)
-    val PCIESS_AXI_1_M_ARLEN    = Bits(OUTPUT,8)
-    val PCIESS_AXI_1_M_ARSIZE   = Bits(OUTPUT,2)
-    val PCIESS_AXI_1_M_ARVALID  = Bool(OUTPUT)
-    val PCIESS_AXI_1_M_AWADDR   = Bits(OUTPUT,32)
-    val PCIESS_AXI_1_M_AWBURST  = Bits(OUTPUT,2)
-    val PCIESS_AXI_1_M_AWID     = Bits(OUTPUT,4)
-    val PCIESS_AXI_1_M_AWLEN    = Bits(OUTPUT,8)
-    val PCIESS_AXI_1_M_AWSIZE   = Bits(OUTPUT,2)
-    val PCIESS_AXI_1_M_AWVALID  = Bool(OUTPUT)
-    val PCIESS_AXI_1_M_BREADY   = Bool(OUTPUT)
-    val PCIESS_AXI_1_M_RREADY   = Bool(OUTPUT)
-    val PCIESS_AXI_1_M_WDATA    = Bits(OUTPUT,64)
-    val PCIESS_AXI_1_M_WLAST    = Bool(OUTPUT)
-    val PCIESS_AXI_1_M_WSTRB    = Bits(OUTPUT,8)
-    val PCIESS_AXI_1_M_WVALID   = Bool(OUTPUT)
+    val PCIESS_AXI_1_M_ARADDR   = Output(Bits(32.W))
+    val PCIESS_AXI_1_M_ARBURST  = Output(Bits(2.W))
+    val PCIESS_AXI_1_M_ARID     = Output(Bits(4.W))
+    val PCIESS_AXI_1_M_ARLEN    = Output(Bits(8.W))
+    val PCIESS_AXI_1_M_ARSIZE   = Output(Bits(2.W))
+    val PCIESS_AXI_1_M_ARVALID  = Output(Bool())
+    val PCIESS_AXI_1_M_AWADDR   = Output(Bits(32.W))
+    val PCIESS_AXI_1_M_AWBURST  = Output(Bits(2.W))
+    val PCIESS_AXI_1_M_AWID     = Output(Bits(4.W))
+    val PCIESS_AXI_1_M_AWLEN    = Output(Bits(8.W))
+    val PCIESS_AXI_1_M_AWSIZE   = Output(Bits(2.W))
+    val PCIESS_AXI_1_M_AWVALID  = Output(Bool())
+    val PCIESS_AXI_1_M_BREADY   = Output(Bool())
+    val PCIESS_AXI_1_M_RREADY   = Output(Bool())
+    val PCIESS_AXI_1_M_WDATA    = Output(Bits(64.W))
+    val PCIESS_AXI_1_M_WLAST    = Output(Bool())
+    val PCIESS_AXI_1_M_WSTRB    = Output(Bits(8.W))
+    val PCIESS_AXI_1_M_WVALID   = Output(Bool())
     
-    val PCIESS_AXI_1_M_ARREADY  = Bool(INPUT)
-    val PCIESS_AXI_1_M_AWREADY  = Bool(INPUT)
-    val PCIESS_AXI_1_M_BID      = Bits(INPUT,4)
-    val PCIESS_AXI_1_M_BRESP    = Bits(INPUT,2)
-    val PCIESS_AXI_1_M_BVALID   = Bool(INPUT)
-    val PCIESS_AXI_1_M_RDATA    = Bits(INPUT,64)
-    val PCIESS_AXI_1_M_RID      = Bits(INPUT,4)
-    val PCIESS_AXI_1_M_RLAST    = Bool(INPUT)
-    val PCIESS_AXI_1_M_RRESP    = Bits(INPUT,2)
-    val PCIESS_AXI_1_M_RVALID   = Bool(INPUT)
-    val PCIESS_AXI_1_M_WREADY   = Bool(INPUT)
+    val PCIESS_AXI_1_M_ARREADY  = Input(Bool())
+    val PCIESS_AXI_1_M_AWREADY  = Input(Bool())
+    val PCIESS_AXI_1_M_BID      = Input(Bits(4.W))
+    val PCIESS_AXI_1_M_BRESP    = Input(Bits(2.W))
+    val PCIESS_AXI_1_M_BVALID   = Input(Bool())
+    val PCIESS_AXI_1_M_RDATA    = Input(Bits(64.W))
+    val PCIESS_AXI_1_M_RID      = Input(Bits(4.W))
+    val PCIESS_AXI_1_M_RLAST    = Input(Bool())
+    val PCIESS_AXI_1_M_RRESP    = Input(Bits(2.W))
+    val PCIESS_AXI_1_M_RVALID   = Input(Bool())
+    val PCIESS_AXI_1_M_WREADY   = Input(Bool())
 
     // Misc
-    //val DLL_OUT                 = Bool(OUTPUT)
-    val PCIE_1_DLUP_EXIT        = Bool(OUTPUT)
-    val PCIE_1_HOT_RST_EXIT     = Bool(OUTPUT)
-    val PCIE_1_INTERRUPT_OUT    = Bool(OUTPUT)
-    val PCIE_1_L2_EXIT          = Bool(OUTPUT)
-    val PCIE_1_LTSSM            = Bits(OUTPUT,5)
-    val PCIE_1_M_WDERR          = Bool(OUTPUT)
-    val PCIE_1_S_RDERR          = Bool(OUTPUT)
+    //val DLL_OUT                 = Output(Bool())
+    val PCIE_1_DLUP_EXIT        = Output(Bool())
+    val PCIE_1_HOT_RST_EXIT     = Output(Bool())
+    val PCIE_1_INTERRUPT_OUT    = Output(Bool())
+    val PCIE_1_L2_EXIT          = Output(Bool())
+    val PCIE_1_LTSSM            = Output(Bits(5.W))
+    val PCIE_1_M_WDERR          = Output(Bool())
+    val PCIE_1_S_RDERR          = Output(Bool())
     
-    val PCIE_1_INTERRUPT        = Bits(INPUT,8)
-    val PCIE_1_M_RDERR          = Bool(INPUT)
-    val PCIE_1_S_WDERR          = Bool(INPUT)
+    val PCIE_1_INTERRUPT        = Input(Bits(8.W))
+    val PCIE_1_M_RDERR          = Input(Bool())
+    val PCIE_1_S_WDERR          = Input(Bool())
  }
 }
 //scalastyle:off
@@ -225,7 +224,7 @@ class PolarFirePCIeX4(implicit p:Parameters) extends LazyModule
 
     val io = IO(new Bundle {
       val port = new PolarFirePCIeX4IOBundle
-      val REFCLK = Bool(INPUT)
+      val REFCLK = Input(Bool())
     })
 
     val blackbox = Module(new polarfire_pcie_rp)
@@ -306,9 +305,9 @@ class PolarFirePCIeX4(implicit p:Parameters) extends LazyModule
     s.r.valid                           := blackbox.io.PCIESS_AXI_1_S_RVALID
     blackbox.io.PCIESS_AXI_1_S_RREADY   := s.r.ready
 
-    blackbox.io.PCIE_1_INTERRUPT        := UInt(0)
-    blackbox.io.PCIE_1_M_RDERR          := Bool(false)
-    blackbox.io.PCIE_1_S_WDERR          := Bool(false)
+    blackbox.io.PCIE_1_INTERRUPT        := 0.U
+    blackbox.io.PCIE_1_M_RDERR          := false.B
+    blackbox.io.PCIE_1_S_WDERR          := false.B
 
     //ctl
     blackbox.io.APB_S_PADDR := c.paddr
@@ -330,9 +329,9 @@ class PolarFirePCIeX4(implicit p:Parameters) extends LazyModule
     io.port.debug_paddr3  := c.paddr(3)
 
     //m
-    m.aw.bits.cache := UInt(0)
+    m.aw.bits.cache := 0.U
     m.aw.bits.prot  := AXI4Parameters.PROT_PRIVILEGED
-    m.aw.bits.qos   := UInt(0)
+    m.aw.bits.qos   := 0.U
 
     m.aw.bits.id                        := blackbox.io.PCIESS_AXI_1_M_AWID
     m.aw.bits.addr                      := blackbox.io.PCIESS_AXI_1_M_AWADDR

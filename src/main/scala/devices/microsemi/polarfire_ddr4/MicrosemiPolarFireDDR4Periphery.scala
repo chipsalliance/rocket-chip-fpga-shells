@@ -1,6 +1,6 @@
 package sifive.fpgashells.devices.microsemi.polarfireddr4
 
-import Chisel._
+import chisel3._ 
 import org.chipsalliance.cde.config._
 //import freechips.rocketchip.coreplex.HasMemoryBus
 import freechips.rocketchip.subsystem.BaseSubsystem

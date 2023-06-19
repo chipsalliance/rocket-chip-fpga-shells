@@ -1,17 +1,17 @@
 package sifive.fpgashells.ip.microsemi.polarfireinitmonitor
 
-import Chisel._
+import chisel3._
 import freechips.rocketchip.util.{ElaborationArtefacts}
 import org.chipsalliance.cde.config._
 
 // Black Box for Microsemi PolarFire Clock Conditioning Circuit (CCC) Actel:SgCore:PF_INIT_MONITOR:2.0.103
 
 trait PolarFireInitMonitorIOPads {
-  val DEVICE_INIT_DONE  = Bool(OUTPUT)
-  val FABRIC_POR_N      = Bool(OUTPUT)
-  val PCIE_INIT_DONE    = Bool(OUTPUT)
-  val SRAM_INIT_DONE    = Bool(OUTPUT)
-  val USRAM_INIT_DONE   = Bool(OUTPUT)
+  val DEVICE_INIT_DONE  = Output(Bool())
+  val FABRIC_POR_N      = Output(Bool())
+  val PCIE_INIT_DONE    = Output(Bool())
+  val SRAM_INIT_DONE    = Output(Bool())
+  val USRAM_INIT_DONE   = Output(Bool())
 }
 
 class PolarFireInitMonitor(implicit val p:Parameters) extends BlackBox

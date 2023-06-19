@@ -1,6 +1,6 @@
 package sifive.fpgashells.ip.xilinx.vcu118mig
 
-import Chisel._
+import chisel3._
 import chisel3.experimental.{Analog,attach}
 import freechips.rocketchip.util.{ElaborationArtefacts}
 import freechips.rocketchip.util.GenericParameterizedBundle
@@ -11,16 +11,16 @@ import org.chipsalliance.cde.config._
 
 class VCU118MIGIODDR(depth : BigInt) extends GenericParameterizedBundle(depth) {
   require((depth<=0x80000000L),"VCU118MIGIODDR supports upto 2GB depth configuraton")
-  val c0_ddr4_adr           = Bits(OUTPUT,17)
-  val c0_ddr4_bg            = Bits(OUTPUT,1)
-  val c0_ddr4_ba            = Bits(OUTPUT,2)
-  val c0_ddr4_reset_n       = Bool(OUTPUT)
-  val c0_ddr4_act_n         = Bool(OUTPUT)
-  val c0_ddr4_ck_c          = Bits(OUTPUT,1)
-  val c0_ddr4_ck_t          = Bits(OUTPUT,1)
-  val c0_ddr4_cke           = Bits(OUTPUT,1)
-  val c0_ddr4_cs_n          = Bits(OUTPUT,1)
-  val c0_ddr4_odt           = Bits(OUTPUT,1)
+  val c0_ddr4_adr           = Output(Bits(17.W))
+  val c0_ddr4_bg            = Output(Bits(1.W))
+  val c0_ddr4_ba            = Output(Bits(2.W))
+  val c0_ddr4_reset_n       = Output(Bool())
+  val c0_ddr4_act_n         = Output(Bool())
+  val c0_ddr4_ck_c          = Output(Bits(1.W))
+  val c0_ddr4_ck_t          = Output(Bits(1.W))
+  val c0_ddr4_cke           = Output(Bits(1.W))
+  val c0_ddr4_cs_n          = Output(Bits(1.W))
+  val c0_ddr4_odt           = Output(Bits(1.W))
 
   val c0_ddr4_dq            = Analog(64.W)
   val c0_ddr4_dqs_c         = Analog(8.W)
@@ -32,14 +32,14 @@ class VCU118MIGIODDR(depth : BigInt) extends GenericParameterizedBundle(depth) {
 trait VCU118MIGIOClocksReset extends Bundle {
   //inputs
   //"NO_BUFFER" clock source (must be connected to IBUF outside of IP)
-  val c0_sys_clk_i              = Bool(INPUT)
+  val c0_sys_clk_i              = Input(Bool())
   //user interface signals
-  val c0_ddr4_ui_clk            = Clock(OUTPUT)
-  val c0_ddr4_ui_clk_sync_rst   = Bool(OUTPUT)
-  val c0_ddr4_aresetn           = Bool(INPUT)
+  val c0_ddr4_ui_clk            = Output(Clock())
+  val c0_ddr4_ui_clk_sync_rst   = Output(Bool())
+  val c0_ddr4_aresetn           = Input(Bool())
   //misc
-  val c0_init_calib_complete    = Bool(OUTPUT)
-  val sys_rst                   = Bool(INPUT)
+  val c0_init_calib_complete    = Output(Bool())
+  val sys_rst                   = Input(Bool())
 }
 
 //scalastyle:off
@@ -50,47 +50,47 @@ class vcu118mig(depth : BigInt)(implicit val p:Parameters) extends BlackBox
 
   val io = new VCU118MIGIODDR(depth) with VCU118MIGIOClocksReset {
     //slave interface write address ports
-    val c0_ddr4_s_axi_awid            = Bits(INPUT,4)
-    val c0_ddr4_s_axi_awaddr          = Bits(INPUT,31)
-    val c0_ddr4_s_axi_awlen           = Bits(INPUT,8)
-    val c0_ddr4_s_axi_awsize          = Bits(INPUT,3)
-    val c0_ddr4_s_axi_awburst         = Bits(INPUT,2)
-    val c0_ddr4_s_axi_awlock          = Bits(INPUT,1)
-    val c0_ddr4_s_axi_awcache         = Bits(INPUT,4)
-    val c0_ddr4_s_axi_awprot          = Bits(INPUT,3)
-    val c0_ddr4_s_axi_awqos           = Bits(INPUT,4)
-    val c0_ddr4_s_axi_awvalid         = Bool(INPUT)
-    val c0_ddr4_s_axi_awready         = Bool(OUTPUT)
+    val c0_ddr4_s_axi_awid            = Input(Bits(4.W))
+    val c0_ddr4_s_axi_awaddr          = Input(Bits(31.W))
+    val c0_ddr4_s_axi_awlen           = Input(Bits(8.W))
+    val c0_ddr4_s_axi_awsize          = Input(Bits(3.W))
+    val c0_ddr4_s_axi_awburst         = Input(Bits(2.W))
+    val c0_ddr4_s_axi_awlock          = Input(Bits(1.W))
+    val c0_ddr4_s_axi_awcache         = Input(Bits(4.W))
+    val c0_ddr4_s_axi_awprot          = Input(Bits(3.W))
+    val c0_ddr4_s_axi_awqos           = Input(Bits(4.W))
+    val c0_ddr4_s_axi_awvalid         = Input(Bool())
+    val c0_ddr4_s_axi_awready         = Output(Bool())
     //slave interface write data ports
-    val c0_ddr4_s_axi_wdata           = Bits(INPUT,64)
-    val c0_ddr4_s_axi_wstrb           = Bits(INPUT,8)
-    val c0_ddr4_s_axi_wlast           = Bool(INPUT)
-    val c0_ddr4_s_axi_wvalid          = Bool(INPUT)
-    val c0_ddr4_s_axi_wready          = Bool(OUTPUT)
+    val c0_ddr4_s_axi_wdata           = Input(Bits(64.W))
+    val c0_ddr4_s_axi_wstrb           = Input(Bits(8.W))
+    val c0_ddr4_s_axi_wlast           = Input(Bool())
+    val c0_ddr4_s_axi_wvalid          = Input(Bool())
+    val c0_ddr4_s_axi_wready          = Output(Bool())
     //slave interface write response ports
-    val c0_ddr4_s_axi_bready          = Bool(INPUT)
-    val c0_ddr4_s_axi_bid             = Bits(OUTPUT,4)
-    val c0_ddr4_s_axi_bresp           = Bits(OUTPUT,2)
-    val c0_ddr4_s_axi_bvalid          = Bool(OUTPUT)
+    val c0_ddr4_s_axi_bready          = Input(Bool())
+    val c0_ddr4_s_axi_bid             = Output(Bits(4.W))
+    val c0_ddr4_s_axi_bresp           = Output(Bits(2.W))
+    val c0_ddr4_s_axi_bvalid          = Output(Bool())
     //slave interface read address ports
-    val c0_ddr4_s_axi_arid            = Bits(INPUT,4)
-    val c0_ddr4_s_axi_araddr          = Bits(INPUT,31)
-    val c0_ddr4_s_axi_arlen           = Bits(INPUT,8)
-    val c0_ddr4_s_axi_arsize          = Bits(INPUT,3)
-    val c0_ddr4_s_axi_arburst         = Bits(INPUT,2)
-    val c0_ddr4_s_axi_arlock          = Bits(INPUT,1)
-    val c0_ddr4_s_axi_arcache         = Bits(INPUT,4)
-    val c0_ddr4_s_axi_arprot          = Bits(INPUT,3)
-    val c0_ddr4_s_axi_arqos           = Bits(INPUT,4)
-    val c0_ddr4_s_axi_arvalid         = Bool(INPUT)
-    val c0_ddr4_s_axi_arready         = Bool(OUTPUT)
+    val c0_ddr4_s_axi_arid            = Input(Bits(4.W))
+    val c0_ddr4_s_axi_araddr          = Input(Bits(31.W))
+    val c0_ddr4_s_axi_arlen           = Input(Bits(8.W))
+    val c0_ddr4_s_axi_arsize          = Input(Bits(3.W))
+    val c0_ddr4_s_axi_arburst         = Input(Bits(2.W))
+    val c0_ddr4_s_axi_arlock          = Input(Bits(1.W))
+    val c0_ddr4_s_axi_arcache         = Input(Bits(4.W))
+    val c0_ddr4_s_axi_arprot          = Input(Bits(3.W))
+    val c0_ddr4_s_axi_arqos           = Input(Bits(4.W))
+    val c0_ddr4_s_axi_arvalid         = Input(Bool())
+    val c0_ddr4_s_axi_arready         = Output(Bool())
     //slave interface read data ports
-    val c0_ddr4_s_axi_rready          = Bool(INPUT)
-    val c0_ddr4_s_axi_rid             = Bits(OUTPUT,4)
-    val c0_ddr4_s_axi_rdata           = Bits(OUTPUT,64)
-    val c0_ddr4_s_axi_rresp           = Bits(OUTPUT,2)
-    val c0_ddr4_s_axi_rlast           = Bool(OUTPUT)
-    val c0_ddr4_s_axi_rvalid          = Bool(OUTPUT)
+    val c0_ddr4_s_axi_rready          = Input(Bool())
+    val c0_ddr4_s_axi_rid             = Output(Bits(4.W))
+    val c0_ddr4_s_axi_rdata           = Output(Bits(64.W))
+    val c0_ddr4_s_axi_rresp           = Output(Bits(2.W))
+    val c0_ddr4_s_axi_rlast           = Output(Bool())
+    val c0_ddr4_s_axi_rvalid          = Output(Bool())
   }
 
   ElaborationArtefacts.add(

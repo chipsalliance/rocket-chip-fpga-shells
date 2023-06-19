@@ -1,6 +1,6 @@
 package sifive.fpgashells.devices.xilinx.xilinxvc707pciex1
 
-import Chisel._
+import chisel3._
 import freechips.rocketchip.amba.axi4._
 import org.chipsalliance.cde.config.Parameters
 import freechips.rocketchip.diplomacy._
@@ -11,8 +11,8 @@ import sifive.fpgashells.ip.xilinx.vc707axi_to_pcie_x1.{VC707AXIToPCIeX1, VC707A
 import sifive.fpgashells.ip.xilinx.ibufds_gte2.IBUFDS_GTE2
 
 trait VC707AXIToPCIeRefClk extends Bundle{
-  val REFCLK_rxp = Bool(INPUT)
-  val REFCLK_rxn = Bool(INPUT)
+  val REFCLK_rxp = Input(Bool())
+  val REFCLK_rxn = Input(Bool())
 }
 
 class XilinxVC707PCIeX1Pads extends Bundle 
@@ -23,7 +23,7 @@ class XilinxVC707PCIeX1IO extends Bundle
     with VC707AXIToPCIeRefClk
     with VC707AXIToPCIeX1IOSerial
     with VC707AXIToPCIeX1IOClocksReset {
-  val axi_ctl_aresetn = Bool(INPUT)
+  val axi_ctl_aresetn = Input(Bool())
 }
 
 class XilinxVC707PCIeX1(implicit p: Parameters, val crossing: ClockCrossingType = AsynchronousCrossing(8))
@@ -69,7 +69,7 @@ class XilinxVC707PCIeX1(implicit p: Parameters, val crossing: ClockCrossingType 
     //PCIe Reference Clock
     val ibufds_gte2 = Module(new IBUFDS_GTE2)
     axi_to_pcie_x1.module.io.REFCLK := ibufds_gte2.io.O
-    ibufds_gte2.io.CEB := UInt(0)
+    ibufds_gte2.io.CEB := 0.U
     ibufds_gte2.io.I := io.port.REFCLK_rxp
     ibufds_gte2.io.IB := io.port.REFCLK_rxn
   }

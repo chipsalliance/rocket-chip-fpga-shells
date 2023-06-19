@@ -1,6 +1,6 @@
 package sifive.fpgashells.devices.microsemi.polarfireevalkitpciex4
 
-import Chisel._
+import chisel3._
 //import freechips.rocketchip.coreplex.{HasInterruptBus, HasSystemBus}
 import freechips.rocketchip.diplomacy.{LazyModule, LazyModuleImp, BufferParams}
 import freechips.rocketchip.subsystem.BaseSubsystem

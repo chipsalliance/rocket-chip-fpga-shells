@@ -1,7 +1,6 @@
 package sifive.fpgashells.shell.xilinx.vc707shell
 
-import Chisel._
-import chisel3.{Input, Output, RawModule, withClockAndReset}
+import chisel3._
 import chisel3.experimental.{attach, Analog}
 
 import org.chipsalliance.cde.config._
@@ -128,7 +127,7 @@ trait HasDebugJTAG { this: VC707Shell =>
 trait HasVC707ChipLink { this: VC707Shell =>
 
   val chiplink = IO(new WideDataLayerPort(ChipLinkParams(Nil,Nil)))
-  val ereset_n = IO(Bool(INPUT))
+  val ereset_n = IO(Input(Bool()))
 
   def constrainChipLink(iofpga: Boolean = false): Unit = {
     val direction0Pins = if(iofpga) "chiplink_b2c"  else "chiplink_c2b"
@@ -548,8 +547,8 @@ abstract class VC707Shell(implicit val p: Parameters) extends RawModule {
   mig_clock            := dut_clock
   pcie_dat_clock       := dut_clock
   pcie_cfg_clock       := dut_clock
-  mig_mmcm_locked      := UInt("b1")
-  mmcm_lock_pcie       := UInt("b1")
+  mig_mmcm_locked      := "b1".U
+  mmcm_lock_pcie       := "b1".U
  
 
 

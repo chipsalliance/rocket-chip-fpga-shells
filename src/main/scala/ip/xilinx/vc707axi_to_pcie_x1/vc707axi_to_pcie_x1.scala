@@ -1,6 +1,6 @@
 package sifive.fpgashells.ip.xilinx.vc707axi_to_pcie_x1
 
-import Chisel._
+import chisel3._
 import org.chipsalliance.cde.config._
 import freechips.rocketchip.diplomacy._
 import freechips.rocketchip.amba.axi4._
@@ -14,18 +14,18 @@ import freechips.rocketchip.util.{ElaborationArtefacts}
 
 trait VC707AXIToPCIeX1IOSerial extends Bundle {
   //serial external pins
-  val pci_exp_txp           = Bool(OUTPUT)
-  val pci_exp_txn           = Bool(OUTPUT)
-  val pci_exp_rxp           = Bool(INPUT)
-  val pci_exp_rxn           = Bool(INPUT)
+  val pci_exp_txp           = Output(Bool())
+  val pci_exp_txn           = Output(Bool())
+  val pci_exp_rxp           = Input(Bool())
+  val pci_exp_rxn           = Input(Bool())
 }
 
 trait VC707AXIToPCIeX1IOClocksReset extends Bundle {
   //clock, reset, control
-  val axi_aresetn           = Bool(INPUT)
-  val axi_aclk_out          = Clock(OUTPUT)
-  val axi_ctl_aclk_out      = Clock(OUTPUT)
-  val mmcm_lock             = Bool(OUTPUT)
+  val axi_aresetn           = Input(Bool())
+  val axi_aclk_out          = Output(Clock())
+  val axi_ctl_aclk_out      = Output(Clock())
+  val mmcm_lock             = Output(Bool())
 }
 
 //scalastyle:off
@@ -35,130 +35,130 @@ class vc707axi_to_pcie_x1() extends BlackBox
   val io = new Bundle with VC707AXIToPCIeX1IOSerial
                       with VC707AXIToPCIeX1IOClocksReset {
     //refclk
-    val REFCLK                = Bool(INPUT)
+    val REFCLK                = Input(Bool())
 
     //clock, reset, control
-    val INTX_MSI_Request      = Bool(INPUT)
-    val INTX_MSI_Grant        = Bool(OUTPUT)
-    val MSI_enable            = Bool(OUTPUT)
-    val MSI_Vector_Num        = Bits(INPUT,5)
-    val MSI_Vector_Width      = Bits(OUTPUT,3)
+    val INTX_MSI_Request      = Input(Bool())
+    val INTX_MSI_Grant        = Output(Bool())
+    val MSI_enable            = Output(Bool())
+    val MSI_Vector_Num        = Input(Bits(5.W))
+    val MSI_Vector_Width      = Output(Bits(3.W))
 
     //interrupt
-    val interrupt_out         = Bool(OUTPUT)
+    val interrupt_out         = Output(Bool())
 
     //axi slave
     //-{lock, cache, prot, qos}
     //slave interface write address
-    val s_axi_awid            = Bits(INPUT,4)
-    val s_axi_awaddr          = Bits(INPUT,32)
-    val s_axi_awregion        = Bits(INPUT,4)
-    val s_axi_awlen           = Bits(INPUT,8)
-    val s_axi_awsize          = Bits(INPUT,3)
-    val s_axi_awburst         = Bits(INPUT,2)
-    //val s_axi_awlock        = Bool(INPUT)
+    val s_axi_awid            = Input(Bits(4.W))
+    val s_axi_awaddr          = Input(Bits(32.W))
+    val s_axi_awregion        = Input(Bits(4.W))
+    val s_axi_awlen           = Input(Bits(8.W))
+    val s_axi_awsize          = Input(Bits(3.W))
+    val s_axi_awburst         = Input(Bits(2.W))
+    //val s_axi_awlock        = Input(Bool())
     //val s_axi_awcache       = Bits(INPUT,4)
     //val s_axi_awprot        = Bits(INPUT,3)
     //val s_axi_awqos         = Bits(INPUT,4)
-    val s_axi_awvalid         = Bool(INPUT)
-    val s_axi_awready         = Bool(OUTPUT)
+    val s_axi_awvalid         = Input(Bool())
+    val s_axi_awready         = Output(Bool())
     //slave interface write data
-    val s_axi_wdata           = Bits(INPUT,64)
-    val s_axi_wstrb           = Bits(INPUT,8)
-    val s_axi_wlast           = Bool(INPUT)
-    val s_axi_wvalid          = Bool(INPUT)
-    val s_axi_wready          = Bool(OUTPUT)
+    val s_axi_wdata           = Input(Bits(64.W))
+    val s_axi_wstrb           = Input(Bits(8.W))
+    val s_axi_wlast           = Input(Bool())
+    val s_axi_wvalid          = Input(Bool())
+    val s_axi_wready          = Output(Bool())
     //slave interface write response
-    val s_axi_bready          = Bool(INPUT)
-    val s_axi_bid             = Bits(OUTPUT,4)
-    val s_axi_bresp           = Bits(OUTPUT,2)
-    val s_axi_bvalid          = Bool(OUTPUT)
+    val s_axi_bready          = Input(Bool())
+    val s_axi_bid             = Output(Bits(4.W))
+    val s_axi_bresp           = Output(Bits(2.W))
+    val s_axi_bvalid          = Output(Bool())
     //slave interface read address
-    val s_axi_arid            = Bits(INPUT,4)
-    val s_axi_araddr          = Bits(INPUT,32)
-    val s_axi_arregion        = Bits(INPUT,4)
-    val s_axi_arlen           = Bits(INPUT,8)
-    val s_axi_arsize          = Bits(INPUT,3)
-    val s_axi_arburst         = Bits(INPUT,2)
+    val s_axi_arid            = Input(Bits(4.W))
+    val s_axi_araddr          = Input(Bits(32.W))
+    val s_axi_arregion        = Input(Bits(4.W))
+    val s_axi_arlen           = Input(Bits(8.W))
+    val s_axi_arsize          = Input(Bits(3.W))
+    val s_axi_arburst         = Input(Bits(2.W))
     //val s_axi_arlock        = Bits(INPUT,1)
     //val s_axi_arcache       = Bits(INPUT,4)
     //val s_axi_arprot        = Bits(INPUT,3)
     //val s_axi_arqos         = Bits(INPUT,4)
-    val s_axi_arvalid         = Bool(INPUT)
-    val s_axi_arready         = Bool(OUTPUT)
+    val s_axi_arvalid         = Input(Bool())
+    val s_axi_arready         = Output(Bool())
     //slave interface read data
-    val s_axi_rready          = Bool(INPUT)
-    val s_axi_rid             = Bits(OUTPUT,4)
-    val s_axi_rdata           = Bits(OUTPUT,64)
-    val s_axi_rresp           = Bits(OUTPUT,2)
-    val s_axi_rlast           = Bool(OUTPUT)
-    val s_axi_rvalid          = Bool(OUTPUT)
+    val s_axi_rready          = Input(Bool())
+    val s_axi_rid             = Output(Bits(4.W))
+    val s_axi_rdata           = Output(Bits(64.W))
+    val s_axi_rresp           = Output(Bits(2.W))
+    val s_axi_rlast           = Output(Bool())
+    val s_axi_rvalid          = Output(Bool())
 
     //axi master
     //-{id,region,qos}
     //slave interface write address ports
     //val m_axi_awid          = Bits(OUTPUT,4)
-    val m_axi_awaddr          = Bits(OUTPUT,32)
+    val m_axi_awaddr          = Output(Bits(32.W))
     //val m_axi_awregion      = Bits(OUTPUT,4)
-    val m_axi_awlen           = Bits(OUTPUT,8)
-    val m_axi_awsize          = Bits(OUTPUT,3)
-    val m_axi_awburst         = Bits(OUTPUT,2)
-    val m_axi_awlock          = Bool(OUTPUT)
-    val m_axi_awcache         = Bits(OUTPUT,4)
-    val m_axi_awprot          = Bits(OUTPUT,3)
+    val m_axi_awlen           = Output(Bits(8.W))
+    val m_axi_awsize          = Output(Bits(3.W))
+    val m_axi_awburst         = Output(Bits(2.W))
+    val m_axi_awlock          = Output(Bool())
+    val m_axi_awcache         = Output(Bits(4.W))
+    val m_axi_awprot          = Output(Bits(3.W))
     //val m_axi_awqos         = Bits(OUTPUT,4)
-    val m_axi_awvalid         = Bool(OUTPUT)
-    val m_axi_awready         = Bool(INPUT)
+    val m_axi_awvalid         = Output(Bool())
+    val m_axi_awready         = Input(Bool())
     //slave interface write data ports
-    val m_axi_wdata           = Bits(OUTPUT,64)
-    val m_axi_wstrb           = Bits(OUTPUT,8)
-    val m_axi_wlast           = Bool(OUTPUT)
-    val m_axi_wvalid          = Bool(OUTPUT)
-    val m_axi_wready          = Bool(INPUT)
+    val m_axi_wdata           = Output(Bits(64.W))
+    val m_axi_wstrb           = Output(Bits(8.W))
+    val m_axi_wlast           = Output(Bool())
+    val m_axi_wvalid          = Output(Bool())
+    val m_axi_wready          = Input(Bool())
     //slave interface write response ports
-    val m_axi_bready          = Bool(OUTPUT)
+    val m_axi_bready          = Output(Bool())
     //val m_axi_bid           = Bits(INPUT,4)
-    val m_axi_bresp           = Bits(INPUT,2)
-    val m_axi_bvalid          = Bool(INPUT)
+    val m_axi_bresp           = Input(Bits(2.W))
+    val m_axi_bvalid          = Input(Bool())
     //slave interface read address ports
     //val m_axi_arid          = Bits(OUTPUT,4)
-    val m_axi_araddr          = Bits(OUTPUT,32)
+    val m_axi_araddr          = Output(Bits(32.W))
     //val m_axi_arregion      = Bits(OUTPUT,4)
-    val m_axi_arlen           = Bits(OUTPUT,8)
-    val m_axi_arsize          = Bits(OUTPUT,3)
-    val m_axi_arburst         = Bits(OUTPUT,2)
-    val m_axi_arlock          = Bits(OUTPUT,1)
-    val m_axi_arcache         = Bits(OUTPUT,4)
-    val m_axi_arprot          = Bits(OUTPUT,3)
+    val m_axi_arlen           = Output(Bits(8.W))
+    val m_axi_arsize          = Output(Bits(3.W))
+    val m_axi_arburst         = Output(Bits(2.W))
+    val m_axi_arlock          = Output(Bits(1.W))
+    val m_axi_arcache         = Output(Bits(4.W))
+    val m_axi_arprot          = Output(Bits(3.W))
     //val m_axi_arqos         = Bits(OUTPUT,4)
-    val m_axi_arvalid         = Bool(OUTPUT)
-    val m_axi_arready         = Bool(INPUT)
+    val m_axi_arvalid         = Output(Bool())
+    val m_axi_arready         = Input(Bool())
     //slave interface read data ports
-    val m_axi_rready          = Bool(OUTPUT)
+    val m_axi_rready          = Output(Bool())
     //val m_axi_rid           = Bits(INPUT,4)
-    val m_axi_rdata           = Bits(INPUT,64)
-    val m_axi_rresp           = Bits(INPUT,2)
-    val m_axi_rlast           = Bool(INPUT)
-    val m_axi_rvalid          = Bool(INPUT)
+    val m_axi_rdata           = Input(Bits(64.W))
+    val m_axi_rresp           = Input(Bits(2.W))
+    val m_axi_rlast           = Input(Bool())
+    val m_axi_rvalid          = Input(Bool())
 
     //axi lite slave for control
-    val s_axi_ctl_awaddr      = Bits(INPUT,32)
-    val s_axi_ctl_awvalid     = Bool(INPUT)
-    val s_axi_ctl_awready     = Bool(OUTPUT)
-    val s_axi_ctl_wdata       = Bits(INPUT,32)
-    val s_axi_ctl_wstrb       = Bits(INPUT,4)
-    val s_axi_ctl_wvalid      = Bool(INPUT)
-    val s_axi_ctl_wready      = Bool(OUTPUT)
-    val s_axi_ctl_bresp       = Bits(OUTPUT,2)
-    val s_axi_ctl_bvalid      = Bool(OUTPUT)
-    val s_axi_ctl_bready      = Bool(INPUT)
-    val s_axi_ctl_araddr      = Bits(INPUT,32)
-    val s_axi_ctl_arvalid     = Bool(INPUT)
-    val s_axi_ctl_arready     = Bool(OUTPUT)
-    val s_axi_ctl_rdata       = Bits(OUTPUT,32)
-    val s_axi_ctl_rresp       = Bits(OUTPUT,2)
-    val s_axi_ctl_rvalid      = Bool(OUTPUT)
-    val s_axi_ctl_rready      = Bool(INPUT)
+    val s_axi_ctl_awaddr      = Input(Bits(32.W))
+    val s_axi_ctl_awvalid     = Input(Bool())
+    val s_axi_ctl_awready     = Output(Bool())
+    val s_axi_ctl_wdata       = Input(Bits(32.W))
+    val s_axi_ctl_wstrb       = Input(Bits(4.W))
+    val s_axi_ctl_wvalid      = Input(Bool())
+    val s_axi_ctl_wready      = Output(Bool())
+    val s_axi_ctl_bresp       = Output(Bits(2.W))
+    val s_axi_ctl_bvalid      = Output(Bool())
+    val s_axi_ctl_bready      = Input(Bool())
+    val s_axi_ctl_araddr      = Input(Bits(32.W))
+    val s_axi_ctl_arvalid     = Input(Bool())
+    val s_axi_ctl_arready     = Output(Bool())
+    val s_axi_ctl_rdata       = Output(Bits(32.W))
+    val s_axi_ctl_rresp       = Output(Bits(2.W))
+    val s_axi_ctl_rvalid      = Output(Bool())
+    val s_axi_ctl_rready      = Input(Bool())
  }
 }
 //scalastyle:off
@@ -229,7 +229,7 @@ class VC707AXIToPCIeX1(implicit p:Parameters) extends LazyModule
 
     val io = IO(new Bundle {
       val port = new VC707AXIToPCIeX1IOBundle
-      val REFCLK = Bool(INPUT)
+      val REFCLK = Input(Bool())
     })
 
     val blackbox = Module(new vc707axi_to_pcie_x1)
@@ -268,7 +268,7 @@ class VC707AXIToPCIeX1(implicit p:Parameters) extends LazyModule
     //blackbox.io.s_axi_awcache     := s.aw.bits.cache
     //blackbox.io.s_axi_awprot      := s.aw.bits.prot
     //blackbox.io.s_axi_awqos       := s.aw.bits.qos
-    blackbox.io.s_axi_awregion      := UInt(0)
+    blackbox.io.s_axi_awregion      := 0.U
     //blackbox.io.awuser            := s.aw.bits.user
     blackbox.io.s_axi_awvalid       := s.aw.valid
     s.aw.ready                   := blackbox.io.s_axi_awready
@@ -296,7 +296,7 @@ class VC707AXIToPCIeX1(implicit p:Parameters) extends LazyModule
     //blackbox.io.s_axi_arcache     := s.ar.bits.cache
     //blackbox.io.s_axi_arprot      := s.ar.bits.prot
     //blackbox.io.s_axi_arqos       := s.ar.bits.qos
-    blackbox.io.s_axi_arregion      := UInt(0)
+    blackbox.io.s_axi_arregion      := 0.U
     //blackbox.io.s_axi_aruser      := s.ar.bits.user
     blackbox.io.s_axi_arvalid       := s.ar.valid
     s.ar.ready                   := blackbox.io.s_axi_arready
@@ -321,7 +321,7 @@ class VC707AXIToPCIeX1(implicit p:Parameters) extends LazyModule
     c.w.ready                  := blackbox.io.s_axi_ctl_wready
     //axi-lite slave interface write response
     blackbox.io.s_axi_ctl_bready    := c.b.ready
-    c.b.bits.id                := UInt(0)
+    c.b.bits.id                := 0.U
     c.b.bits.resp              := blackbox.io.s_axi_ctl_bresp
     c.b.valid                  := blackbox.io.s_axi_ctl_bvalid
     //axi-lite slave AXI interface read address ports
@@ -330,10 +330,10 @@ class VC707AXIToPCIeX1(implicit p:Parameters) extends LazyModule
     c.ar.ready                 := blackbox.io.s_axi_ctl_arready
     //slave AXI interface read data ports
     blackbox.io.s_axi_ctl_rready    := c.r.ready
-    c.r.bits.id                := UInt(0)
+    c.r.bits.id                := 0.U
     c.r.bits.data              := blackbox.io.s_axi_ctl_rdata
     c.r.bits.resp              := blackbox.io.s_axi_ctl_rresp
-    c.r.bits.last              := Bool(true)
+    c.r.bits.last              := true.B
     c.r.valid                  := blackbox.io.s_axi_ctl_rvalid
 
     //m
@@ -344,7 +344,7 @@ class VC707AXIToPCIeX1(implicit p:Parameters) extends LazyModule
     //aclk                          :=
     //aresetn                       :=
     //master interface write address
-    m.aw.bits.id                 := UInt(0)
+    m.aw.bits.id                 := 0.U
     m.aw.bits.addr               := blackbox.io.m_axi_awaddr
     m.aw.bits.len                := blackbox.io.m_axi_awlen
     m.aw.bits.size               := blackbox.io.m_axi_awsize
@@ -352,7 +352,7 @@ class VC707AXIToPCIeX1(implicit p:Parameters) extends LazyModule
     m.aw.bits.lock               := blackbox.io.m_axi_awlock
     m.aw.bits.cache              := blackbox.io.m_axi_awcache
     m.aw.bits.prot               := blackbox.io.m_axi_awprot
-    m.aw.bits.qos                := UInt(0)
+    m.aw.bits.qos                := 0.U
     //m.aw.bits.region           := blackbox.io.m_axi_awregion
     //m.aw.bits.user             := blackbox.io.m_axi_awuser
     m.aw.valid                   := blackbox.io.m_axi_awvalid
@@ -374,7 +374,7 @@ class VC707AXIToPCIeX1(implicit p:Parameters) extends LazyModule
     m.b.ready                    := blackbox.io.m_axi_bready
 
     //master AXI interface read address ports
-    m.ar.bits.id                 := UInt(0)
+    m.ar.bits.id                 := 0.U
     m.ar.bits.addr               := blackbox.io.m_axi_araddr
     m.ar.bits.len                := blackbox.io.m_axi_arlen
     m.ar.bits.size               := blackbox.io.m_axi_arsize
@@ -382,7 +382,7 @@ class VC707AXIToPCIeX1(implicit p:Parameters) extends LazyModule
     m.ar.bits.lock               := blackbox.io.m_axi_arlock
     m.ar.bits.cache              := blackbox.io.m_axi_arcache
     m.ar.bits.prot               := blackbox.io.m_axi_arprot
-    m.ar.bits.qos                := UInt(0)
+    m.ar.bits.qos                := 0.U
     //m.ar.bits.region           := blackbox.io.m_axi_arregion
     //m.ar.bits.user             := blackbox.io.s_axi_aruser
     m.ar.valid                   := blackbox.io.m_axi_arvalid

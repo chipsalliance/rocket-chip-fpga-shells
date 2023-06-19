@@ -1,6 +1,6 @@
 package sifive.fpgashells.ip.microsemi.polarfireccc
 
-import Chisel._
+import chisel3._
 import freechips.rocketchip.util.{ElaborationArtefacts}
 import org.chipsalliance.cde.config._
 
@@ -26,12 +26,12 @@ case class PolarFireCCCParameters(
 
 // Black Box for Microsemi PolarFire Clock Conditioning Circuit (CCC) Actel:SgCore:PF_CCC:1.0.112
 class PolarFireCCCIOPads(c : PLLParameters) extends Bundle {
-  val REF_CLK_0      = Clock(INPUT)
-  val OUT0_FABCLK_0  = if (c.req.size >= 1) Some(Clock(OUTPUT)) else None
-  val OUT1_FABCLK_0  = if (c.req.size >= 2) Some(Clock(OUTPUT)) else None
-  val OUT2_FABCLK_0  = if (c.req.size >= 3) Some(Clock(OUTPUT)) else None
-  val OUT3_FABCLK_0  = if (c.req.size >= 4) Some(Clock(OUTPUT)) else None
-  val PLL_LOCK_0     = Bool(OUTPUT)
+  val REF_CLK_0      = Input(Clock())
+  val OUT0_FABCLK_0  = if (c.req.size >= 1) Some(Output(Clock())) else None
+  val OUT1_FABCLK_0  = if (c.req.size >= 2) Some(Output(Clock())) else None
+  val OUT2_FABCLK_0  = if (c.req.size >= 3) Some(Output(Clock())) else None
+  val OUT3_FABCLK_0  = if (c.req.size >= 4) Some(Output(Clock())) else None
+  val PLL_LOCK_0     = Output(Bool())
 }
 
 //scalastyle:off

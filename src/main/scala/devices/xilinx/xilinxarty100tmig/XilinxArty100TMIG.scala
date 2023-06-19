@@ -1,6 +1,6 @@
 package sifive.fpgashells.devices.xilinx.xilinxarty100tmig
 
-import Chisel._
+import chisel3._
 import chisel3.experimental.{Analog,attach}
 import freechips.rocketchip.amba.axi4._
 import org.chipsalliance.cde.config.Parameters
@@ -83,15 +83,15 @@ class XilinxArty100TMIGIsland(c : XilinxArty100TMIGParams, val crossing: ClockCr
     io.port.ui_clk_sync_rst   := blackbox.io.ui_clk_sync_rst
     io.port.mmcm_locked       := blackbox.io.mmcm_locked
     blackbox.io.aresetn       := io.port.aresetn
-    blackbox.io.app_sr_req    := Bool(false)
-    blackbox.io.app_ref_req   := Bool(false)
-    blackbox.io.app_zq_req    := Bool(false)
+    blackbox.io.app_sr_req    := false.B
+    blackbox.io.app_ref_req   := false.B
+    blackbox.io.app_zq_req    := false.B
     //app_sr_active           := unconnected
     //app_ref_ack             := unconnected
     //app_zq_ack              := unconnected
 
-    val awaddr = axi_async.aw.bits.addr - UInt(offset)
-    val araddr = axi_async.ar.bits.addr - UInt(offset)
+    val awaddr = axi_async.aw.bits.addr - offset.U
+    val araddr = axi_async.ar.bits.addr - offset.U
 
     //slave AXI interface write address ports
     blackbox.io.s_axi_awid    := axi_async.aw.bits.id
@@ -100,7 +100,7 @@ class XilinxArty100TMIGIsland(c : XilinxArty100TMIGParams, val crossing: ClockCr
     blackbox.io.s_axi_awsize  := axi_async.aw.bits.size
     blackbox.io.s_axi_awburst := axi_async.aw.bits.burst
     blackbox.io.s_axi_awlock  := axi_async.aw.bits.lock
-    blackbox.io.s_axi_awcache := UInt("b0011")
+    blackbox.io.s_axi_awcache := "b0011".U
     blackbox.io.s_axi_awprot  := axi_async.aw.bits.prot
     blackbox.io.s_axi_awqos   := axi_async.aw.bits.qos
     blackbox.io.s_axi_awvalid := axi_async.aw.valid
@@ -126,7 +126,7 @@ class XilinxArty100TMIGIsland(c : XilinxArty100TMIGParams, val crossing: ClockCr
     blackbox.io.s_axi_arsize  := axi_async.ar.bits.size
     blackbox.io.s_axi_arburst := axi_async.ar.bits.burst
     blackbox.io.s_axi_arlock  := axi_async.ar.bits.lock
-    blackbox.io.s_axi_arcache := UInt("b0011")
+    blackbox.io.s_axi_arcache := "b0011".U
     blackbox.io.s_axi_arprot  := axi_async.ar.bits.prot
     blackbox.io.s_axi_arqos   := axi_async.ar.bits.qos
     blackbox.io.s_axi_arvalid := axi_async.ar.valid
@@ -142,7 +142,7 @@ class XilinxArty100TMIGIsland(c : XilinxArty100TMIGParams, val crossing: ClockCr
 
     //misc
     io.port.init_calib_complete := blackbox.io.init_calib_complete
-    blackbox.io.sys_rst       :=io.port.sys_rst
+    blackbox.io.sys_rst       := io.port.sys_rst
     //mig.device_temp         :- unconnceted
   }
 }

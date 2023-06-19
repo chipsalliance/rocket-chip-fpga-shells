@@ -1,7 +1,6 @@
 package sifive.fpgashells.ip.microsemi
 
-import Chisel._
-import chisel3.{Input, Output}
+import chisel3._
 import chisel3.experimental.{Analog, attach}
 import freechips.rocketchip.util.{ElaborationArtefacts}
 
@@ -17,24 +16,24 @@ import freechips.rocketchip.util.{ElaborationArtefacts}
 class CLKBUF() extends BlackBox
 {
   val io = new Bundle{
-    val PAD = Clock(INPUT)
-    val Y = Clock(OUTPUT)
+    val PAD = Input(Clock())
+    val Y = Output(Clock())
   }
 }
 
 class CLKINT() extends BlackBox
 {
   val io = new Bundle{
-    val A = Clock(INPUT)
-    val Y = Clock(OUTPUT)
+    val A = Input(Clock())
+    val Y = Output(Clock())
   }
 }
 
 class ICB_CLKINT() extends BlackBox
 {
   val io = new Bundle{
-    val A = Clock(INPUT)
-    val Y = Clock(OUTPUT)
+    val A = Input(Clock())
+    val Y = Output(Clock())
   }
 }
 

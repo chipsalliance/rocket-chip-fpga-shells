@@ -1,6 +1,6 @@
 package sifive.fpgashells.ip.microsemi.polarfire_oscillator
 
-import Chisel._
+import chisel3._
 import chisel3.experimental.{Analog,attach}
 import freechips.rocketchip.util.{ElaborationArtefacts}
 import freechips.rocketchip.util.GenericParameterizedBundle
@@ -10,7 +10,7 @@ import org.chipsalliance.cde.config._
 
 trait PolarFireOscillatorIOPads extends Bundle {
 
-    val RCOSC_160MHZ_GL = Clock(OUTPUT)
+    val RCOSC_160MHZ_GL = Output(Clock())
 }
 
 //scalastyle:off

@@ -1,6 +1,6 @@
 package sifive.fpgashells.devices.xilinx.xilinxvc707pciex1
 
-import Chisel._
+import chisel3._
 import freechips.rocketchip.diplomacy.{LazyModule, LazyModuleImp, BufferParams}
 import freechips.rocketchip.subsystem.BaseSubsystem
 import freechips.rocketchip.tilelink._
