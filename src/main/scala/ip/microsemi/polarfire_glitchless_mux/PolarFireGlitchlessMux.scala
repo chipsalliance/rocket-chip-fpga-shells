@@ -1,6 +1,6 @@
 package sifive.fpgashells.ip.microsemi.polarfireglitchlessmux
 
-import Chisel._
+import chisel3._
 import chisel3.experimental.{Analog,attach}
 import freechips.rocketchip.util.{ElaborationArtefacts}
 import freechips.rocketchip.util.GenericParameterizedBundle
@@ -10,10 +10,10 @@ import org.chipsalliance.cde.config._
 
 trait PolarFireGlitchlessMuxIOPads extends Bundle {
 
-    val CLK_OUT = Clock(OUTPUT)
-    val CLK0    = Clock(INPUT)
-    val CLK1    = Clock(INPUT)
-    val SEL     = Bool(INPUT)
+    val CLK_OUT = Output(Clock())
+    val CLK0    = Input(Clock())
+    val CLK1    = Input(Clock())
+    val SEL     = Input(Bool())
 }
 
 //scalastyle:off

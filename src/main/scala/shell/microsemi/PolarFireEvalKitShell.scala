@@ -1,7 +1,6 @@
 package sifive.fpgashells.shell.microsemi.polarfireevalkitshell
 
-import Chisel._
-import chisel3.{Input, Output, RawModule, withClockAndReset}
+import chisel3._
 import chisel3.experimental.{Analog, attach}
 
 import org.chipsalliance.cde.config._
@@ -80,7 +79,7 @@ trait HasPCIe { this: PolarFireEvalKitShell =>
     // Clock & Reset
 //    dut.pf_eval_kit_pcie.APB_S_PCLK     := hart_clk
     dut.pf_eval_kit_pcie.APB_S_PCLK     := dut_clock
-    dut.pf_eval_kit_pcie.APB_S_PRESET_N := UInt("b1")
+    dut.pf_eval_kit_pcie.APB_S_PRESET_N := "b1".U
     
 //    dut.pf_eval_kit_pcie.AXI_CLK        := hart_clk_150
     dut.pf_eval_kit_pcie.AXI_CLK        := dut_clock
@@ -123,7 +122,7 @@ trait HasCoreJTAGDebug { this: PolarFireEvalKitShell =>
 trait HasPFEvalKitChipLink { this: PolarFireEvalKitShell =>
 
   val chiplink = IO(new WideDataLayerPort(ChipLinkParams(Nil,Nil)))
-  val ereset_n = IO(Bool(INPUT))
+  val ereset_n = IO(Input(Bool()))
 
   def constrainChipLink(iofpga: Boolean = false): Unit = {
     val direction0Pins = if(iofpga) "chiplink_b2c"  else "chiplink_c2b"
@@ -546,8 +545,8 @@ abstract class PolarFireEvalKitShell(implicit val p: Parameters) extends RawModu
   pf_reset.io.INIT_DONE     := pf_init_monitor.io.DEVICE_INIT_DONE
   pf_reset.io.EXT_RST_N     := pf_user_reset_n
   
-  pf_reset.io.SS_BUSY       := UInt("b0")
-  pf_reset.io.FF_US_RESTORE := UInt("b0")
+  pf_reset.io.SS_BUSY       := "b0".U
+  pf_reset.io.FF_US_RESTORE := "b0".U
   
   fpga_reset := !pf_reset.io.FABRIC_RESET_N
 
@@ -573,8 +572,8 @@ abstract class PolarFireEvalKitShell(implicit val p: Parameters) extends RawModu
   mig_clock            := dut_clock
   pcie_dat_clock       := dut_clock
   pcie_cfg_clock       := dut_clock
-  mig_mmcm_locked      := UInt("b1")
-  mmcm_lock_pcie       := UInt("b1")
+  mig_mmcm_locked      := "b1".U
+  mmcm_lock_pcie       := "b1".U
  
   led(4) := dut_ndreset
   led(5) := !pf_user_reset_n
@@ -638,7 +637,7 @@ abstract class PolarFireEvalKitShell(implicit val p: Parameters) extends RawModu
   def connectUART(dut: HasPeripheryUARTModuleImp): Unit = dut.uart.headOption.foreach(connectUART)
 
   def connectUART(uart: UARTPortIO): Unit = {
-    uart.rxd := SyncResetSynchronizerShiftReg(uart_rx, 2, init = Bool(true), name=Some("uart_rxd_sync"))
+    uart.rxd := SyncResetSynchronizerShiftReg(uart_rx, 2, init = true.B, name=Some("uart_rxd_sync"))
     uart_tx      := uart.txd
   }
 
@@ -650,8 +649,8 @@ abstract class PolarFireEvalKitShell(implicit val p: Parameters) extends RawModu
 
   def connectSPI(spi: SPIPortIO): Unit = {
     spi_flash_reset := fpga_reset
-    spi_flash_wp    := UInt("b0")
-    spi_flash_hold  := UInt("b0")
+    spi_flash_wp    := "b0".U
+    spi_flash_hold  := "b0".U
     spi_flash_sck   := spi.sck
     spi_flash_ss    := spi.cs(0)
     spi_flash_sdo   := spi.dq(0).o

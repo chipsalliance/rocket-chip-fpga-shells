@@ -1,6 +1,6 @@
 package sifive.fpgashells.ip.microsemi.polarfireclockdivider
 
-import Chisel._
+import chisel3._
 import chisel3.experimental.{Analog,attach}
 import freechips.rocketchip.util.{ElaborationArtefacts}
 import freechips.rocketchip.util.GenericParameterizedBundle
@@ -10,8 +10,8 @@ import org.chipsalliance.cde.config._
 
 trait PolarFireClockDividerIOPads extends Bundle {
 
-    val CLK_OUT = Clock(OUTPUT)
-    val CLK_IN    = Clock(INPUT)
+    val CLK_OUT = Output(Clock())
+    val CLK_IN    = Input(Clock())
 }
 
 //scalastyle:off

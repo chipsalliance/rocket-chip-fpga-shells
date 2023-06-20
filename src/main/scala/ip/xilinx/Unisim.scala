@@ -1,7 +1,6 @@
 
 package sifive.fpgashells.ip.xilinx
-import Chisel._
-import chisel3.{Input, Output}
+import chisel3._
 import chisel3.experimental.{Analog, attach, StringParam, RawParam, IntParam, DoubleParam}
 
 import sifive.blocks.devices.pinctrl.{BasePin}
@@ -93,11 +92,11 @@ extends BlackBox(
   )
 ) {
   val io = IO(new Bundle {
-    val O         = Bool(OUTPUT)
-    val ODIV2     = Bool(OUTPUT)
-    val CEB       = Bool(INPUT)
-    val I         = Bool(INPUT)
-    val IB        = Bool(INPUT)
+    val O         = Output(Bool())
+    val ODIV2     = Output(Bool())
+    val CEB       = Input(Bool())
+    val I         = Input(Bool())
+    val IB        = Input(Bool())
   })
 }
 
@@ -111,11 +110,11 @@ class IBUFDS_GTE4(
     "REFCLK_ICNTL_RX"    -> IntParam(REFCLK_ICNTL_RX)))
 {
   val io = IO(new Bundle {
-    val O     = Clock(OUTPUT)
-    val ODIV2 = Clock(OUTPUT)
-    val CEB   = Bool(INPUT)
-    val I     = Clock(INPUT)
-    val IB    = Clock(INPUT)
+    val O     = Output(Clock())
+    val ODIV2 = Output(Clock())
+    val CEB   = Input(Bool())
+    val I     = Input(Clock())
+    val IB    = Input(Clock())
   })
 
 }

@@ -1,7 +1,6 @@
 package sifive.fpgashells.ip.xilinx
 
-import Chisel._
-import chisel3.{Input, Output}
+import chisel3._
 import chisel3.experimental.{Analog, attach}
 import chisel3.util.HasBlackBoxInline
 import freechips.rocketchip.util.ElaborationArtefacts
@@ -117,15 +116,15 @@ object PowerOnResetFPGAOnly {
 class Series7MMCM(c : PLLParameters) extends BlackBox with PLLInstance {
   val io = new Bundle {
     val clk_in1   = Clock(INPUT)
-    val clk_out1  = if (c.req.size >= 1) Some(Clock(OUTPUT)) else None
-    val clk_out2  = if (c.req.size >= 2) Some(Clock(OUTPUT)) else None
-    val clk_out3  = if (c.req.size >= 3) Some(Clock(OUTPUT)) else None
-    val clk_out4  = if (c.req.size >= 4) Some(Clock(OUTPUT)) else None
-    val clk_out5  = if (c.req.size >= 5) Some(Clock(OUTPUT)) else None
-    val clk_out6  = if (c.req.size >= 6) Some(Clock(OUTPUT)) else None
-    val clk_out7  = if (c.req.size >= 7) Some(Clock(OUTPUT)) else None
-    val reset     = Bool(INPUT)
-    val locked    = Bool(OUTPUT)
+    val clk_out1  = if (c.req.size >= 1) Some(Output(Clock())) else None
+    val clk_out2  = if (c.req.size >= 2) Some(Output(Clock())) else None
+    val clk_out3  = if (c.req.size >= 3) Some(Output(Clock())) else None
+    val clk_out4  = if (c.req.size >= 4) Some(Output(Clock())) else None
+    val clk_out5  = if (c.req.size >= 5) Some(Output(Clock())) else None
+    val clk_out6  = if (c.req.size >= 6) Some(Output(Clock())) else None
+    val clk_out7  = if (c.req.size >= 7) Some(Output(Clock())) else None
+    val reset     = Input(Bool())
+    val locked    = Output(Bool())
   }
 
   val moduleName = c.name
@@ -204,15 +203,15 @@ class Series7MMCM(c : PLLParameters) extends BlackBox with PLLInstance {
 class vc707reset() extends BlackBox
 {
   val io = new Bundle{
-    val areset = Bool(INPUT)
-    val clock1 = Clock(INPUT)
-    val reset1 = Bool(OUTPUT)
-    val clock2 = Clock(INPUT)
-    val reset2 = Bool(OUTPUT)
-    val clock3 = Clock(INPUT)
-    val reset3 = Bool(OUTPUT)
-    val clock4 = Clock(INPUT)
-    val reset4 = Bool(OUTPUT)
+    val areset = Input(Bool())
+    val clock1 = Input(Clock())
+    val reset1 = Output(Bool())
+    val clock2 = Input(Clock())
+    val reset2 = Output(Bool())
+    val clock3 = Input(Clock())
+    val reset3 = Output(Bool())
+    val clock4 = Input(Clock())
+    val reset4 = Output(Bool())
   }
 }
 
@@ -223,16 +222,16 @@ class vc707reset() extends BlackBox
 
 class vcu118_sys_clock_mmcm0 extends BlackBox {
   val io = new Bundle {
-    val clk_in1   = Bool(INPUT)
-    val clk_out1  = Clock(OUTPUT)
-    val clk_out2  = Clock(OUTPUT)
-    val clk_out3  = Clock(OUTPUT)
-    val clk_out4  = Clock(OUTPUT)
-    val clk_out5  = Clock(OUTPUT)
-    val clk_out6  = Clock(OUTPUT)
-    val clk_out7  = Clock(OUTPUT)
-    val reset     = Bool(INPUT)
-    val locked    = Bool(OUTPUT)
+    val clk_in1   = Input(Bool())
+    val clk_out1  = Output(Clock())
+    val clk_out2  = Output(Clock())
+    val clk_out3  = Output(Clock())
+    val clk_out4  = Output(Clock())
+    val clk_out5  = Output(Clock())
+    val clk_out6  = Output(Clock())
+    val clk_out7  = Output(Clock())
+    val reset     = Input(Bool())
+    val locked    = Output(Bool())
   }
 
   ElaborationArtefacts.add(
@@ -287,11 +286,11 @@ class vcu118_sys_clock_mmcm0 extends BlackBox {
 
 class vcu118_sys_clock_mmcm1 extends BlackBox {
   val io = new Bundle {
-    val clk_in1   = Bool(INPUT)
-    val clk_out1  = Clock(OUTPUT)
-    val clk_out2  = Clock(OUTPUT)
-    val reset     = Bool(INPUT)
-    val locked    = Bool(OUTPUT)
+    val clk_in1   = Input(Bool())
+    val clk_out1  = Output(Clock())
+    val clk_out2  = Output(Clock())
+    val reset     = Input(Bool())
+    val locked    = Output(Bool())
   }
 
   ElaborationArtefacts.add(
@@ -337,15 +336,15 @@ class vcu118_sys_clock_mmcm1 extends BlackBox {
 class vcu118reset() extends BlackBox
 {
   val io = new Bundle{
-    val areset = Bool(INPUT)
-    val clock1 = Clock(INPUT)
-    val reset1 = Bool(OUTPUT)
-    val clock2 = Clock(INPUT)
-    val reset2 = Bool(OUTPUT)
-    val clock3 = Clock(INPUT)
-    val reset3 = Bool(OUTPUT)
-    val clock4 = Clock(INPUT)
-    val reset4 = Bool(OUTPUT)
+    val areset = Input(Bool())
+    val clock1 = Input(Clock())
+    val reset1 = Output(Bool())
+    val clock2 = Input(Clock())
+    val reset2 = Output(Bool())
+    val clock3 = Input(Clock())
+    val reset3 = Output(Bool())
+    val clock4 = Input(Clock())
+    val reset4 = Output(Bool())
   }
 }
 
@@ -356,14 +355,14 @@ class vcu118reset() extends BlackBox
 class sdio_spi_bridge() extends BlackBox
 {
   val io = new Bundle{
-    val clk      = Clock(INPUT)
-    val reset    = Bool(INPUT)
+    val clk      = Input(Clock())
+    val reset    = Input(Bool())
     val sd_cmd   = Analog(1.W)
     val sd_dat   = Analog(4.W)
-    val spi_sck  = Bool(INPUT)
-    val spi_cs   = Bool(INPUT)
-    val spi_dq_o = Bits(INPUT,4)
-    val spi_dq_i = Bits(OUTPUT,4)
+    val spi_sck  = Input(Bool())
+    val spi_cs   = Input(Bool())
+    val spi_dq_o = Input(Bits(4.W))
+    val spi_dq_i = Output(Bits(4.W))
   }
 }
 

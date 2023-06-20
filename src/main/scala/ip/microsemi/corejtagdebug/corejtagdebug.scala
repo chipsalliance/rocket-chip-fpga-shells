@@ -1,6 +1,6 @@
 package sifive.fpgashells.ip.microsemi.corejtagdebug
 
-import Chisel._
+import chisel3._
 import chisel3.experimental.{Analog,attach}
 import freechips.rocketchip.util.{ElaborationArtefacts}
 import freechips.rocketchip.util.GenericParameterizedBundle
@@ -10,20 +10,20 @@ import org.chipsalliance.cde.config._
 
 trait CoreJtagDebugIOJTAGPads extends Bundle {
 
-  val TCK       = Clock(INPUT)
-  val TDI       = Bool(INPUT)
-  val TMS       = Bool(INPUT)
-  val TRSTB     = Bool(INPUT)
-  val TDO       = Bool(OUTPUT)
+  val TCK       = Input(Clock())
+  val TDI       = Input(Bool())
+  val TMS       = Input(Bool())
+  val TRSTB     = Input(Bool())
+  val TDO       = Output(Bool())
 }
 
 trait CoreJtagDebugIOTarget extends Bundle {
 
-  val TGT_TCK   = Clock(OUTPUT)   
-  val TGT_TDI   = Bool(OUTPUT)
-  val TGT_TMS   = Bool(OUTPUT)
-  val TGT_TRST  = Bool(OUTPUT)
-  val TGT_TDO   = Bool(INPUT)
+  val TGT_TCK   = Output(Clock())   
+  val TGT_TDI   = Output(Bool())
+  val TGT_TMS   = Output(Bool())
+  val TGT_TRST  = Output(Bool())
+  val TGT_TDO   = Input(Bool())
 }
 
 //scalastyle:off
@@ -34,23 +34,23 @@ class CoreJtagDebugBlock(implicit val p:Parameters) extends BlackBox
 
   val io = new CoreJtagDebugIOJTAGPads with CoreJtagDebugIOTarget {
     // chain inputs
-    val UTDO_IN_0    = Bool(INPUT)
-    val UTDO_IN_1    = Bool(INPUT)
-    val UTDO_IN_2    = Bool(INPUT)
-    val UTDO_IN_3    = Bool(INPUT)
-    val UTDODRV_0    = Bool(INPUT)
-    val UTDODRV_1    = Bool(INPUT)
-    val UTDODRV_2    = Bool(INPUT)
-    val UTDODRV_3    = Bool(INPUT)
+    val UTDO_IN_0    = Input(Bool())
+    val UTDO_IN_1    = Input(Bool())
+    val UTDO_IN_2    = Input(Bool())
+    val UTDO_IN_3    = Input(Bool())
+    val UTDODRV_0    = Input(Bool())
+    val UTDODRV_1    = Input(Bool())
+    val UTDODRV_2    = Input(Bool())
+    val UTDODRV_3    = Input(Bool())
     
     // chain outputs
-    val UTDI_OUT     = Bool(OUTPUT)
-    val URSTB_OUT    = Bool(OUTPUT)
-    val UIREG_OUT    = Bits(OUTPUT,8)
-    val UDRUPD_OUT   = Bool(OUTPUT)
-    val UDRSH_OUT    = Bool(OUTPUT)    
-    val UDRCK_OUT    = Bool(OUTPUT)
-    val UDRCAP_OUT   = Bool(OUTPUT)
+    val UTDI_OUT     = Output(Bool())
+    val URSTB_OUT    = Output(Bool())
+    val UIREG_OUT    = Output(Bits(8.W))
+    val UDRUPD_OUT   = Output(Bool())
+    val UDRSH_OUT    = Output(Bool())   
+    val UDRCK_OUT    = Output(Bool())
+    val UDRCAP_OUT   = Output(Bool())
   }
   
   ElaborationArtefacts.add(

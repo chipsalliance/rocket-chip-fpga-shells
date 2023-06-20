@@ -1,6 +1,6 @@
 package sifive.fpgashells.devices.microsemi.polarfireddr3
 
-import Chisel._
+import chisel3._ 
 import chisel3.experimental.{Analog,attach}
 import freechips.rocketchip.amba.axi4._
 import org.chipsalliance.cde.config.Parameters
@@ -79,8 +79,8 @@ class PolarFireEvalKitDDR3Island(c : PolarFireEvalKitDDR3Params)(implicit p: Par
     io.port.SHIELD1           := blackbox.io.SHIELD1
 
     //inputs
-    val awaddr = axi_async.aw.bits.addr - UInt(offset)
-    val araddr = axi_async.ar.bits.addr - UInt(offset)
+    val awaddr = axi_async.aw.bits.addr - offset.U
+    val araddr = axi_async.ar.bits.addr - offset.U
 
     //slave AXI interface write address ports
     blackbox.io.axi0_awid    := axi_async.aw.bits.id
@@ -89,7 +89,7 @@ class PolarFireEvalKitDDR3Island(c : PolarFireEvalKitDDR3Params)(implicit p: Par
     blackbox.io.axi0_awsize  := axi_async.aw.bits.size
     blackbox.io.axi0_awburst := axi_async.aw.bits.burst
     blackbox.io.axi0_awlock  := axi_async.aw.bits.lock
-    blackbox.io.axi0_awcache := UInt("b0011")
+    blackbox.io.axi0_awcache := "b0011".U
     blackbox.io.axi0_awprot  := axi_async.aw.bits.prot
     blackbox.io.axi0_awvalid := axi_async.aw.valid
     axi_async.aw.ready        := blackbox.io.axi0_awready
@@ -114,7 +114,7 @@ class PolarFireEvalKitDDR3Island(c : PolarFireEvalKitDDR3Params)(implicit p: Par
     blackbox.io.axi0_arsize  := axi_async.ar.bits.size
     blackbox.io.axi0_arburst := axi_async.ar.bits.burst
     blackbox.io.axi0_arlock  := axi_async.ar.bits.lock
-    blackbox.io.axi0_arcache := UInt("b0011")
+    blackbox.io.axi0_arcache := "b0011".U
     blackbox.io.axi0_arprot  := axi_async.ar.bits.prot
     blackbox.io.axi0_arvalid := axi_async.ar.valid
     axi_async.ar.ready        := blackbox.io.axi0_arready
@@ -128,7 +128,7 @@ class PolarFireEvalKitDDR3Island(c : PolarFireEvalKitDDR3Params)(implicit p: Par
     axi_async.r.valid         := blackbox.io.axi0_rvalid
 
     //misc
-    blackbox.io.AXI0_AWUSERTAG := UInt("b0000")
+    blackbox.io.AXI0_AWUSERTAG := "b0000".U
     blackbox.io.SYS_RESET_N    :=io.port.SYS_RESET_N
     blackbox.io.PLL_REF_CLK    :=io.port.PLL_REF_CLK
     

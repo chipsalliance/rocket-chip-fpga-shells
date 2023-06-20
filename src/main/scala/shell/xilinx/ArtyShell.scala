@@ -1,7 +1,6 @@
 package sifive.fpgashells.shell.xilinx.artyshell
 
-import Chisel._
-import chisel3.{Input, Output, RawModule, withClockAndReset}
+import chisel3._
 import chisel3.experimental.{attach, Analog}
 
 import org.chipsalliance.cde.config._

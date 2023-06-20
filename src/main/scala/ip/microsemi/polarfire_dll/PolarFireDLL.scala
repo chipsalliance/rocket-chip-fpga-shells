@@ -1,6 +1,6 @@
 package sifive.fpgashells.ip.microsemi.polarfiredll
 
-import Chisel._
+import chisel3._
 import chisel3.experimental.{Analog,attach}
 import freechips.rocketchip.util.{ElaborationArtefacts}
 import freechips.rocketchip.util.GenericParameterizedBundle
@@ -10,10 +10,10 @@ import org.chipsalliance.cde.config._
 
 class PolarFireDLLIOPads extends Bundle {
 
-    val DLL_FB_CLK       = Clock(INPUT)
-    val DLL_REF_CLK      = Clock(INPUT)
-    val DLL_CLK_0_FABCLK = Clock(OUTPUT)
-    val DLL_LOCK         = Bool(OUTPUT)
+    val DLL_FB_CLK       = Input(Clock())
+    val DLL_REF_CLK      = Input(Clock())
+    val DLL_CLK_0_FABCLK = Output(Clock())
+    val DLL_LOCK         = Output(Bool())
 }
 
 //scalastyle:off

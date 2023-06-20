@@ -1,6 +1,6 @@
 package sifive.fpgashells.clocks
 
-import Chisel._
+import chisel3._ 
 import chisel3.internal.sourceinfo.SourceInfo
 import org.chipsalliance.cde.config.Parameters
 import freechips.rocketchip.diplomacy._
