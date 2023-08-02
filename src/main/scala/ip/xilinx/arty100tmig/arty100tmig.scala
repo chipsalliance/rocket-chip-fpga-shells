@@ -1,14 +1,13 @@
 package sifive.fpgashells.ip.xilinx.arty100tmig
 
 import chisel3._
-import chisel3.experimental.{Analog,attach}
-import freechips.rocketchip.util.{ElaborationArtefacts}
-import freechips.rocketchip.util.GenericParameterizedBundle
+import chisel3.experimental.Analog
+import freechips.rocketchip.util.ElaborationArtefacts
 import org.chipsalliance.cde.config._
 
 // Black Box
 
-class Arty100TMIGIODDR(depth : BigInt) extends GenericParameterizedBundle(depth) {
+class Arty100TMIGIODDR(depth : BigInt) extends Bundle {
   require((depth<=0x10000000L),"Arty100TMIGIODDR supports upto 256 MB depth configuraton")
   val ddr3_addr             = Output(Bits(14.W))
   val ddr3_ba               = Output(Bits(3.W))

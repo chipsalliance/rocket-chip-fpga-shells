@@ -1,15 +1,14 @@
 package sifive.fpgashells.ip.xilinx.vcu118mig
 
 import chisel3._
-import chisel3.experimental.{Analog,attach}
-import freechips.rocketchip.util.{ElaborationArtefacts}
-import freechips.rocketchip.util.GenericParameterizedBundle
+import chisel3.experimental.Analog
+import freechips.rocketchip.util.ElaborationArtefacts
 import org.chipsalliance.cde.config._
 
 // IP VLNV: xilinx.com:customize_ip:vcu118mig:1.0
 // Black Box
 
-class VCU118MIGIODDR(depth : BigInt) extends GenericParameterizedBundle(depth) {
+class VCU118MIGIODDR(depth : BigInt) extends Bundle {
   require((depth<=0x80000000L),"VCU118MIGIODDR supports upto 2GB depth configuraton")
   val c0_ddr4_adr           = Output(Bits(17.W))
   val c0_ddr4_bg            = Output(Bits(1.W))

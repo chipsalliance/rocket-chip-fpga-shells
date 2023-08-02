@@ -1,15 +1,14 @@
 package sifive.fpgashells.ip.xilinx.vc707mig
 
 import chisel3._
-import chisel3.experimental.{Analog,attach}
-import freechips.rocketchip.util.{ElaborationArtefacts}
-import freechips.rocketchip.util.GenericParameterizedBundle
+import chisel3.experimental.Analog
+import freechips.rocketchip.util.ElaborationArtefacts
 import org.chipsalliance.cde.config._
 
 // IP VLNV: xilinx.com:customize_ip:vc707mig:1.0
 // Black Box
 
-class VC707MIGIODDR(depth : BigInt) extends GenericParameterizedBundle(depth) {
+class VC707MIGIODDR(depth : BigInt) extends Bundle {
   require((depth<=0x100000000L),"VC707MIGIODDR supports upto 4GB depth configuraton")
   val ddr3_addr             = Output(Bits(if(depth<=0x40000000L) 14.W else 16.W))
   val ddr3_ba               = Output(Bits(3.W))

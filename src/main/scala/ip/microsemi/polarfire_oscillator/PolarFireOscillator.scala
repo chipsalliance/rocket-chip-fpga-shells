@@ -1,9 +1,7 @@
 package sifive.fpgashells.ip.microsemi.polarfire_oscillator
 
 import chisel3._
-import chisel3.experimental.{Analog,attach}
-import freechips.rocketchip.util.{ElaborationArtefacts}
-import freechips.rocketchip.util.GenericParameterizedBundle
+import freechips.rocketchip.util.ElaborationArtefacts
 import org.chipsalliance.cde.config._
 
 // Black Box for Microsemi PolarFire internal oscillator Actel:SgCore:PF_OSC:1.0.102

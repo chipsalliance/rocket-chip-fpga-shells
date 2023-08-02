@@ -1,14 +1,13 @@
 package sifive.fpgashells.ip.microsemi.polarfireddr3
 
 import chisel3._
-import chisel3.experimental.{Analog,attach}
-import freechips.rocketchip.util.{ElaborationArtefacts}
-import freechips.rocketchip.util.GenericParameterizedBundle
+import chisel3.experimental.Analog
+import freechips.rocketchip.util.ElaborationArtefacts
 import org.chipsalliance.cde.config._
 
 // Black Box for Microsemi PolarFire DDR3 controller version 2.1.101
 
-class PolarFireEvalKitDDR3IODDR(depth : BigInt) extends GenericParameterizedBundle(depth) {
+class PolarFireEvalKitDDR3IODDR(depth : BigInt) extends Bundle {
 
   val A                     = Output(Bits(16.W))
   val BA                    = Output(Bits(3.W))
