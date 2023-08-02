@@ -1,11 +1,10 @@
 package sifive.fpgashells.devices.microsemi.polarfireddr3
 
-import chisel3._ 
 import org.chipsalliance.cde.config._
 //import freechips.rocketchip.coreplex.HasMemoryBus
+import freechips.rocketchip.diplomacy.{AddressRange, LazyModule, LazyModuleImp}
 import freechips.rocketchip.subsystem.BaseSubsystem
-import freechips.rocketchip.diplomacy.{LazyModule, LazyModuleImp, AddressRange}
-import freechips.rocketchip.tilelink.{TLWidthWidget}
+import freechips.rocketchip.tilelink.TLWidthWidget
 
 case object MemoryMicrosemiDDR3Key extends Field[PolarFireEvalKitDDR3Params]
 

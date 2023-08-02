@@ -1,15 +1,14 @@
 package sifive.fpgashells.devices.microsemi.polarfireevalkitpciex4
 
-import chisel3._ 
+import chisel3._
 import freechips.rocketchip.amba.axi4._
 //import freechips.rocketchip.coreplex.CacheBlockBytes
-import org.chipsalliance.cde.config.Parameters
 import freechips.rocketchip.diplomacy._
-import freechips.rocketchip.tilelink._
 import freechips.rocketchip.interrupts._
+import freechips.rocketchip.subsystem.{CacheBlockBytes, HasCrossing}
+import freechips.rocketchip.tilelink._
 import freechips.rocketchip.util._
-import freechips.rocketchip.subsystem.{HasCrossing, CacheBlockBytes}
-
+import org.chipsalliance.cde.config.Parameters
 import sifive.fpgashells.ip.microsemi.polarfirepcierootport._
 
 trait PolarFireEvalKitPCIeRefClk extends Bundle{

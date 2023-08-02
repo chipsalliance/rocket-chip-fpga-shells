@@ -1,7 +1,7 @@
 package sifive.fpgashells.ip.xilinx.bscan2
 import chisel3._
+import chisel3.experimental.ExtModule
 import chisel3.util._
-import chisel3.experimental.{ExtModule, Analog, attach}
 
 object JTAGTUNNEL {
   def apply (DUT_TCK: Bool, DUT_TMS: Bool, DUT_TDI: Bool, DUT_TDO:Bool, DUT_TDO_en: Bool): Unit = {

@@ -1,12 +1,9 @@
 package sifive.fpgashells.shell
 
 import chisel3._
-import org.chipsalliance.cde.config._
-import freechips.rocketchip.diplomacy._
-import sifive.blocks.devices.gpio._
-import freechips.rocketchip.tilelink.TLBusWrapper
-import freechips.rocketchip.interrupts.IntInwardNode
 import chisel3.experimental.Analog
+import freechips.rocketchip.diplomacy._
+import org.chipsalliance.cde.config._
 
 case class PMODShellInput(index: Int)
 case class PMODDesignInput()(implicit val p: Parameters)

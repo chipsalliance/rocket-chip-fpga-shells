@@ -1,11 +1,11 @@
 package sifive.fpgashells.ip.xilinx.vc707axi_to_pcie_x1
 
 import chisel3._
-import org.chipsalliance.cde.config._
-import freechips.rocketchip.diplomacy._
 import freechips.rocketchip.amba.axi4._
+import freechips.rocketchip.diplomacy._
 import freechips.rocketchip.interrupts._
-import freechips.rocketchip.util.{ElaborationArtefacts}
+import freechips.rocketchip.util.ElaborationArtefacts
+import org.chipsalliance.cde.config._
 
 // IP VLNV: xilinx.com:customize_ip:vc707pcietoaxi:1.0
 // Black Box

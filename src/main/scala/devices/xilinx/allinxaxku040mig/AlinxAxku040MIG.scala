@@ -1,11 +1,11 @@
 package sifive.fpgashells.devices.xilinx.allinxaxku040mig
 
 import chisel3._
-import org.chipsalliance.cde.config.Parameters
 import freechips.rocketchip.amba.axi4._
 import freechips.rocketchip.diplomacy._
 import freechips.rocketchip.subsystem.{CacheBlockBytes, CrossesToOnlyOneClockDomain}
 import freechips.rocketchip.tilelink.{TLBuffer, TLInwardNode, TLToAXI4}
+import org.chipsalliance.cde.config.Parameters
 import sifive.fpgashells.ip.xilinx.alinx_axku040mig._
 
 case class AlinxAxku040MIGParams(address: Seq[AddressSet])

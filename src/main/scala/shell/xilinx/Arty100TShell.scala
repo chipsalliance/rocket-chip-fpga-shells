@@ -1,14 +1,12 @@
 package sifive.fpgashells.shell.xilinx
 
 import chisel3._
-import org.chipsalliance.cde.config._
 import freechips.rocketchip.diplomacy._
-import freechips.rocketchip.tilelink._
-import freechips.rocketchip.util.SyncResetSynchronizerShiftReg
+import org.chipsalliance.cde.config._
 import sifive.fpgashells.clocks._
-import sifive.fpgashells.shell._
-import sifive.fpgashells.ip.xilinx._
 import sifive.fpgashells.devices.xilinx.xilinxarty100tmig._
+import sifive.fpgashells.ip.xilinx._
+import sifive.fpgashells.shell._
 
 class SysClockArtyPlacedOverlay(val shell: Arty100TShellBasicOverlays, name: String, val designInput: ClockInputDesignInput, val shellInput: ClockInputShellInput)
   extends SingleEndedClockInputXilinxPlacedOverlay(name, designInput, shellInput)

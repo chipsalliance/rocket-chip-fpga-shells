@@ -1,10 +1,9 @@
 package sifive.fpgashells.clocks
 
 import chisel3._
-import org.chipsalliance.cde.config._
 import freechips.rocketchip.diplomacy._
+import org.chipsalliance.cde.config._
 import sifive.fpgashells.shell._
-import scala.collection.immutable.ListMap
 
 case class PLLNode(val feedback: Boolean)(implicit valName: ValName)
   extends MixedNexusNode(ClockImp, ClockGroupImp)(

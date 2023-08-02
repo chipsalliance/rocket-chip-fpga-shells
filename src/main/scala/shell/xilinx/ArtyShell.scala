@@ -1,18 +1,13 @@
 package sifive.fpgashells.shell.xilinx.artyshell
 
 import chisel3._
-import chisel3.experimental.{attach, Analog}
-
-import org.chipsalliance.cde.config._
+import chisel3.experimental.Analog
 import freechips.rocketchip.devices.debug._
-
-import sifive.blocks.devices.gpio._
-import sifive.blocks.devices.pwm._
+import org.chipsalliance.cde.config._
+import sifive.blocks.devices.pinctrl.BasePin
 import sifive.blocks.devices.spi._
 import sifive.blocks.devices.uart._
-import sifive.blocks.devices.pinctrl.{BasePin}
-
-import sifive.fpgashells.ip.xilinx.{IBUFG, IOBUF, PULLUP, mmcm, reset_sys, PowerOnResetFPGAOnly}
+import sifive.fpgashells.ip.xilinx._
 
 //-------------------------------------------------------------------------
 // ArtyShell

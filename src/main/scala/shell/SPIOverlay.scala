@@ -2,12 +2,9 @@ package sifive.fpgashells.shell
 
 import chisel3._
 import chisel3.experimental.Analog
-import org.chipsalliance.cde.config._
 import freechips.rocketchip.diplomacy._
-import freechips.rocketchip.util._
+import org.chipsalliance.cde.config._
 import sifive.blocks.devices.spi._
-import freechips.rocketchip.tilelink.TLBusWrapper
-import freechips.rocketchip.interrupts.IntInwardNode
 
 //This should not do the controller placement either
 case class SPIShellInput()

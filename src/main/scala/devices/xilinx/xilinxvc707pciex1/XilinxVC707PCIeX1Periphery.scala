@@ -1,10 +1,8 @@
 package sifive.fpgashells.devices.xilinx.xilinxvc707pciex1
 
-import chisel3._
-import freechips.rocketchip.diplomacy.{LazyModule, LazyModuleImp, BufferParams}
+import freechips.rocketchip.diplomacy.{LazyModule, LazyModuleImp}
 import freechips.rocketchip.subsystem.BaseSubsystem
 import freechips.rocketchip.tilelink._
-import freechips.rocketchip.interrupts.IntSyncCrossingSink
 
 trait HasSystemXilinxVC707PCIeX1 { this: BaseSubsystem =>
   val xilinxvc707pcie = LazyModule(new XilinxVC707PCIeX1)

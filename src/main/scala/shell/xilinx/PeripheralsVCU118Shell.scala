@@ -1,18 +1,10 @@
 package sifive.fpgashells.shell.xilinx
 
 import chisel3._
-import chisel3.experimental.{attach, Analog, IO}
-import org.chipsalliance.cde.config._
 import freechips.rocketchip.diplomacy._
-import freechips.rocketchip.tilelink._
-import freechips.rocketchip.util.SyncResetSynchronizerShiftReg
-import sifive.fpgashells.clocks._
-import sifive.fpgashells.shell._
+import org.chipsalliance.cde.config._
 import sifive.fpgashells.ip.xilinx._
-import sifive.blocks.devices.chiplink._
-import sifive.fpgashells.devices.xilinx.xilinxvcu118mig._
-import sifive.fpgashells.devices.xilinx.xdma._
-import sifive.fpgashells.ip.xilinx.xxv_ethernet._
+import sifive.fpgashells.shell._
 
 /*
 class SPIFlashVCUV18PlacedOverlay(val shell: VCU118ShellBasicOverlays, name: String, val designInput: SPIFlashDesignInput, val shellInput: SPIFlashShellInput)

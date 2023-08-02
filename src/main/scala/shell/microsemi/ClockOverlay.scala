@@ -1,9 +1,9 @@
 package sifive.fpgashells.shell.microsemi
 
  import chisel3._
-import freechips.rocketchip.diplomacy._
-import sifive.fpgashells.shell._
-import sifive.fpgashells.ip.microsemi._
+ import freechips.rocketchip.diplomacy._
+ import sifive.fpgashells.ip.microsemi._
+ import sifive.fpgashells.shell._
 
  abstract class ClockInputMicrosemiPlacedOverlay(name: String, di: ClockInputDesignInput, si: ClockInputShellInput)
   extends SingleEndedClockInputPlacedOverlay(name, di, si)

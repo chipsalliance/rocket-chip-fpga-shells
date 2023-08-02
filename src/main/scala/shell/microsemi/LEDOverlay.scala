@@ -1,9 +1,7 @@
 package sifive.fpgashells.shell.microsemi
 
- import chisel3._
-import freechips.rocketchip.diplomacy._
-import sifive.fpgashells.shell._
-import sifive.fpgashells.ip.microsemi._
+ import freechips.rocketchip.diplomacy._
+ import sifive.fpgashells.shell._
 
  abstract class LEDMicrosemiPlacedOverlay(name: String, di: LEDDesignInput, si: LEDShellInput, pins: Seq[String] = Nil)
   extends LEDPlacedOverlay(name, di, si)

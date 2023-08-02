@@ -1,7 +1,7 @@
 package sifive.fpgashells.ip.xilinx
 
 import chisel3._
-import chisel3.experimental.{Analog, attach}
+import chisel3.experimental.Analog
 import chisel3.util.HasBlackBoxInline
 import freechips.rocketchip.util.ElaborationArtefacts
 import sifive.fpgashells.clocks._

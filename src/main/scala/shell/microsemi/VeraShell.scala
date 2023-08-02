@@ -1,26 +1,18 @@
 package sifive.fpgashells.shell.microsemi
 
 import chisel3._
-import chisel3.experimental.IO
-import org.chipsalliance.cde.config._
-import freechips.rocketchip.util._
 import freechips.rocketchip.diplomacy._
 import freechips.rocketchip.tilelink._
+import org.chipsalliance.cde.config._
 import sifive.fpgashells.clocks._
-import sifive.fpgashells.shell._
-import sifive.fpgashells.ip.microsemi._
-import sifive.blocks.devices.chiplink._
-
 import sifive.fpgashells.devices.microsemi.polarfireevalkitpciex4._
-import sifive.fpgashells.devices.microsemi.polarfireddr4._
-
-import sifive.fpgashells.ip.microsemi._
-import sifive.fpgashells.ip.microsemi.polarfirexcvrrefclk._
-import sifive.fpgashells.ip.microsemi.polarfiretxpll._
 import sifive.fpgashells.ip.microsemi.polarfire_oscillator._
 import sifive.fpgashells.ip.microsemi.polarfireclockdivider._
 import sifive.fpgashells.ip.microsemi.polarfireglitchlessmux._
 import sifive.fpgashells.ip.microsemi.polarfirereset._
+import sifive.fpgashells.ip.microsemi.polarfiretxpll._
+import sifive.fpgashells.ip.microsemi.polarfirexcvrrefclk._
+import sifive.fpgashells.shell._
 
 class SysClockVeraPlacedOverlay(val shell: VeraShell, name: String, val designInput: ClockInputDesignInput, val shellInput: ClockInputShellInput)
   extends ClockInputMicrosemiPlacedOverlay(name, designInput, shellInput)

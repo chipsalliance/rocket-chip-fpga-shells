@@ -2,18 +2,13 @@ package sifive.fpgashells.shell.xilinx.vcu118shell
 
 import chisel3._
 import chisel3.experimental.{Analog, attach}
-
-import org.chipsalliance.cde.config._
 import freechips.rocketchip.devices.debug._
-import freechips.rocketchip.util.{SyncResetSynchronizerShiftReg}
-
-import sifive.blocks.devices.gpio._
+import freechips.rocketchip.util.SyncResetSynchronizerShiftReg
+import org.chipsalliance.cde.config._
 import sifive.blocks.devices.spi._
 import sifive.blocks.devices.uart._
-
 import sifive.fpgashells.devices.xilinx.xilinxvcu118mig._
-import sifive.fpgashells.ip.xilinx.{IBUFDS, PowerOnResetFPGAOnly, sdio_spi_bridge, vcu118_sys_clock_mmcm0,
-                                    vcu118_sys_clock_mmcm1, vcu118reset}
+import sifive.fpgashells.ip.xilinx._
 
 //-------------------------------------------------------------------------
 // VCU118Shell

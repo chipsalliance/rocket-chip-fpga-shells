@@ -1,10 +1,9 @@
 package sifive.fpgashells.shell.microsemi
 
  import chisel3._
-import freechips.rocketchip.diplomacy._
-import freechips.rocketchip.util._
-import sifive.fpgashells.shell._
-import sifive.fpgashells.ip.microsemi._
+ import freechips.rocketchip.diplomacy._
+ import sifive.fpgashells.ip.microsemi._
+ import sifive.fpgashells.shell._
 
  abstract class ChipLinkPolarFirePlacedOverlay(name: String, di: ChipLinkDesignInput, si: ChipLinkShellInput)
   extends ChipLinkPlacedOverlay(name, di, si, rxPhase=180, txPhase=270)

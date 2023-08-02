@@ -1,13 +1,13 @@
 package sifive.fpgashells.shell.xilinx
 
 import chisel3._
-import org.chipsalliance.cde.config._
 import freechips.rocketchip.diplomacy._
+import org.chipsalliance.cde.config._
 import sifive.fpgashells.clocks._
 import sifive.fpgashells.devices.xilinx.allinxaxku040mig.{AlinxAxku040MIG, AlinxAxku040MIGParams}
-import sifive.fpgashells.shell._
 import sifive.fpgashells.ip.xilinx._
 import sifive.fpgashells.ip.xilinx.alinx_axku040mig.AlinxAxku040MIGDDRPads
+import sifive.fpgashells.shell._
 
 class SysClockAlinxAxku040PlacedOverlay(
   val shell:       AlinxAxku040ShellBasicOverlays,

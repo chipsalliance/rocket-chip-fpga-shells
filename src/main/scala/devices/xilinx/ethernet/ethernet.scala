@@ -2,16 +2,13 @@ package sifive.fpgashells.devices.xilinx.ethernet
 
 import chisel3._
 import chisel3.util._
-import org.chipsalliance.cde.config.Parameters
 import freechips.rocketchip.diplomacy._
-import freechips.rocketchip.tilelink._
-import freechips.rocketchip.amba.axi4._
 import freechips.rocketchip.regmapper._
+import freechips.rocketchip.tilelink._
 import freechips.rocketchip.util._
-import freechips.rocketchip.subsystem.CacheBlockBytes
-import sifive.fpgashells.clocks._
-import sifive.fpgashells.shell._
+import org.chipsalliance.cde.config.Parameters
 import sifive.fpgashells.ip.xilinx.xxv_ethernet._
+import sifive.fpgashells.shell._
 
 class EthernetMACIO extends Bundle {
   val pcs = Flipped(new EthernetPCS)

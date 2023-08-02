@@ -1,11 +1,9 @@
 package sifive.fpgashells.ip.xilinx.xxv_ethernet
 
 import chisel3._
-import chisel3.util._
-import org.chipsalliance.cde.config._
 import freechips.rocketchip.diplomacy._
-import freechips.rocketchip.amba.axi4._
-import freechips.rocketchip.util.{ElaborationArtefacts}
+import freechips.rocketchip.util.ElaborationArtefacts
+import org.chipsalliance.cde.config._
 
 trait HasXXVEthernetPads {
   val gt_txp_out_0 = Output(Bool())

@@ -2,13 +2,13 @@ package sifive.fpgashells.devices.xilinx.xilinxvc707pciex1
 
 import chisel3._
 import freechips.rocketchip.amba.axi4._
-import org.chipsalliance.cde.config.Parameters
 import freechips.rocketchip.diplomacy._
-import freechips.rocketchip.tilelink._
 import freechips.rocketchip.interrupts._
-import freechips.rocketchip.subsystem.{CrossesToOnlyOneClockDomain, CacheBlockBytes}
-import sifive.fpgashells.ip.xilinx.vc707axi_to_pcie_x1.{VC707AXIToPCIeX1, VC707AXIToPCIeX1IOClocksReset, VC707AXIToPCIeX1IOSerial}
+import freechips.rocketchip.subsystem.{CacheBlockBytes, CrossesToOnlyOneClockDomain}
+import freechips.rocketchip.tilelink._
+import org.chipsalliance.cde.config.Parameters
 import sifive.fpgashells.ip.xilinx.ibufds_gte2.IBUFDS_GTE2
+import sifive.fpgashells.ip.xilinx.vc707axi_to_pcie_x1.{VC707AXIToPCIeX1, VC707AXIToPCIeX1IOClocksReset, VC707AXIToPCIeX1IOSerial}
 
 trait VC707AXIToPCIeRefClk extends Bundle{
   val REFCLK_rxp = Input(Bool())

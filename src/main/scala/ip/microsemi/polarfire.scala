@@ -1,8 +1,6 @@
 package sifive.fpgashells.ip.microsemi
 
 import chisel3._
-import chisel3.experimental.{Analog, attach}
-import freechips.rocketchip.util.{ElaborationArtefacts}
 
 
 //========================================================================

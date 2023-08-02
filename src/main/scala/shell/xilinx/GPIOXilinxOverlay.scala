@@ -1,9 +1,7 @@
 package sifive.fpgashells.shell.xilinx
 
-import chisel3._
 import freechips.rocketchip.diplomacy._
 import sifive.fpgashells.shell._
-import sifive.fpgashells.ip.xilinx._
 
 abstract class GPIOXilinxPlacedOverlay(name: String, di: GPIODesignInput, si: GPIOShellInput)
   extends GPIOPlacedOverlay(name, di, si)

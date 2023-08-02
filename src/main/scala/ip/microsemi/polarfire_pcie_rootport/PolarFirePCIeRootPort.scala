@@ -1,15 +1,12 @@
 package sifive.fpgashells.ip.microsemi.polarfirepcierootport
 
 import chisel3._
-import org.chipsalliance.cde.config._
-import freechips.rocketchip.diplomacy._
-import freechips.rocketchip.amba.axi4._
 import freechips.rocketchip.amba.apb._
+import freechips.rocketchip.amba.axi4._
+import freechips.rocketchip.diplomacy._
 import freechips.rocketchip.interrupts._
-import freechips.rocketchip.util.{ElaborationArtefacts}
-
-
-import chisel3.experimental.attach
+import freechips.rocketchip.util.ElaborationArtefacts
+import org.chipsalliance.cde.config._
 
 // Black Box for Microsemi PolarFire PCIe root port
 

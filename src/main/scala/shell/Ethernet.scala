@@ -1,12 +1,8 @@
 package sifive.fpgashells.shell
 
 import chisel3._
-import org.chipsalliance.cde.config._
 import freechips.rocketchip.diplomacy._
-import sifive.blocks.devices.uart._
-import freechips.rocketchip.subsystem.{BaseSubsystem, PeripheryBus, PeripheryBusKey}
-import freechips.rocketchip.tilelink.TLBusWrapper
-import freechips.rocketchip.interrupts.IntInwardNode
+import org.chipsalliance.cde.config._
 
 case class EthernetShellInput()
 case class EthernetDesignInput()(implicit val p: Parameters)

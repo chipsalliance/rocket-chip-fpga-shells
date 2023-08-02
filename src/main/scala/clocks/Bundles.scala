@@ -1,7 +1,6 @@
 package sifive.fpgashells.clocks
 
 import chisel3._
-import freechips.rocketchip.diplomacy._
 import freechips.rocketchip.util._
 
 class ClockBundle(params: ClockBundleParameters) extends Bundle
