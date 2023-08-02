@@ -20,8 +20,7 @@ class PolarFireTransceiverRefClk(implicit val p:Parameters) extends BlackBox
 {
   override def desiredName = "transceiver_refclk"
 
-  val io = new PolarFireTransceiverRefClkIOPads {
-  }
+  val io = IO(new PolarFireTransceiverRefClkIOPads {})
   
   ElaborationArtefacts.add(
     "Libero.polarfire_xcvr_refclk.libero.tcl",

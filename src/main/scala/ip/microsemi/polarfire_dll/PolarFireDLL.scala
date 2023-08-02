@@ -21,7 +21,7 @@ class PolarFireDLL(name: String)(implicit val p:Parameters) extends BlackBox
   val modulename = name
   override def desiredName = name
 
-  val io = new PolarFireDLLIOPads
+  val io = IO(new PolarFireDLLIOPads)
   
   ElaborationArtefacts.add(
     "AddIPInstance." ++ modulename ++".libero.tcl",

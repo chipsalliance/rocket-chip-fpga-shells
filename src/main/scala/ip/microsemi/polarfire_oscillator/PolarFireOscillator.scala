@@ -17,8 +17,7 @@ class PolarFireOscillator(implicit val p:Parameters) extends BlackBox
 {
   override def desiredName = "pf_oscillator"
 
-  val io = new PolarFireOscillatorIOPads {
-  }
+  val io = IO(new PolarFireOscillatorIOPads {})
   
   ElaborationArtefacts.add(
     "Libero.polarfire_oscillator.libero.tcl",

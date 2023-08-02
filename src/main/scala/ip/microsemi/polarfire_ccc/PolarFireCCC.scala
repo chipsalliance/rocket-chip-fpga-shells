@@ -38,7 +38,7 @@ class PolarFireCCC(c : PLLParameters) extends BlackBox with PLLInstance {
   val moduleName = c.name
   override def desiredName = c.name
 
-  val io = new PolarFireCCCIOPads(c)
+  val io = IO(new PolarFireCCCIOPads(c))
   def getInput = io.REF_CLK_0
   def getReset = None
   def getLocked = io.PLL_LOCK_0

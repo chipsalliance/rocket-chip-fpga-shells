@@ -7,13 +7,13 @@ import chisel3._
 //unparameterized
 
 class IBUFDS_GTE2 extends BlackBox {
-  val io = new Bundle {
+  val io = IO(new Bundle {
     val O         = Output(Bool())
     val ODIV2     = Output(Bool())
     val CEB       = Input(Bool())
     val I         = Input(Bool())
     val IB        = Input(Bool())
-  }
+  })
 }
 
 /*

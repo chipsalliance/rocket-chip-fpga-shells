@@ -23,8 +23,7 @@ class PolarFireReset(implicit val p:Parameters) extends BlackBox
 {
   override def desiredName = "polarfire_reset"
 
-  val io = new PolarFireResetIOPads {
-  }
+  val io = IO(new PolarFireResetIOPads {})
   
   
   ElaborationArtefacts.add(

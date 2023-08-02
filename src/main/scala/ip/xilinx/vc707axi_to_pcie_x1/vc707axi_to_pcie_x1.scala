@@ -32,7 +32,7 @@ trait VC707AXIToPCIeX1IOClocksReset extends Bundle {
 //turn off linter: blackbox name must match verilog module
 class vc707axi_to_pcie_x1() extends BlackBox
 {
-  val io = new Bundle with VC707AXIToPCIeX1IOSerial
+  val io = IO(new Bundle with VC707AXIToPCIeX1IOSerial
                       with VC707AXIToPCIeX1IOClocksReset {
     //refclk
     val REFCLK                = Input(Bool())
@@ -159,7 +159,7 @@ class vc707axi_to_pcie_x1() extends BlackBox
     val s_axi_ctl_rresp       = Output(Bits(2.W))
     val s_axi_ctl_rvalid      = Output(Bool())
     val s_axi_ctl_rready      = Input(Bool())
- }
+ })
 }
 //scalastyle:off
 

@@ -20,8 +20,7 @@ class PolarFireGlitchlessMux(implicit val p:Parameters) extends BlackBox
 {
   override def desiredName = "pf_glitchless_mux"
 
-  val io = new PolarFireGlitchlessMuxIOPads {
-  }
+  val io = IO(new PolarFireGlitchlessMuxIOPads {})
   
   ElaborationArtefacts.add(
     "Libero.polarfire_glitchless_mux.libero.tcl",

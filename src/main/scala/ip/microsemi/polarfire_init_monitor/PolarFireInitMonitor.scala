@@ -18,7 +18,7 @@ class PolarFireInitMonitor(implicit val p:Parameters) extends BlackBox
 {
   override def desiredName = "polarfire_init_monitor"
 
-  val io = new Bundle with PolarFireInitMonitorIOPads
+  val io = IO(new Bundle with PolarFireInitMonitorIOPads)
 
   ElaborationArtefacts.add(s"${desiredName}.libero.tcl",
     s"""create_design -id Actel:SgCore:PF_INIT_MONITOR:2.0.103 -design_name {polarfire_init_monitor} -config_file {} -params {} -inhibit_configurator 0

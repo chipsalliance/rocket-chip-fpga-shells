@@ -22,8 +22,7 @@ class PolarFireTxPLL(implicit val p:Parameters) extends BlackBox
 {
   override def desiredName = "transmit_pll"
 
-  val io = new PolarFireTxPLLIOPads {
-  }
+  val io = IO(new PolarFireTxPLLIOPads {})
 
   ElaborationArtefacts.add(
     "Libero.polarfire_tx_pll.libero.tcl",

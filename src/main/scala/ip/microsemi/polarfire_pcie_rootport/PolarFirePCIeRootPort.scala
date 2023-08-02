@@ -64,7 +64,7 @@ trait PolarFirePCIeIODebug extends Bundle {
 //turn off linter: blackbox name must match verilog module
 class polarfire_pcie_rp() extends BlackBox
 {
-  val io = new Bundle with PolarFirePCIeIOSerial
+  val io = IO(new Bundle with PolarFirePCIeIOSerial
                       with PolarFirePCIeIOClocksReset {
 
     // APB control interface
@@ -154,7 +154,7 @@ class polarfire_pcie_rp() extends BlackBox
     val PCIE_1_INTERRUPT        = Input(Bits(8.W))
     val PCIE_1_M_RDERR          = Input(Bool())
     val PCIE_1_S_WDERR          = Input(Bool())
- }
+ })
 }
 //scalastyle:off
 

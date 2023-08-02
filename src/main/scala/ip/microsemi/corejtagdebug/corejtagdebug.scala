@@ -30,7 +30,7 @@ class CoreJtagDebugBlock(implicit val p:Parameters) extends BlackBox
 {
   override def desiredName = "corejtagdebug_wrapper"
 
-  val io = new CoreJtagDebugIOJTAGPads with CoreJtagDebugIOTarget {
+  val io = IO(new CoreJtagDebugIOJTAGPads with CoreJtagDebugIOTarget {
     // chain inputs
     val UTDO_IN_0    = Input(Bool())
     val UTDO_IN_1    = Input(Bool())
@@ -49,7 +49,7 @@ class CoreJtagDebugBlock(implicit val p:Parameters) extends BlackBox
     val UDRSH_OUT    = Output(Bool())   
     val UDRCK_OUT    = Output(Bool())
     val UDRCAP_OUT   = Output(Bool())
-  }
+  })
   
   ElaborationArtefacts.add(
     "Libero.corejtagdebug.tcl",

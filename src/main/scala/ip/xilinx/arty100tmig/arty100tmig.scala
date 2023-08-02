@@ -48,7 +48,7 @@ class arty100tmig(depth : BigInt)(implicit val p:Parameters) extends BlackBox
 {
   require((depth<=0x10000000L),"arty100tmig supports upto 256 MB depth configuraton")
 
-  val io = new Arty100TMIGIODDR(depth) with Arty100TMIGIOClocksReset {
+  val io = IO(new Arty100TMIGIODDR(depth) with Arty100TMIGIOClocksReset {
     // User interface signals
     val app_sr_req            = Input(Bool())
     val app_ref_req           = Input(Bool())
@@ -101,7 +101,7 @@ class arty100tmig(depth : BigInt)(implicit val p:Parameters) extends BlackBox
     val s_axi_rvalid          = Output(Bool())
     //misc
     val device_temp           = Output(Bits(12.W))
-  }
+  })
 
 
   val migprj = """{<?xml version='1.0' encoding='UTF-8'?>

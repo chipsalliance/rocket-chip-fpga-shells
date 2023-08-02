@@ -254,12 +254,12 @@ extends BlackBox(
 
 class IOBUF extends BlackBox {
 
-  val io = new Bundle {
+  val io = IO(new Bundle {
     val O = Output(Bool())
     val IO = Analog(1.W)
     val I = Input(Bool())
     val T = Input(Bool())
-  }
+  })
 }
 
 object IOBUF {

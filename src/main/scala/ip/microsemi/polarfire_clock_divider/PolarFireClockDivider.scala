@@ -18,8 +18,7 @@ class PolarFireClockDivider(implicit val p:Parameters) extends BlackBox
 {
   override def desiredName = "pf_clk_divider"
 
-  val io = new PolarFireClockDividerIOPads {
-  }
+  val io = IO(new PolarFireClockDividerIOPads {})
   
   ElaborationArtefacts.add(
     "Libero.polarfire_clock_divider.libero.tcl",
