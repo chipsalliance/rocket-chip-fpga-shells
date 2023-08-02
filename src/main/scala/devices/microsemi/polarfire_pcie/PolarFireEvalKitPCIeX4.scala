@@ -70,7 +70,7 @@ class PolarFireEvalKitPCIeX4(implicit p: Parameters) extends LazyModule with Has
 
     io.port <> axi_to_pcie.module.io.port
     TLScope.module.clock := io.port.PCIE_1_TL_CLK_125MHz
-    TLScope.module.reset := ResetCatchAndSync(io.port.PCIE_1_TL_CLK_125MHz, reset)
+    TLScope.module.reset := ResetCatchAndSync(io.port.PCIE_1_TL_CLK_125MHz, reset.asBool)
   }
 }
 

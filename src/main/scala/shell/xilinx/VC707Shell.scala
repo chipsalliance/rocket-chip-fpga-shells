@@ -561,7 +561,7 @@ abstract class VC707Shell(implicit val p: Parameters) extends RawModule {
   def connectUART(dut: HasPeripheryUARTModuleImp): Unit = dut.uart.headOption.foreach(connectUART)
 
   def connectUART(uart: UARTPortIO): Unit = {
-    uart.rxd := SyncResetSynchronizerShiftReg(uart_rx, 2, init = Bool(true), name=Some("uart_rxd_sync"))
+    uart.rxd := SyncResetSynchronizerShiftReg(uart_rx, 2, init = true.B, name=Some("uart_rxd_sync"))
     uart_tx  := uart.txd
   }
 

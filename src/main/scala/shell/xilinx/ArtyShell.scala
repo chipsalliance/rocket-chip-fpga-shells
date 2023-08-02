@@ -162,7 +162,7 @@ abstract class ArtyShell(implicit val p: Parameters) extends RawModule {
   //-----------------------------------------------------------------------
 
   def connectSPIFlash(dut: HasPeripherySPIFlashModuleImp): Unit = dut.qspi.headOption.foreach {
-    connectSPIFlash(_, dut.clock, dut.reset)
+    connectSPIFlash(_, dut.clock, dut.reset.asBool)
   }
 
   def connectSPIFlash(qspi: SPIPortIO, clock: Clock, reset: Bool): Unit = {

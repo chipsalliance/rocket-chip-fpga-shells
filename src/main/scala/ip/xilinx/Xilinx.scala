@@ -115,7 +115,7 @@ object PowerOnResetFPGAOnly {
 //IP : xilinx mmcm with "NO_BUFFER" input clock
 class Series7MMCM(c : PLLParameters) extends BlackBox with PLLInstance {
   val io = new Bundle {
-    val clk_in1   = Clock(INPUT)
+    val clk_in1   = Input(Clock())
     val clk_out1  = if (c.req.size >= 1) Some(Output(Clock())) else None
     val clk_out2  = if (c.req.size >= 2) Some(Output(Clock())) else None
     val clk_out3  = if (c.req.size >= 3) Some(Output(Clock())) else None
