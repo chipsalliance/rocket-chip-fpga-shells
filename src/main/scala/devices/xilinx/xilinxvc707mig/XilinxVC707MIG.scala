@@ -1,13 +1,12 @@
 package sifive.fpgashells.devices.xilinx.xilinxvc707mig
 
 import chisel3._
-import chisel3.experimental.{Analog,attach}
+import chisel3.experimental.attach
 import freechips.rocketchip.amba.axi4._
-import org.chipsalliance.cde.config.Parameters
-import freechips.rocketchip.subsystem._
 import freechips.rocketchip.diplomacy._
+import freechips.rocketchip.subsystem._
 import freechips.rocketchip.tilelink._
-import freechips.rocketchip.interrupts._
+import org.chipsalliance.cde.config.Parameters
 import sifive.fpgashells.ip.xilinx.vc707mig.{VC707MIGIOClocksReset, VC707MIGIODDR, vc707mig}
 
 case class XilinxVC707MIGParams(

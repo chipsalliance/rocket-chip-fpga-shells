@@ -1,11 +1,11 @@
 package sifive.fpgashells.ip.xilinx.vc707axi_to_pcie_x1
 
 import chisel3._
-import org.chipsalliance.cde.config._
-import freechips.rocketchip.diplomacy._
 import freechips.rocketchip.amba.axi4._
+import freechips.rocketchip.diplomacy._
 import freechips.rocketchip.interrupts._
-import freechips.rocketchip.util.{ElaborationArtefacts}
+import freechips.rocketchip.util.ElaborationArtefacts
+import org.chipsalliance.cde.config._
 
 // IP VLNV: xilinx.com:customize_ip:vc707pcietoaxi:1.0
 // Black Box
@@ -32,7 +32,7 @@ trait VC707AXIToPCIeX1IOClocksReset extends Bundle {
 //turn off linter: blackbox name must match verilog module
 class vc707axi_to_pcie_x1() extends BlackBox
 {
-  val io = new Bundle with VC707AXIToPCIeX1IOSerial
+  val io = IO(new Bundle with VC707AXIToPCIeX1IOSerial
                       with VC707AXIToPCIeX1IOClocksReset {
     //refclk
     val REFCLK                = Input(Bool())
@@ -159,7 +159,7 @@ class vc707axi_to_pcie_x1() extends BlackBox
     val s_axi_ctl_rresp       = Output(Bits(2.W))
     val s_axi_ctl_rvalid      = Output(Bool())
     val s_axi_ctl_rready      = Input(Bool())
- }
+ })
 }
 //scalastyle:off
 

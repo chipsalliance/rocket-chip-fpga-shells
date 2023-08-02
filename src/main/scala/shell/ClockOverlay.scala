@@ -1,8 +1,8 @@
 package sifive.fpgashells.shell
 
 import chisel3._
-import org.chipsalliance.cde.config._
 import freechips.rocketchip.diplomacy._
+import org.chipsalliance.cde.config._
 import sifive.fpgashells.clocks._
 
 case class ClockInputShellInput()

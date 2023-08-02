@@ -1,15 +1,14 @@
 package sifive.fpgashells.ip.xilinx.vcu118mig
 
 import chisel3._
-import chisel3.experimental.{Analog,attach}
-import freechips.rocketchip.util.{ElaborationArtefacts}
-import freechips.rocketchip.util.GenericParameterizedBundle
+import chisel3.experimental.Analog
+import freechips.rocketchip.util.ElaborationArtefacts
 import org.chipsalliance.cde.config._
 
 // IP VLNV: xilinx.com:customize_ip:vcu118mig:1.0
 // Black Box
 
-class VCU118MIGIODDR(depth : BigInt) extends GenericParameterizedBundle(depth) {
+class VCU118MIGIODDR(depth : BigInt) extends Bundle {
   require((depth<=0x80000000L),"VCU118MIGIODDR supports upto 2GB depth configuraton")
   val c0_ddr4_adr           = Output(Bits(17.W))
   val c0_ddr4_bg            = Output(Bits(1.W))
@@ -48,7 +47,7 @@ class vcu118mig(depth : BigInt)(implicit val p:Parameters) extends BlackBox
 {
   require((depth<=0x80000000L),"vcu118mig supports upto 2GB depth configuraton")
 
-  val io = new VCU118MIGIODDR(depth) with VCU118MIGIOClocksReset {
+  val io = IO(new VCU118MIGIODDR(depth) with VCU118MIGIOClocksReset {
     //slave interface write address ports
     val c0_ddr4_s_axi_awid            = Input(Bits(4.W))
     val c0_ddr4_s_axi_awaddr          = Input(Bits(31.W))
@@ -91,7 +90,7 @@ class vcu118mig(depth : BigInt)(implicit val p:Parameters) extends BlackBox
     val c0_ddr4_s_axi_rresp           = Output(Bits(2.W))
     val c0_ddr4_s_axi_rlast           = Output(Bool())
     val c0_ddr4_s_axi_rvalid          = Output(Bool())
-  }
+  })
 
   ElaborationArtefacts.add(
     "vcu118mig.vivado.tcl",

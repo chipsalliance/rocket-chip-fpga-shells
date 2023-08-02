@@ -2,9 +2,9 @@ package sifive.fpgashells.clocks
 
 import chisel3._
 import chisel3.util._
-import org.chipsalliance.cde.config._
 import freechips.rocketchip.diplomacy._
 import freechips.rocketchip.util._
+import org.chipsalliance.cde.config._
 
 class ResetWrangler(debounceNs: Double = 100000)(implicit p: Parameters) extends LazyModule
 {

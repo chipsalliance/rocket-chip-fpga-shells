@@ -1,16 +1,15 @@
 package sifive.fpgashells.clocks
 
 import chisel3._
-import freechips.rocketchip.diplomacy._
 import freechips.rocketchip.util._
 
-class ClockBundle(params: ClockBundleParameters) extends GenericParameterizedBundle(params)
+class ClockBundle(params: ClockBundleParameters) extends Bundle
 {
   val clock = Clock()
   val reset = Bool()
 }
 
-class ClockGroupBundle(params: ClockGroupBundleParameters) extends GenericParameterizedBundle(params)
+class ClockGroupBundle(params: ClockGroupBundleParameters) extends Bundle
 {
   val member = HeterogeneousBag(params.members.map(p => new ClockBundle(p)))
 }

@@ -2,11 +2,11 @@ package sifive.fpgashells.devices.xilinx.xdma
 
 import chisel3._
 import freechips.rocketchip.amba.axi4._
-import org.chipsalliance.cde.config.Parameters
 import freechips.rocketchip.diplomacy._
-import freechips.rocketchip.tilelink._
 import freechips.rocketchip.interrupts._
-import freechips.rocketchip.subsystem.{CrossesToOnlyOneClockDomain, CacheBlockBytes}
+import freechips.rocketchip.subsystem.{CacheBlockBytes, CrossesToOnlyOneClockDomain}
+import freechips.rocketchip.tilelink._
+import org.chipsalliance.cde.config.Parameters
 import sifive.fpgashells.ip.xilinx.xdma._
 
 class XDMA(c: XDMAParams)(implicit p: Parameters, val crossing: ClockCrossingType = AsynchronousCrossing(8))

@@ -1,35 +1,24 @@
 package sifive.fpgashells.shell.microsemi.polarfireevalkitshell
 
 import chisel3._
-import chisel3.experimental.{Analog, attach}
-
+import chisel3.experimental.Analog
+import freechips.rocketchip.util.{ResetCatchAndSync, SyncResetSynchronizerShiftReg}
 import org.chipsalliance.cde.config._
-import freechips.rocketchip.devices.debug._
-import freechips.rocketchip.util.{SyncResetSynchronizerShiftReg, ResetCatchAndSync, ElaborationArtefacts, HeterogeneousBag}
-
-import sifive.blocks.devices.gpio._
+import sifive.blocks.devices.chiplink._
 import sifive.blocks.devices.spi._
 import sifive.blocks.devices.uart._
-
-import sifive.fpgashells.ip.microsemi.{CLKINT}
-
+import sifive.fpgashells.clocks._
 import sifive.fpgashells.devices.microsemi.polarfireddr3._
 import sifive.fpgashells.devices.microsemi.polarfireddr4._
-
-import sifive.fpgashells.ip.microsemi.corejtagdebug._
-import sifive.fpgashells.ip.microsemi.polarfireccc._
-import sifive.fpgashells.ip.microsemi.polarfireinitmonitor._
-import sifive.fpgashells.ip.microsemi.polarfirereset._
-
 import sifive.fpgashells.devices.microsemi.polarfireevalkitpciex4._
-import sifive.fpgashells.ip.microsemi.polarfirexcvrrefclk._
-import sifive.fpgashells.ip.microsemi.polarfiretxpll._
-
 import sifive.fpgashells.ip.microsemi.polarfire_oscillator._
+import sifive.fpgashells.ip.microsemi.polarfireccc._
 import sifive.fpgashells.ip.microsemi.polarfireclockdivider._
 import sifive.fpgashells.ip.microsemi.polarfireglitchlessmux._
-import sifive.blocks.devices.chiplink._
-import sifive.fpgashells.clocks._
+import sifive.fpgashells.ip.microsemi.polarfireinitmonitor._
+import sifive.fpgashells.ip.microsemi.polarfirereset._
+import sifive.fpgashells.ip.microsemi.polarfiretxpll._
+import sifive.fpgashells.ip.microsemi.polarfirexcvrrefclk._
 
 
 //-------------------------------------------------------------------------

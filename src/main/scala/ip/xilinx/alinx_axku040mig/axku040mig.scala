@@ -2,8 +2,8 @@ package sifive.fpgashells.ip.xilinx.alinx_axku040mig
 
 import chisel3._
 import chisel3.experimental.{Analog, ExtModule}
-import org.chipsalliance.cde.config.Parameters
 import freechips.rocketchip.util.ElaborationArtefacts
+import org.chipsalliance.cde.config.Parameters
 
 // format: off
 class AlinxAxku040MIGDDRPads extends Bundle {

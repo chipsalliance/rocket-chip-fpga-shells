@@ -1,14 +1,7 @@
 package sifive.fpgashells.shell
 
-import chisel3._
-import chisel3.experimental._
-import org.chipsalliance.cde.config._
-import freechips.rocketchip.util._
 import freechips.rocketchip.diplomacy._
-import freechips.rocketchip.jtag._
-import freechips.rocketchip.devices.debug._
-import freechips.rocketchip.subsystem.{BaseSubsystem, PeripheryBus, PeripheryBusKey}
-import sifive.fpgashells.ip.xilinx._
+import org.chipsalliance.cde.config._
 
 case class JTAGDebugBScanShellInput()
 case class JTAGDebugBScanDesignInput()(implicit val p: Parameters)

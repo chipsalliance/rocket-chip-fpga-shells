@@ -1,9 +1,8 @@
 
 package sifive.fpgashells.ip.xilinx
 import chisel3._
-import chisel3.experimental.{Analog, attach, StringParam, RawParam, IntParam, DoubleParam}
-
-import sifive.blocks.devices.pinctrl.{BasePin}
+import chisel3.experimental.{Analog, DoubleParam, IntParam, RawParam, StringParam, attach}
+import sifive.blocks.devices.pinctrl.BasePin
 
 object booleanToVerilogVectorParam extends (Boolean => RawParam) {
   def apply(b : Boolean) : RawParam =  if(b) RawParam("1") else RawParam("0")
@@ -255,12 +254,12 @@ extends BlackBox(
 
 class IOBUF extends BlackBox {
 
-  val io = new Bundle {
+  val io = IO(new Bundle {
     val O = Output(Bool())
     val IO = Analog(1.W)
     val I = Input(Bool())
     val T = Input(Bool())
-  }
+  })
 }
 
 object IOBUF {

@@ -1,14 +1,13 @@
 package sifive.fpgashells.ip.microsemi.polarfireddr4
 
 import chisel3._
-import chisel3.experimental.{Analog,attach}
-import freechips.rocketchip.util.{ElaborationArtefacts}
-import freechips.rocketchip.util.GenericParameterizedBundle
+import chisel3.experimental.Analog
+import freechips.rocketchip.util.ElaborationArtefacts
 import org.chipsalliance.cde.config._
 
 // Black Box
 
-class PolarFireEvalKitDDR4IODDR(depth : BigInt) extends GenericParameterizedBundle(depth) {
+class PolarFireEvalKitDDR4IODDR(depth : BigInt) extends Bundle {
 
   val A                     = Output(Bits(14.W))
   val ACT_N                 = Output(Bool())
@@ -49,7 +48,7 @@ class DDR4_Subsys(depth : BigInt)(implicit val p:Parameters) extends BlackBox
 {
   override def desiredName = "pf_ddr"
 
-  val io = new PolarFireEvalKitDDR4IODDR(depth) with PolarFireEvalKitDDR4IOClocksReset {
+  val io = IO(new PolarFireEvalKitDDR4IODDR(depth) with PolarFireEvalKitDDR4IOClocksReset {
     //axi slave interface
     //slave interface write address ports
     val axi0_awid             = Input(Bits(6.W))
@@ -94,7 +93,7 @@ class DDR4_Subsys(depth : BigInt)(implicit val p:Parameters) extends BlackBox
     //misc
     //val AXI0_AWUSERTAG        = Bits(INPUT,4)
     //val AXI0_BUSERTAG         = Bits(OUTPUT,4)
-  }
+  })
 
   ElaborationArtefacts.add(
     "AddIPInstance.ddr4.libero.tcl",

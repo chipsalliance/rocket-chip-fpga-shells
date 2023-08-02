@@ -1,20 +1,16 @@
 package sifive.fpgashells.shell.xilinx.vc707shell
 
 import chisel3._
-import chisel3.experimental.{attach, Analog}
-
-import org.chipsalliance.cde.config._
+import chisel3.experimental.{Analog, attach}
 import freechips.rocketchip.devices.debug._
-import freechips.rocketchip.util.{SyncResetSynchronizerShiftReg, ElaborationArtefacts, HeterogeneousBag}
-
-import sifive.blocks.devices.gpio._
+import freechips.rocketchip.util.{ElaborationArtefacts, SyncResetSynchronizerShiftReg}
+import org.chipsalliance.cde.config._
+import sifive.blocks.devices.chiplink._
 import sifive.blocks.devices.spi._
 import sifive.blocks.devices.uart._
-import sifive.blocks.devices.chiplink._
-
 import sifive.fpgashells.devices.xilinx.xilinxvc707mig._
 import sifive.fpgashells.devices.xilinx.xilinxvc707pciex1._
-import sifive.fpgashells.ip.xilinx.{IBUFDS, PowerOnResetFPGAOnly, sdio_spi_bridge, Series7MMCM, vc707reset}
+import sifive.fpgashells.ip.xilinx._
 
 //vc707_sys_clock_mmcm0, vc707_sys_clock_, vc707_sys_clock_mmcm2 , vc707reset}
 import sifive.fpgashells.clocks._
@@ -561,7 +557,7 @@ abstract class VC707Shell(implicit val p: Parameters) extends RawModule {
   def connectUART(dut: HasPeripheryUARTModuleImp): Unit = dut.uart.headOption.foreach(connectUART)
 
   def connectUART(uart: UARTPortIO): Unit = {
-    uart.rxd := SyncResetSynchronizerShiftReg(uart_rx, 2, init = Bool(true), name=Some("uart_rxd_sync"))
+    uart.rxd := SyncResetSynchronizerShiftReg(uart_rx, 2, init = true.B, name=Some("uart_rxd_sync"))
     uart_tx  := uart.txd
   }
 

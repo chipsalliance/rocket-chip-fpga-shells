@@ -1,6 +1,7 @@
 package sifive.fpgashells
 
 import chisel3._
+
 import scala.language.implicitConversions
 
 package object shell {

@@ -1,9 +1,7 @@
 package sifive.fpgashells.ip.microsemi.polarfireglitchlessmux
 
 import chisel3._
-import chisel3.experimental.{Analog,attach}
-import freechips.rocketchip.util.{ElaborationArtefacts}
-import freechips.rocketchip.util.GenericParameterizedBundle
+import freechips.rocketchip.util.ElaborationArtefacts
 import org.chipsalliance.cde.config._
 
 // Black Box forMicrosemi PolarFire glitchless mux Actel:SgCore:PF_NGMUX:1.0.101
@@ -22,8 +20,7 @@ class PolarFireGlitchlessMux(implicit val p:Parameters) extends BlackBox
 {
   override def desiredName = "pf_glitchless_mux"
 
-  val io = new PolarFireGlitchlessMuxIOPads {
-  }
+  val io = IO(new PolarFireGlitchlessMuxIOPads {})
   
   ElaborationArtefacts.add(
     "Libero.polarfire_glitchless_mux.libero.tcl",

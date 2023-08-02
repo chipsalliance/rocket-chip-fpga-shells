@@ -1,9 +1,7 @@
 package sifive.fpgashells.ip.microsemi.polarfiredll
 
 import chisel3._
-import chisel3.experimental.{Analog,attach}
-import freechips.rocketchip.util.{ElaborationArtefacts}
-import freechips.rocketchip.util.GenericParameterizedBundle
+import freechips.rocketchip.util.ElaborationArtefacts
 import org.chipsalliance.cde.config._
 
 // Black Box for Microsemi PolarFire Delay Locked Loop (DLL) Actel:SgCore:PF_CCC:1.0.112
@@ -23,7 +21,7 @@ class PolarFireDLL(name: String)(implicit val p:Parameters) extends BlackBox
   val modulename = name
   override def desiredName = name
 
-  val io = new PolarFireDLLIOPads
+  val io = IO(new PolarFireDLLIOPads)
   
   ElaborationArtefacts.add(
     "AddIPInstance." ++ modulename ++".libero.tcl",

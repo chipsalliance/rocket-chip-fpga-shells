@@ -2,14 +2,8 @@ package sifive.fpgashells.shell
 
 import chisel3._
 import chisel3.experimental.Analog
-
-import org.chipsalliance.cde.config._
 import freechips.rocketchip.diplomacy._
-import freechips.rocketchip.subsystem.{BaseSubsystem, PeripheryBus, PeripheryBusKey}
-import freechips.rocketchip.tilelink.TLBusWrapper
-import freechips.rocketchip.interrupts.IntInwardNode
-
-
+import org.chipsalliance.cde.config._
 import sifive.blocks.devices.uart._
 
 case class UARTShellInput(index: Int = 0)

@@ -1,15 +1,7 @@
 package sifive.fpgashells.shell
 
-import chisel3._
-import org.chipsalliance.cde.config._
 import freechips.rocketchip.diplomacy._
-
-import chisel3.experimental.ChiselAnnotation
-import firrtl._
-import firrtl.analyses._
-import firrtl.annotations._
-//import firrtl.ir._
-import freechips.rocketchip.util.DontTouch
+import org.chipsalliance.cde.config._
 
 case object DesignKey extends Field[Parameters => LazyModule]
 

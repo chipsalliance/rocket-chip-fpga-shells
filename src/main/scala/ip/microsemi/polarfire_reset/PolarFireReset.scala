@@ -1,9 +1,7 @@
 package sifive.fpgashells.ip.microsemi.polarfirereset
 
 import chisel3._
-import chisel3.experimental.{Analog,attach}
-import freechips.rocketchip.util.{ElaborationArtefacts}
-import freechips.rocketchip.util.GenericParameterizedBundle
+import freechips.rocketchip.util.ElaborationArtefacts
 import org.chipsalliance.cde.config._
 
 // Black Box for Microsemi PolarFire IP block Actel:DirectCore:CORERESET_PF:2.1.100
@@ -25,8 +23,7 @@ class PolarFireReset(implicit val p:Parameters) extends BlackBox
 {
   override def desiredName = "polarfire_reset"
 
-  val io = new PolarFireResetIOPads {
-  }
+  val io = IO(new PolarFireResetIOPads {})
   
   
   ElaborationArtefacts.add(

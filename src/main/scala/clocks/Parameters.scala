@@ -1,10 +1,7 @@
 package sifive.fpgashells.clocks
 
-import chisel3._ 
 import chisel3.internal.sourceinfo.SourceInfo
 import org.chipsalliance.cde.config.Parameters
-import freechips.rocketchip.diplomacy._
-import scala.math.max
 
 // All Clock parameters specify only the PLL values required at power-on
 // Dynamic control of the PLL from software can take the values out-of-range

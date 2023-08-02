@@ -1,13 +1,12 @@
 package sifive.fpgashells.devices.xilinx.xilinxarty100tmig
 
 import chisel3._
-import chisel3.experimental.{Analog,attach}
+import chisel3.experimental.attach
 import freechips.rocketchip.amba.axi4._
-import org.chipsalliance.cde.config.Parameters
-import freechips.rocketchip.subsystem._
 import freechips.rocketchip.diplomacy._
+import freechips.rocketchip.subsystem._
 import freechips.rocketchip.tilelink._
-import freechips.rocketchip.interrupts._
+import org.chipsalliance.cde.config.Parameters
 import sifive.fpgashells.ip.xilinx.arty100tmig.{Arty100TMIGIOClocksReset, Arty100TMIGIODDR, arty100tmig}
 
 case class XilinxArty100TMIGParams(

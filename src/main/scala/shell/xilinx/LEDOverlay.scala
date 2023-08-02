@@ -1,9 +1,7 @@
 package sifive.fpgashells.shell.xilinx
 
-import chisel3._
 import freechips.rocketchip.diplomacy._
 import sifive.fpgashells.shell._
-import sifive.fpgashells.ip.xilinx._
 
 abstract class LEDXilinxPlacedOverlay(name: String, di: LEDDesignInput, si: LEDShellInput, boardPin: Option[String] = None, packagePin: Option[String] = None, ioStandard: String = "LVCMOS33")
   extends LEDPlacedOverlay(name, di, si)

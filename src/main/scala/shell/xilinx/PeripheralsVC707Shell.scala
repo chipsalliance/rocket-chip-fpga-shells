@@ -1,19 +1,10 @@
 package sifive.fpgashells.shell.xilinx
 
 import chisel3._
-import chisel3.experimental._
-
-import org.chipsalliance.cde.config._
 import freechips.rocketchip.diplomacy._
-import freechips.rocketchip.tilelink._
-import freechips.rocketchip.util._
-
-import sifive.fpgashells.clocks._
-import sifive.fpgashells.shell._
+import org.chipsalliance.cde.config._
 import sifive.fpgashells.ip.xilinx._
-
-import sifive.blocks.devices.gpio._
-import sifive.blocks.devices.pinctrl._
+import sifive.fpgashells.shell._
 
 class UARTPeripheralVC707PlacedOverlay(val shell: VC707Shell, name: String, val designInput: UARTDesignInput, val shellInput: UARTShellInput)
   extends UARTXilinxPlacedOverlay(name, designInput, shellInput, true)

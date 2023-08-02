@@ -1,9 +1,7 @@
 package sifive.fpgashells.ip.microsemi.polarfireccc
 
 import chisel3._
-import freechips.rocketchip.util.{ElaborationArtefacts}
-import org.chipsalliance.cde.config._
-
+import freechips.rocketchip.util.ElaborationArtefacts
 import sifive.fpgashells.clocks._
 
 case class PolarFireCCCParameters(
@@ -40,7 +38,7 @@ class PolarFireCCC(c : PLLParameters) extends BlackBox with PLLInstance {
   val moduleName = c.name
   override def desiredName = c.name
 
-  val io = new PolarFireCCCIOPads(c)
+  val io = IO(new PolarFireCCCIOPads(c))
   def getInput = io.REF_CLK_0
   def getReset = None
   def getLocked = io.PLL_LOCK_0

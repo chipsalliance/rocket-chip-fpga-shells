@@ -1,10 +1,10 @@
 package sifive.fpgashells.shell
 
 import chisel3._
-import chisel3.experimental.{DataMirror, IO}
-import org.chipsalliance.cde.config._
-import freechips.rocketchip.util._
+import chisel3.reflect.DataMirror
 import freechips.rocketchip.diplomacy._
+import freechips.rocketchip.util._
+import org.chipsalliance.cde.config._
 
 case class IOPin(element: Element, index: Int = 0)
 {

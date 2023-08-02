@@ -2,11 +2,11 @@ package sifive.fpgashells.ip.xilinx.xdma
 
 import chisel3._
 import chisel3.util._
-import org.chipsalliance.cde.config._
-import freechips.rocketchip.diplomacy._
 import freechips.rocketchip.amba.axi4._
+import freechips.rocketchip.diplomacy._
 import freechips.rocketchip.interrupts._
-import freechips.rocketchip.util.{ElaborationArtefacts}
+import freechips.rocketchip.util.ElaborationArtefacts
+import org.chipsalliance.cde.config._
 
 trait HasXDMAPads {
   def lanes: Int

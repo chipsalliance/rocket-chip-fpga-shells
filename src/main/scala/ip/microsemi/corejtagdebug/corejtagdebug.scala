@@ -1,9 +1,7 @@
 package sifive.fpgashells.ip.microsemi.corejtagdebug
 
 import chisel3._
-import chisel3.experimental.{Analog,attach}
-import freechips.rocketchip.util.{ElaborationArtefacts}
-import freechips.rocketchip.util.GenericParameterizedBundle
+import freechips.rocketchip.util.ElaborationArtefacts
 import org.chipsalliance.cde.config._
 
 // Black Box for Microsemi DirectCore IP block Actel:DirectCore:COREJTAGDEBUG:2.0.100
@@ -32,7 +30,7 @@ class CoreJtagDebugBlock(implicit val p:Parameters) extends BlackBox
 {
   override def desiredName = "corejtagdebug_wrapper"
 
-  val io = new CoreJtagDebugIOJTAGPads with CoreJtagDebugIOTarget {
+  val io = IO(new CoreJtagDebugIOJTAGPads with CoreJtagDebugIOTarget {
     // chain inputs
     val UTDO_IN_0    = Input(Bool())
     val UTDO_IN_1    = Input(Bool())
@@ -51,7 +49,7 @@ class CoreJtagDebugBlock(implicit val p:Parameters) extends BlackBox
     val UDRSH_OUT    = Output(Bool())   
     val UDRCK_OUT    = Output(Bool())
     val UDRCAP_OUT   = Output(Bool())
-  }
+  })
   
   ElaborationArtefacts.add(
     "Libero.corejtagdebug.tcl",

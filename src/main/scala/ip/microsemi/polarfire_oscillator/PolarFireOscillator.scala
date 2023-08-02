@@ -1,9 +1,7 @@
 package sifive.fpgashells.ip.microsemi.polarfire_oscillator
 
 import chisel3._
-import chisel3.experimental.{Analog,attach}
-import freechips.rocketchip.util.{ElaborationArtefacts}
-import freechips.rocketchip.util.GenericParameterizedBundle
+import freechips.rocketchip.util.ElaborationArtefacts
 import org.chipsalliance.cde.config._
 
 // Black Box for Microsemi PolarFire internal oscillator Actel:SgCore:PF_OSC:1.0.102
@@ -19,8 +17,7 @@ class PolarFireOscillator(implicit val p:Parameters) extends BlackBox
 {
   override def desiredName = "pf_oscillator"
 
-  val io = new PolarFireOscillatorIOPads {
-  }
+  val io = IO(new PolarFireOscillatorIOPads {})
   
   ElaborationArtefacts.add(
     "Libero.polarfire_oscillator.libero.tcl",

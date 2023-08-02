@@ -2,8 +2,8 @@ package sifive.fpgashells.shell.xilinx
 
 import chisel3._
 import freechips.rocketchip.diplomacy._
-import sifive.fpgashells.shell._
 import sifive.fpgashells.ip.xilinx._
+import sifive.fpgashells.shell._
 
 abstract class LVDSClockInputXilinxPlacedOverlay(name: String, di: ClockInputDesignInput, si: ClockInputShellInput)
   extends LVDSClockInputPlacedOverlay(name, di, si)

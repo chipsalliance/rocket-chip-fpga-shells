@@ -1,10 +1,9 @@
 package sifive.fpgashells.devices.xilinx.xilinxvcu118mig
 
-import chisel3._
-import org.chipsalliance.cde.config._
+import freechips.rocketchip.diplomacy.{AddressRange, LazyModule, LazyModuleImp}
 import freechips.rocketchip.subsystem.BaseSubsystem
-import freechips.rocketchip.diplomacy.{LazyModule, LazyModuleImp, AddressRange}
-import freechips.rocketchip.tilelink.{TLWidthWidget}
+import freechips.rocketchip.tilelink.TLWidthWidget
+import org.chipsalliance.cde.config._
 
 case object MemoryXilinxDDRKey extends Field[XilinxVCU118MIGParams]
 

@@ -1,9 +1,7 @@
 package sifive.fpgashells.ip.microsemi.polarfireclockdivider
 
 import chisel3._
-import chisel3.experimental.{Analog,attach}
-import freechips.rocketchip.util.{ElaborationArtefacts}
-import freechips.rocketchip.util.GenericParameterizedBundle
+import freechips.rocketchip.util.ElaborationArtefacts
 import org.chipsalliance.cde.config._
 
 // Black Box for Actel:SgCore:PF_CLK_DIV:1.0.101
@@ -20,8 +18,7 @@ class PolarFireClockDivider(implicit val p:Parameters) extends BlackBox
 {
   override def desiredName = "pf_clk_divider"
 
-  val io = new PolarFireClockDividerIOPads {
-  }
+  val io = IO(new PolarFireClockDividerIOPads {})
   
   ElaborationArtefacts.add(
     "Libero.polarfire_clock_divider.libero.tcl",

@@ -2,8 +2,8 @@ package sifive.fpgashells.shell.xilinx
 
 import chisel3._
 import freechips.rocketchip.diplomacy._
-import sifive.fpgashells.shell._
 import sifive.fpgashells.ip.xilinx._
+import sifive.fpgashells.shell._
 
 abstract class ButtonXilinxPlacedOverlay(name: String, di: ButtonDesignInput, si: ButtonShellInput, boardPin: Option[String] = None, packagePin: Option[String] = None, ioStandard: String = "LVCMOS33")
   extends ButtonPlacedOverlay(name, di, si)

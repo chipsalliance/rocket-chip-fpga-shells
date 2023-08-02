@@ -1,15 +1,12 @@
 package sifive.fpgashells.ip.microsemi.polarfirepcierootport
 
 import chisel3._
-import org.chipsalliance.cde.config._
-import freechips.rocketchip.diplomacy._
-import freechips.rocketchip.amba.axi4._
 import freechips.rocketchip.amba.apb._
+import freechips.rocketchip.amba.axi4._
+import freechips.rocketchip.diplomacy._
 import freechips.rocketchip.interrupts._
-import freechips.rocketchip.util.{ElaborationArtefacts}
-
-
-import chisel3.experimental.attach
+import freechips.rocketchip.util.ElaborationArtefacts
+import org.chipsalliance.cde.config._
 
 // Black Box for Microsemi PolarFire PCIe root port
 
@@ -67,7 +64,7 @@ trait PolarFirePCIeIODebug extends Bundle {
 //turn off linter: blackbox name must match verilog module
 class polarfire_pcie_rp() extends BlackBox
 {
-  val io = new Bundle with PolarFirePCIeIOSerial
+  val io = IO(new Bundle with PolarFirePCIeIOSerial
                       with PolarFirePCIeIOClocksReset {
 
     // APB control interface
@@ -157,7 +154,7 @@ class polarfire_pcie_rp() extends BlackBox
     val PCIE_1_INTERRUPT        = Input(Bits(8.W))
     val PCIE_1_M_RDERR          = Input(Bool())
     val PCIE_1_S_WDERR          = Input(Bool())
- }
+ })
 }
 //scalastyle:off
 
@@ -353,9 +350,9 @@ class PolarFirePCIeX4(implicit p:Parameters) extends LazyModule
     blackbox.io.PCIESS_AXI_1_M_BVALID   := m.b.valid
     m.b.ready                           := blackbox.io.PCIESS_AXI_1_M_BREADY
 
-    m.ar.bits.cache := UInt(0)
+    m.ar.bits.cache := 0.U
     m.ar.bits.prot  := AXI4Parameters.PROT_PRIVILEGED
-    m.ar.bits.qos   := UInt(0)
+    m.ar.bits.qos   := 0.U
 
     m.ar.bits.id                        := blackbox.io.PCIESS_AXI_1_M_ARID
     m.ar.bits.addr                      := blackbox.io.PCIESS_AXI_1_M_ARADDR
