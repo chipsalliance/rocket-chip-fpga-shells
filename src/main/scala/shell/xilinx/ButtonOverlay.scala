@@ -12,7 +12,7 @@ abstract class ButtonXilinxPlacedOverlay(name: String, di: ButtonDesignInput, si
 
   shell { InModuleBody {
     val but  = Wire(Bool())
-    buttonSource.out(0)._1 := but
+    buttonWire := but
     val ibuf = Module(new IBUF)
     ibuf.suggestName(s"button_ibuf_${si.number}")
     ibuf.io.I := io

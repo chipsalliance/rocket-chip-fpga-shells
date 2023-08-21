@@ -2,6 +2,7 @@ package sifive.fpgashells.shell.xilinx
 
 import chisel3._
 import chisel3.experimental.{Analog, attach}
+import chisel3.experimental.dataview._
 import freechips.rocketchip.diplomacy._
 import org.chipsalliance.cde.config._
 import sifive.fpgashells.clocks._
@@ -9,6 +10,7 @@ import sifive.fpgashells.devices.xilinx.xdma._
 import sifive.fpgashells.devices.xilinx.xilinxvcu118mig._
 import sifive.fpgashells.ip.xilinx._
 import sifive.fpgashells.ip.xilinx.xxv_ethernet._
+import sifive.fpgashells.ip.xilinx.vcu118mig._
 import sifive.fpgashells.shell._
 
 class SysClockVCU118PlacedOverlay(val shell: VCU118ShellBasicOverlays, name: String, val designInput: ClockInputDesignInput, val shellInput: ClockInputShellInput)
@@ -307,8 +309,6 @@ class DDRVCU118PlacedOverlay(val shell: VCU118ShellBasicOverlays, name: String, 
 
   val migParams = XilinxVCU118MIGParams(address = AddressSet.misaligned(di.baseAddress, size))
   val mig = LazyModule(new XilinxVCU118MIG(migParams))
-  val ioNode = BundleBridgeSource(() => mig.module.io.cloneType)
-  val topIONode = shell { ioNode.makeSink() }
   val ddrUI     = shell { ClockSourceNode(freqMHz = 200) }
   val areset    = shell { ClockSinkNode(Seq(ClockSinkParameters())) }
   areset := designInput.wrangler := ddrUI
@@ -316,15 +316,13 @@ class DDRVCU118PlacedOverlay(val shell: VCU118ShellBasicOverlays, name: String, 
   def overlayOutput = DDROverlayOutput(ddr = mig.node)
   def ioFactory = new XilinxVCU118MIGPads(size)
 
-  InModuleBody { ioNode.bundle <> mig.module.io }
-
   shell { InModuleBody {
     require (shell.sys_clock.get.isDefined, "Use of DDRVCU118Overlay depends on SysClockVCU118Overlay")
     val (sys, _) = shell.sys_clock.get.get.overlayOutput.node.out(0)
     val (ui, _) = ddrUI.out(0)
     val (ar, _) = areset.in(0)
-    val port = topIONode.bundle.port
-    io <> port
+    val port = mig.module.io.port
+    io <> port.viewAsSupertype(new VCU118MIGIODDR(mig.depth))
     ui.clock := port.c0_ddr4_ui_clk
     ui.reset := /*!port.mmcm_locked ||*/ port.c0_ddr4_ui_clk_sync_rst
     port.c0_sys_clk_i := sys.clock.asUInt

@@ -10,7 +10,7 @@ package sifive.fpgashells.shell.microsemi
   val width = pins.size
 
    shell { InModuleBody {
-    io := ledSink.bundle // could/should put OBUFs here?
+    io := ledWire // could/should put OBUFs here?
     (pins zip IOPin.of(io)) foreach { case (pin, io) => shell.io_pdc.addPin(io, pin) }
   } }
 }
