@@ -1,6 +1,7 @@
 package sifive.fpgashells.shell.xilinx
 
 import chisel3._
+import chisel3.experimental.dataview._
 import freechips.rocketchip.diplomacy._
 import freechips.rocketchip.tilelink._
 import org.chipsalliance.cde.config._
@@ -8,6 +9,7 @@ import sifive.fpgashells.clocks._
 import sifive.fpgashells.devices.xilinx.xilinxvc707mig._
 import sifive.fpgashells.devices.xilinx.xilinxvc707pciex1._
 import sifive.fpgashells.ip.xilinx._
+import sifive.fpgashells.ip.xilinx.vc707mig._
 import sifive.fpgashells.shell._
 
 class SysClockVC707PlacedOverlay(val shell: VC707Shell, name: String, val designInput: ClockInputDesignInput, val shellInput: ClockInputShellInput)
@@ -178,8 +180,6 @@ class DDRVC707PlacedOverlay(val shell: VC707Shell, name: String, val designInput
 
   val migParams = XilinxVC707MIGParams(address = AddressSet.misaligned(di.baseAddress, size))
   val mig = LazyModule(new XilinxVC707MIG(migParams))
-  val ioNode = BundleBridgeSource(() => mig.module.io.cloneType)
-  val topIONode = shell { ioNode.makeSink() }
   val ddrUI     = shell { ClockSourceNode(freqMHz = 200) }
   val areset    = shell { ClockSinkNode(Seq(ClockSinkParameters())) }
   areset := designInput.wrangler := ddrUI
@@ -187,15 +187,13 @@ class DDRVC707PlacedOverlay(val shell: VC707Shell, name: String, val designInput
   def overlayOutput = DDROverlayOutput(ddr = mig.node)
   def ioFactory = new XilinxVC707MIGPads(size)
 
-  InModuleBody { ioNode.bundle <> mig.module.io }
-
   shell { InModuleBody {
     require (shell.sys_clock.get.isDefined, "Use of DDRVC707PlacedOverlay depends on SysClockVC707PlacedOverlay")
     val (sys, _) = shell.sys_clock.get.get.overlayOutput.node.out(0)
     val (ui, _) = ddrUI.out(0)
     val (ar, _) = areset.in(0)
-    val port = topIONode.bundle.port
-    io <> port
+    val port = mig.module.io.port
+    io <> port.viewAsSupertype(new VC707MIGIODDR(mig.depth))
     ui.clock := port.ui_clk
     ui.reset := !port.mmcm_locked || port.ui_clk_sync_rst
     port.sys_clk_i := sys.clock.asUInt

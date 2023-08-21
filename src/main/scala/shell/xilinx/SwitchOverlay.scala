@@ -12,7 +12,7 @@ abstract class SwitchXilinxPlacedOverlay(name: String, di: SwitchDesignInput, si
 
   shell { InModuleBody {
     val bwire = Wire(Bool())
-    switchSource.out(0)._1 := bwire.asUInt
+    switchWire := bwire.asUInt
     val ibuf = Module(new IBUF)
     ibuf.suggestName(s"switch_ibuf_${si.number}")
     ibuf.io.I := io

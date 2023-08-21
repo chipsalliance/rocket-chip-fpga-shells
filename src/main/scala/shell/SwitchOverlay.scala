@@ -18,9 +18,8 @@ abstract class SwitchPlacedOverlay(
 
   def ioFactory = Input(Bool())
 
-  val switchSource = shell { BundleBridgeSource(() => Bool()) }
-  val switchSink = switchSource.makeSink()
-  def overlayOutput = SwitchOverlayOutput(sw = InModuleBody { switchSink.bundle } )
+  val switchWire = shell { InModuleBody { Wire(Bool()) }}
+  def overlayOutput = SwitchOverlayOutput(sw = switchWire)
 }
 
 /*

@@ -21,9 +21,8 @@ abstract class ButtonPlacedOverlay(
 
   def ioFactory = Input(Bool())
 
-  val buttonSource = shell { BundleBridgeSource(() => Bool()) }
-  val buttonSink = buttonSource.makeSink()
-  def overlayOutput = ButtonOverlayOutput(but = InModuleBody { buttonSink.bundle })
+  val buttonWire = shell { InModuleBody(Wire(Bool())) }
+  def overlayOutput = ButtonOverlayOutput(but = buttonWire)
 }
 
 /*

@@ -9,7 +9,7 @@ abstract class LEDXilinxPlacedOverlay(name: String, di: LEDDesignInput, si: LEDS
   def shell: XilinxShell
 
   shell { InModuleBody {
-    io := ledSink.bundle // could/should put OBUFs here?
+    io := ledWire // could/should put OBUFs here?
 
     require((boardPin.isEmpty || packagePin.isEmpty), "can't provide both boardpin and packagepin, this is ambiguous")
     val cutAt = if(boardPin.isDefined) 1 else 0

@@ -23,9 +23,8 @@ abstract class LEDPlacedOverlay(
 
   def ioFactory = Output(Bool())
 
-  val ledSource = BundleBridgeSource(() => Bool())
-  val ledSink = shell { ledSource.makeSink() }
-  def overlayOutput = LEDOverlayOutput(InModuleBody { ledSource.out(0)._1 })
+  val ledWire = shell { InModuleBody { Wire(Bool()) } }
+  def overlayOutput = LEDOverlayOutput(ledWire)
 }
 
 /*
