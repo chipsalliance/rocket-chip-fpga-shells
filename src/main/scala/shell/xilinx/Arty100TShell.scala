@@ -1,6 +1,7 @@
 package sifive.fpgashells.shell.xilinx
 
 import chisel3._
+import chisel3.experimental.dataview._
 import freechips.rocketchip.diplomacy._
 import org.chipsalliance.cde.config._
 import sifive.fpgashells.clocks._
@@ -235,16 +236,12 @@ class DDRArtyPlacedOverlay(val shell: Arty100TShellBasicOverlays, name: String, 
   
   val migParams = XilinxArty100TMIGParams(address = AddressSet.misaligned(di.baseAddress, size))
   val mig = LazyModule(new XilinxArty100TMIG(migParams))
-  val ioNode = BundleBridgeSource(() => mig.module.io.cloneType)
-  val topIONode = shell { ioNode.makeSink() }
   val ddrUI     = shell { ClockSourceNode(freqMHz = 100) }
   val areset    = shell { ClockSinkNode(Seq(ClockSinkParameters())) }
   areset := di.wrangler := ddrUI
 
   def overlayOutput = DDROverlayOutput(ddr = mig.node)
   def ioFactory = new XilinxArty100TMIGPads(size)
-
-  InModuleBody { ioNode.bundle <> mig.module.io }
 
   shell { InModuleBody {
     require (shell.sys_clock.get.isDefined, "Use of DDRArtyPlacedOverlay depends on SysClockArtyPlacedOverlay")
@@ -253,9 +250,9 @@ class DDRArtyPlacedOverlay(val shell: Arty100TShellBasicOverlays, name: String, 
     val (dclk1, _) = ddrClk1.in(0)
     val (dclk2, _) = ddrClk2.in(0)
     val (ar, _) = areset.in(0)
-    val port = topIONode.bundle.port
+    val port = mig.module.io.port
     
-    io <> port
+    io <> port.viewAsSupertype(new XilinxArty100TMIGPads(mig.depth))
     ui.clock := port.ui_clk
     ui.reset := !port.mmcm_locked || port.ui_clk_sync_rst
     port.sys_clk_i := dclk1.clock.asUInt
