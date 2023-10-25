@@ -69,7 +69,11 @@ abstract class Shell()(implicit p: Parameters) extends LazyModule with LazyScope
   }
 
   // feel free to override this if necessary
-  lazy val module = new LazyRawModuleImp(this)
+  lazy val module = new LazyRawModuleImp(this) {
+    // most children will have the implicit module.clock/reset explicitly set,
+    // but we have to provide this anyways so diplomacy doesn't complain
+    override def provideImplicitClockToLazyChildren: Boolean = true
+  }
 }
 
 /*

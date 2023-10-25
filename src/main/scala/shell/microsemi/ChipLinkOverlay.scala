@@ -49,7 +49,7 @@ package sifive.fpgashells.shell.microsemi
     //       max_slow_lv_lt: 0.024ns slack + 1.5 margin
 
      // We have to add a these constants to work around some Libero timing analysis bug
-    val periodNs = 1000.0 / rxEdge.clock.freqMHz
+    val periodNs = 1000.0 / rxEdge.clock.get.freqMHz
 
      val timing = IOTiming(
       /* The data signals coming from Aloe have: clock - 1.2 <= transition <= clock + 0.8
@@ -69,7 +69,7 @@ package sifive.fpgashells.shell.microsemi
       case Some(x: SysClockVeraPlacedOverlay) => x.clock
     }
 
-     shell.sdc.addClock(s"${name}_b2c_clock", io.b2c.clk, rxEdge.clock.freqMHz)
+     shell.sdc.addClock(s"${name}_b2c_clock", io.b2c.clk, rxEdge.clock.get.freqMHz)
     //shell.sdc.addDerivedClock(sdcTxClockName, "{corePLL/corePLL_0/pll_inst_0/OUT1}", io.c2b.clk)
     shell.sdc.addDerivedClock(s"${name}_c2b_clock", IOPin(sysclk), io.c2b.clk)
     IOPin.of(io).filter(p => p.isInput  && !(p.element eq io.b2c.clk)).foreach { e =>

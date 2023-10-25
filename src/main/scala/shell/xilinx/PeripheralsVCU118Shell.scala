@@ -183,6 +183,8 @@ abstract class PeripheralsVCU118Shell(implicit p: Parameters) extends VCU118Shel
   p(ClockInputOverlayKey).foreach(_.place(ClockInputDesignInput()))
 
   override lazy val module = new LazyRawModuleImp(this) {
+
+    override def provideImplicitClockToLazyChildren = true
     val reset = IO(Input(Bool()))
     val por_clock = sys_clock.get.get.asInstanceOf[SysClockVCU118PlacedOverlay].clock
     val powerOnReset = PowerOnResetFPGAOnly(por_clock)

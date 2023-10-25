@@ -2,6 +2,7 @@ package sifive.fpgashells.shell
 
 import freechips.rocketchip.diplomacy._
 import freechips.rocketchip.tilelink._
+import freechips.rocketchip.prci._
 import org.chipsalliance.cde.config._
 import sifive.blocks.devices.chiplink._
 import sifive.fpgashells.clocks._
@@ -11,7 +12,7 @@ case class ChipLinkShellInput(
 
 case class ChipLinkDesignInput(
   di:   ChipLinkParams,
-  txGroup:  ClockGroupNode,
+  txGroup:  ClockGroupingNode,
   txData:   ClockSinkNode,
   wrangler: ClockAdapterNode)(
   implicit val p: Parameters)

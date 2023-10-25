@@ -60,7 +60,7 @@ class XilinxVC707PCIeX1(implicit p: Parameters, val crossing: ClockCrossingType 
     val io = IO(new Bundle {
       val port = new XilinxVC707PCIeX1IO
     })
-
+    override def provideImplicitClockToLazyChildren = true
     childClock := io.port.axi_aclk_out
     childReset := ~io.port.axi_aresetn
 

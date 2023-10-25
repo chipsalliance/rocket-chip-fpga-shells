@@ -2,6 +2,7 @@ package sifive.fpgashells.shell.xilinx
 
 import chisel3._
 import freechips.rocketchip.diplomacy._
+import freechips.rocketchip.prci._
 import org.chipsalliance.cde.config._
 import sifive.fpgashells.clocks._
 import sifive.fpgashells.devices.xilinx.allinxaxku040mig.{AlinxAxku040MIG, AlinxAxku040MIGParams}
@@ -169,7 +170,7 @@ class DDRAlinxAxku040PlacedOverlay(
 
       auxio.sysClockInput := sys_clk.clock
       auxio.sysResetInput := sys_clk.reset
-      auxio.AXIaresetn := !areset_port.reset
+      auxio.AXIaresetn := !(areset_port.reset.asBool)
 
       // format: off
       val allddrpins = Seq(
@@ -335,6 +336,7 @@ class AlinxAxku040Shell()(implicit p: Parameters) extends AlinxAxku040ShellBasic
   }
 
   override lazy val module = new LazyRawModuleImp(this) {
+    override def provideImplicitClockToLazyChildren = true
     val sysclk = sys_clock.get() match {
       case Some(x: SysClockAlinxAxku040PlacedOverlay) => x.clock
     }

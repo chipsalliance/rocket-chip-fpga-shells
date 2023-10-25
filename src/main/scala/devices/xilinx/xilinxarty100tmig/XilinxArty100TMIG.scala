@@ -44,12 +44,12 @@ class XilinxArty100TMIGIsland(c : XilinxArty100TMIGParams, val crossing: ClockCr
     val io = IO(new Bundle {
       val port = new XilinxArty100TMIGIO(depth)
     })
-
+    override def provideImplicitClockToLazyChildren = true
     childClock := io.port.ui_clk
     childReset := io.port.ui_clk_sync_rst
 
     //MIG black box instantiation
-    val blackbox = Module(new arty100tmig(depth))
+    val blackbox = withClockAndReset(childClock, childReset) { Module(new arty100tmig(depth)) }
     val (axi_async, _) = node.in(0)
 
     //pins to top level

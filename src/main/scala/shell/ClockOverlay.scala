@@ -2,6 +2,7 @@ package sifive.fpgashells.shell
 
 import chisel3._
 import freechips.rocketchip.diplomacy._
+import freechips.rocketchip.prci._
 import org.chipsalliance.cde.config._
 import sifive.fpgashells.clocks._
 
@@ -35,7 +36,7 @@ abstract class LVDSClockInputPlacedOverlay(
 
   val clock = shell { InModuleBody {
     val (bundle, edge) = node.out.head
-    shell.sdc.addClock(name, io.p, edge.clock.freqMHz)
+    shell.sdc.addClock(name, io.p, edge.clock.get.freqMHz)
     bundle.clock
   } }
   def overlayOutput = ClockInputOverlayOutput(node)
@@ -53,7 +54,7 @@ abstract class SingleEndedClockInputPlacedOverlay(
 
   val clock = shell { InModuleBody {
     val (bundle, edge) = node.out.head
-    shell.sdc.addClock(name, io:Clock, edge.clock.freqMHz)
+    shell.sdc.addClock(name, io:Clock, edge.clock.get.freqMHz)
     bundle.clock
   } }
   def overlayOutput = ClockInputOverlayOutput(node)
