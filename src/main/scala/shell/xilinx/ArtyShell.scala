@@ -63,7 +63,7 @@ abstract class ArtyShell(implicit val p: Parameters) extends RawModule {
   val uart_rxd_out = IO(Analog(1.W))
   val uart_txd_in  = IO(Analog(1.W))
 
-  // JA (Used for more generic GPIOs)
+  // PMOD header - JA (used for more generic GPIOs)
   val ja_0         = IO(Analog(1.W))
   val ja_1         = IO(Analog(1.W))
   val ja_2         = IO(Analog(1.W))
@@ -73,16 +73,35 @@ abstract class ArtyShell(implicit val p: Parameters) extends RawModule {
   val ja_6         = IO(Analog(1.W))
   val ja_7         = IO(Analog(1.W))
 
-  // JC (used for additional debug/trace connection)
-  val jc           = IO(Vec(8, Analog(1.W)))
+  // PMOD header - JB (used for more generic GPIOs)
+  val jb_0         = IO(Analog(1.W))
+  val jb_1         = IO(Analog(1.W))
+  val jb_2         = IO(Analog(1.W))
+  val jb_3         = IO(Analog(1.W))
+  val jb_4         = IO(Analog(1.W))
+  val jb_5         = IO(Analog(1.W))
+  val jb_6         = IO(Analog(1.W))
+  val jb_7         = IO(Analog(1.W))
 
-  // JD (used for JTAG connection)
+  // PMOD header - JC (used for Serial TileLink connection)
+  val jc_0         = IO(Analog(1.W))
+  val jc_1         = IO(Analog(1.W))
+  val jc_2         = IO(Analog(1.W))
+  val jc_3         = IO(Analog(1.W))
+  val jc_4         = IO(Analog(1.W))
+  val jc_5         = IO(Analog(1.W))
+  val jc_6         = IO(Analog(1.W))
+  val jc_7         = IO(Analog(1.W))
+
+  // PMOD header - JD (used for debugger connection)
   val jd_0         = IO(Analog(1.W))  // TDO
-  val jd_1         = IO(Analog(1.W))  // TRST_n
+  val jd_1         = IO(Analog(1.W))  // nTRST
   val jd_2         = IO(Analog(1.W))  // TCK
+  val jd_3         = IO(Analog(1.W))  // TXD
   val jd_4         = IO(Analog(1.W))  // TDI
   val jd_5         = IO(Analog(1.W))  // TMS
-  val jd_6         = IO(Analog(1.W))  // SRST_n
+  val jd_6         = IO(Analog(1.W))  // nSRST
+  val jd_7         = IO(Analog(1.W))  // RXD
 
   // ChipKit Digital I/O Pins
   val ck_io        = IO(Vec(20, Analog(1.W)))
