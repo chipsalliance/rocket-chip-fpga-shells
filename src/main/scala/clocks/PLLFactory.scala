@@ -2,6 +2,7 @@ package sifive.fpgashells.clocks
 
 import chisel3._
 import freechips.rocketchip.diplomacy._
+import freechips.rocketchip.prci._
 import org.chipsalliance.cde.config._
 import sifive.fpgashells.shell._
 
@@ -57,24 +58,24 @@ class PLLFactory(scope: IOShell, maxOutputs: Int, gen: PLLParameters => PLLInsta
       val params = PLLParameters(
         name = node.valName.name,
         input = PLLInClockParameters(
-          freqMHz  = edgeIn.clock.freqMHz,
+          freqMHz  = edgeIn.clock.get.freqMHz,
           jitter   = edgeIn.source.jitterPS.getOrElse(50),
           feedback = node.feedback),
         req = edgeOut.flatMap(_.members).map { e =>
           PLLOutClockParameters(
-            freqMHz       = e.clock.freqMHz,
-            phaseDeg      = e.sink.phaseDeg,
-            dutyCycle     = e.clock.dutyCycle,
-            jitterPS      = e.sink.jitterPS,
-            freqErrorPPM  = e.sink.freqErrorPPM,
-            phaseErrorDeg = e.sink.phaseErrorDeg)})
+            freqMHz       = e._2.clock.get.freqMHz,
+            phaseDeg      = e._2.sink.phaseDeg,
+            dutyCycle     = e._2.clock.get.dutyCycle,
+            jitterPS      = e._2.sink.jitterPS,
+            freqErrorPPM  = e._2.sink.freqErrorPPM,
+            phaseErrorDeg = e._2.sink.phaseErrorDeg)})
 
       val pll = gen(params)
       pll.getInput := in.clock
       pll.getReset.foreach { _ := in.reset }
-      (out.flatMap(_.member) zip pll.getClocks) foreach { case (o, i) =>
+      (out.flatMap(_.member.data) zip pll.getClocks) foreach { case (o, i) =>
         o.clock := i
-        o.reset := !pll.getLocked || in.reset
+        o.reset := !pll.getLocked || in.reset.asBool
       }
       Some((pll, node))
     }

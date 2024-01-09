@@ -4,6 +4,7 @@ import chisel3._
 import chisel3.experimental.dataview._
 import freechips.rocketchip.diplomacy._
 import freechips.rocketchip.tilelink._
+import freechips.rocketchip.prci._
 import org.chipsalliance.cde.config._
 import sifive.fpgashells.clocks._
 import sifive.fpgashells.devices.xilinx.xilinxvc707mig._
@@ -198,7 +199,7 @@ class DDRVC707PlacedOverlay(val shell: VC707Shell, name: String, val designInput
     ui.reset := !port.mmcm_locked || port.ui_clk_sync_rst
     port.sys_clk_i := sys.clock.asUInt
     port.sys_rst := sys.reset // pllReset
-    port.aresetn := !ar.reset
+    port.aresetn := !(ar.reset.asBool)
   } }
 
   shell.sdc.addGroup(clocks = Seq("clk_pll_i"))
@@ -236,8 +237,8 @@ class PCIeVC707PlacedOverlay(val shell: VC707Shell, name: String, val designInpu
     io <> port
     axi.clock := port.axi_aclk_out
     axi.reset := !port.mmcm_lock
-    port.axi_aresetn := !ar.reset
-    port.axi_ctl_aresetn := !ar.reset
+    port.axi_aresetn := !(ar.reset.asBool)
+    port.axi_ctl_aresetn := !(ar.reset.asBool)
 
     shell.xdc.addPackagePin(io.REFCLK_rxp, "A10")
     shell.xdc.addPackagePin(io.REFCLK_rxn, "A9")
@@ -281,6 +282,8 @@ class VC707BaseShell()(implicit p: Parameters) extends VC707Shell
   p(ClockInputOverlayKey).foreach(_.place(ClockInputDesignInput()))
 
   override lazy val module = new LazyRawModuleImp(this) {
+
+    override def provideImplicitClockToLazyChildren = true
     val reset = IO(Input(Bool()))
     xdc.addBoardPin(reset, "reset")
 
@@ -312,6 +315,8 @@ class VC707PCIeShell()(implicit p: Parameters) extends VC707Shell
   p(ClockInputOverlayKey).foreach(_.place(ClockInputDesignInput()))
 
   override lazy val module = new LazyRawModuleImp(this) {
+
+    override def provideImplicitClockToLazyChildren = true
     val reset = IO(Input(Bool()))
     xdc.addBoardPin(reset, "reset")
 

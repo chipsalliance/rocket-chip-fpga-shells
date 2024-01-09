@@ -3,6 +3,7 @@ package sifive.fpgashells.shell.xilinx.artyshell
 import chisel3._
 import chisel3.experimental.Analog
 import freechips.rocketchip.devices.debug._
+import freechips.rocketchip.subsystem.{PBUS, Attachable}
 import org.chipsalliance.cde.config._
 import sifive.blocks.devices.pinctrl.BasePin
 import sifive.blocks.devices.spi._
@@ -176,7 +177,8 @@ abstract class ArtyShell(implicit val p: Parameters) extends RawModule {
   //-----------------------------------------------------------------------
 
   def connectSPIFlash(dut: HasPeripherySPIFlashModuleImp): Unit = dut.qspi.headOption.foreach {
-    connectSPIFlash(_, dut.clock, dut.reset.asBool)
+    val pbus = dut.outer.asInstanceOf[Attachable].locateTLBusWrapper(PBUS)
+    connectSPIFlash(_, pbus.module.clock, pbus.module.reset.asBool)
   }
 
   def connectSPIFlash(qspi: SPIPortIO, clock: Clock, reset: Bool): Unit = {

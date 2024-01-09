@@ -44,7 +44,7 @@ class XilinxNexysVideoMIGIsland(c: XilinxNexysVideoMIGParams, val crossing: Cloc
     val io = IO(new Bundle {
       val port = new XilinxNexysVideoMIGIO(depth)
     })
-
+    override def provideImplicitClockToLazyChildren = true
     childClock := io.port.ui_clk
     childReset := io.port.ui_clk_sync_rst
 

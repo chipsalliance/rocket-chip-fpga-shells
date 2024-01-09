@@ -4,6 +4,7 @@ import chisel3._
 import freechips.rocketchip.diplomacy._
 import freechips.rocketchip.interrupts._
 import freechips.rocketchip.tilelink._
+import freechips.rocketchip.prci._
 import org.chipsalliance.cde.config._
 import sifive.fpgashells.clocks._
 

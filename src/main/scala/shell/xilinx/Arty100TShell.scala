@@ -3,6 +3,7 @@ package sifive.fpgashells.shell.xilinx
 import chisel3._
 import chisel3.experimental.dataview._
 import freechips.rocketchip.diplomacy._
+import freechips.rocketchip.prci._
 import org.chipsalliance.cde.config._
 import sifive.fpgashells.clocks._
 import sifive.fpgashells.devices.xilinx.xilinxarty100tmig._
@@ -258,7 +259,7 @@ class DDRArtyPlacedOverlay(val shell: Arty100TShellBasicOverlays, name: String, 
     port.sys_clk_i := dclk1.clock.asUInt
     port.clk_ref_i := dclk2.clock.asUInt
     port.sys_rst := shell.pllReset
-    port.aresetn := !ar.reset
+    port.aresetn := !(ar.reset.asBool)
   } }
 
   shell.sdc.addGroup(clocks = Seq("clk_pll_i"), pins = Seq(mig.island.module.blackbox.io.ui_clk))
@@ -311,6 +312,7 @@ class Arty100TShell()(implicit p: Parameters) extends Arty100TShellBasicOverlays
   p(ClockInputOverlayKey).foreach(_.place(ClockInputDesignInput()))
   override lazy val module = new Impl
   class Impl extends LazyRawModuleImp(this) {
+    override def provideImplicitClockToLazyChildren = true
 
     val reset = IO(Input(Bool()))
     xdc.addBoardPin(reset, "reset")
@@ -345,6 +347,7 @@ class Arty100TShellGPIOPMOD()(implicit p: Parameters) extends Arty100TShellBasic
   p(ClockInputOverlayKey).foreach(_.place(ClockInputDesignInput()))
 
   override lazy val module = new LazyRawModuleImp(this) {
+    override def provideImplicitClockToLazyChildren = true
     val reset = IO(Input(Bool()))
     xdc.addBoardPin(reset, "reset")
 

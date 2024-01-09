@@ -3,6 +3,7 @@ package sifive.fpgashells.shell.xilinx
 import chisel3._
 import freechips.rocketchip.diplomacy._
 import freechips.rocketchip.tilelink._
+import freechips.rocketchip.prci._
 import sifive.fpgashells.clocks._
 import sifive.fpgashells.devices.xilinx.xdma._
 import sifive.fpgashells.ip.xilinx._

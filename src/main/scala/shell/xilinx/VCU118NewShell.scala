@@ -4,6 +4,7 @@ import chisel3._
 import chisel3.experimental.{Analog, attach}
 import chisel3.experimental.dataview._
 import freechips.rocketchip.diplomacy._
+import freechips.rocketchip.prci._
 import org.chipsalliance.cde.config._
 import sifive.fpgashells.clocks._
 import sifive.fpgashells.devices.xilinx.xdma._
@@ -327,7 +328,7 @@ class DDRVCU118PlacedOverlay(val shell: VCU118ShellBasicOverlays, name: String, 
     ui.reset := /*!port.mmcm_locked ||*/ port.c0_ddr4_ui_clk_sync_rst
     port.c0_sys_clk_i := sys.clock.asUInt
     port.sys_rst := sys.reset // pllReset
-    port.c0_ddr4_aresetn := !ar.reset
+    port.c0_ddr4_aresetn := !(ar.reset.asBool)
 
     val allddrpins = Seq(  "D14", "B15", "B16", "C14", "C15", "A13", "A14",
       "A15", "A16", "B12", "C12", "B13", "C13", "D15", "H14", "H15", "F15",

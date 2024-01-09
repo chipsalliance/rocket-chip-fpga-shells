@@ -44,7 +44,7 @@ class XilinxVC707MIGIsland(c : XilinxVC707MIGParams, val crossing: ClockCrossing
     val io = IO(new Bundle {
       val port = new XilinxVC707MIGIO(depth)
     })
-
+    override def provideImplicitClockToLazyChildren = true
     childClock := io.port.ui_clk
     childReset := io.port.ui_clk_sync_rst
 

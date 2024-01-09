@@ -140,6 +140,7 @@ class PeripheralVC707Shell(implicit p: Parameters) extends VC707Shell {
 
   override lazy val module = new LazyRawModuleImp(this) {
 
+    override def provideImplicitClockToLazyChildren = true
     val reset = IO(Input(Bool()))
     val clock = IO(Input(Clock()))
     xdc.addBoardPin(reset, "reset")

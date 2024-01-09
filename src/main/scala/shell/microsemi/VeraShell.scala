@@ -3,6 +3,7 @@ package sifive.fpgashells.shell.microsemi
 import chisel3._
 import freechips.rocketchip.diplomacy._
 import freechips.rocketchip.tilelink._
+import freechips.rocketchip.prci._
 import org.chipsalliance.cde.config._
 import sifive.fpgashells.clocks._
 import sifive.fpgashells.devices.microsemi.polarfireevalkitpciex4._
@@ -229,6 +230,7 @@ class VeraShell()(implicit p: Parameters) extends PolarFireShell
   val topDesign = LazyModule(p(DesignKey)(designParameters))
 
   override lazy val module = new LazyRawModuleImp(this) {
+    override def provideImplicitClockToLazyChildren = true
     val pf_user_reset_n = IO(Input(Bool()))
     io_pdc.addPin(pf_user_reset_n, "AK18")
     val ereset: Bool = chiplink.get() match {
