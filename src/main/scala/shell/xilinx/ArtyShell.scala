@@ -176,8 +176,8 @@ abstract class ArtyShell(implicit val p: Parameters) extends RawModule {
   // SPI Flash
   //-----------------------------------------------------------------------
 
-  def connectSPIFlash(dut: HasPeripherySPIFlashModuleImp): Unit = dut.qspi.headOption.foreach {
-    val pbus = dut.outer.asInstanceOf[Attachable].locateTLBusWrapper(PBUS)
+  def connectSPIFlash(dut: HasPeripherySPIFlash): Unit = dut.qspi.headOption.foreach {
+    val pbus = dut.asInstanceOf[Attachable].locateTLBusWrapper(PBUS)
     connectSPIFlash(_, pbus.module.clock, pbus.module.reset.asBool)
   }
 
@@ -249,7 +249,7 @@ abstract class ArtyShell(implicit val p: Parameters) extends RawModule {
   // UART
   //---------------------------------------------------------------------
 
-  def connectUART(dut: HasPeripheryUARTModuleImp): Unit = dut.uart.headOption.foreach(connectUART)
+  def connectUART(dut: HasPeripheryUART): Unit = dut.uart.headOption.foreach(connectUART)
 
   def connectUART(uart: UARTPortIO): Unit = {
     IOBUF(uart_rxd_out, uart.txd)

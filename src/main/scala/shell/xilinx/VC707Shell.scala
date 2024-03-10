@@ -554,7 +554,7 @@ abstract class VC707Shell(implicit val p: Parameters) extends RawModule {
 
   uart_rtsn := false.B
 
-  def connectUART(dut: HasPeripheryUARTModuleImp): Unit = dut.uart.headOption.foreach(connectUART)
+  def connectUART(dut: HasPeripheryUART): Unit = dut.uart.headOption.foreach(connectUART)
 
   def connectUART(uart: UARTPortIO): Unit = {
     uart.rxd := SyncResetSynchronizerShiftReg(uart_rx, 2, init = true.B, name=Some("uart_rxd_sync"))
@@ -565,7 +565,7 @@ abstract class VC707Shell(implicit val p: Parameters) extends RawModule {
   // SPI
   //-----------------------------------------------------------------------
 
-  def connectSPI(dut: HasPeripherySPIModuleImp): Unit = dut.spi.headOption.foreach(connectSPI)
+  def connectSPI(dut: HasPeripherySPI): Unit = dut.spi.headOption.foreach(connectSPI)
 
   def connectSPI(spi: SPIPortIO): Unit = {
     // SPI

@@ -1,7 +1,7 @@
 package sifive.fpgashells.devices.xilinx.xilinxvcu118mig
 
 import freechips.rocketchip.diplomacy.{AddressRange, LazyModule, LazyModuleImp}
-import freechips.rocketchip.subsystem.BaseSubsystem
+import freechips.rocketchip.subsystem.{BaseSubsystem, MBUS}
 import freechips.rocketchip.tilelink.TLWidthWidget
 import org.chipsalliance.cde.config._
 
@@ -12,6 +12,7 @@ trait HasMemoryXilinxVCU118MIG { this: BaseSubsystem =>
 
   val xilinxvcu118mig = LazyModule(new XilinxVCU118MIG(p(MemoryXilinxDDRKey)))
 
+  private val mbus = locateTLBusWrapper(MBUS)
   mbus.coupleTo("xilinxvcu118mig") { xilinxvcu118mig.node := TLWidthWidget(mbus.beatBytes) := _ }
 }
 
