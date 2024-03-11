@@ -1,9 +1,8 @@
 package sifive.fpgashells.devices.microsemi.polarfireddr4
 
 import org.chipsalliance.cde.config._
-//import freechips.rocketchip.coreplex.HasMemoryBus
 import freechips.rocketchip.diplomacy.{AddressRange, LazyModule, LazyModuleImp}
-import freechips.rocketchip.subsystem.BaseSubsystem
+import freechips.rocketchip.subsystem.{BaseSubsystem, MBUS}
 import freechips.rocketchip.tilelink.TLWidthWidget
 
 case object MemoryMicrosemiDDR4Key extends Field[PolarFireEvalKitDDR4Params]
@@ -14,6 +13,7 @@ trait HasMemoryPolarFireEvalKitDDR4 { this: BaseSubsystem =>
 
   val polarfireddrsubsys = LazyModule(new PolarFireEvalKitDDR4(p(MemoryMicrosemiDDR4Key)))
 
+  private val mbus = locateTLBusWrapper(MBUS)
   mbus.coupleTo("PolarFireDDR") { polarfireddrsubsys.node := TLWidthWidget(mbus.beatBytes) := _ }
 }
 

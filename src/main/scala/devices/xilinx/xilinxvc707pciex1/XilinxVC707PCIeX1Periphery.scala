@@ -1,12 +1,13 @@
 package sifive.fpgashells.devices.xilinx.xilinxvc707pciex1
 
 import freechips.rocketchip.diplomacy.{LazyModule, LazyModuleImp}
-import freechips.rocketchip.subsystem.BaseSubsystem
+import freechips.rocketchip.subsystem.{BaseSubsystem, SBUS}
 import freechips.rocketchip.tilelink._
 
 trait HasSystemXilinxVC707PCIeX1 { this: BaseSubsystem =>
   val xilinxvc707pcie = LazyModule(new XilinxVC707PCIeX1)
   private val cname = "xilinxvc707pcie"
+  private val sbus = locateTLBusWrapper(SBUS)
   sbus.coupleFrom(s"master_named_$cname") { _ :=* TLFIFOFixer(TLFIFOFixer.all) :=* xilinxvc707pcie.crossTLOut(xilinxvc707pcie.master) }
   sbus.coupleTo(s"slave_named_$cname") { xilinxvc707pcie.crossTLIn(xilinxvc707pcie.slave) :*= TLWidthWidget(sbus.beatBytes) :*= _ }
   sbus.coupleTo(s"controller_named_$cname") { xilinxvc707pcie.crossTLIn(xilinxvc707pcie.control) :*= TLWidthWidget(sbus.beatBytes) :*= _ }

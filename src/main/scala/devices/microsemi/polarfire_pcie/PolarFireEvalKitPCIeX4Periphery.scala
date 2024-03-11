@@ -1,13 +1,13 @@
 package sifive.fpgashells.devices.microsemi.polarfireevalkitpciex4
-//import freechips.rocketchip.coreplex.{HasInterruptBus, HasSystemBus}
 import freechips.rocketchip.diplomacy.{LazyModule, LazyModuleImp}
-import freechips.rocketchip.subsystem.BaseSubsystem
+import freechips.rocketchip.subsystem.{BaseSubsystem, SBUS}
 import freechips.rocketchip.tilelink._
 
 //trait HasSystemPolarFireEvalKitPCIeX4 extends HasSystemBus with HasInterruptBus {
 trait HasSystemPolarFireEvalKitPCIeX4 { this: BaseSubsystem =>
   val pf_eval_kit_pcie = LazyModule(new PolarFireEvalKitPCIeX4)
   private val cname = "polarfirepcie"
+  private val sbus = locateTLBusWrapper(SBUS)
   sbus.coupleFrom(s"master_named_$cname") { _ :=* TLFIFOFixer(TLFIFOFixer.all) :=* pf_eval_kit_pcie.crossTLOut(pf_eval_kit_pcie.master) }
   sbus.coupleTo(s"slave_named_$cname") { pf_eval_kit_pcie.crossTLIn(pf_eval_kit_pcie.slave) :*= TLWidthWidget(sbus.beatBytes) :*= _ }
   sbus.coupleTo(s"controller_named_$cname") { pf_eval_kit_pcie.crossTLIn(pf_eval_kit_pcie.control) :*= TLWidthWidget(sbus.beatBytes) :*= _ }

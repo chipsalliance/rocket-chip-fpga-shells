@@ -1,7 +1,7 @@
 package sifive.fpgashells.devices.xilinx.xilinxvc707mig
 
 import freechips.rocketchip.diplomacy.{AddressRange, LazyModule, LazyModuleImp}
-import freechips.rocketchip.subsystem.BaseSubsystem
+import freechips.rocketchip.subsystem.{BaseSubsystem, MBUS}
 import freechips.rocketchip.tilelink.TLWidthWidget
 import org.chipsalliance.cde.config._
 
@@ -12,6 +12,7 @@ trait HasMemoryXilinxVC707MIG { this: BaseSubsystem =>
 
   val xilinxvc707mig = LazyModule(new XilinxVC707MIG(p(MemoryXilinxDDRKey)))
 
+  private val mbus = locateTLBusWrapper(MBUS)
   mbus.coupleTo("xilinxvc707mig") { xilinxvc707mig.node := TLWidthWidget(mbus.beatBytes) := _ }
 }
 
