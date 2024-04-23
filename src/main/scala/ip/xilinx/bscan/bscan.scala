@@ -72,7 +72,7 @@ class JTAGTUNNEL extends Module {
     withClock(negClock) {
       val negCounter = RegInit(0.U(8.W))
       negCounter := negCounter + 1.U
-      jtag_tms := MuxLookup(negCounter, false.B, Array(
+      jtag_tms := MuxLookup(negCounter, false.B)(Array(
         4.U -> tdiRegisterWire,
         5.U -> true.B,
         shiftCounterWire + 7.U -> true.B,
