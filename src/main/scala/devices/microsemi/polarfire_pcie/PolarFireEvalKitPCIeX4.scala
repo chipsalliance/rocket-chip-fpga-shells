@@ -4,6 +4,7 @@ import chisel3._
 import freechips.rocketchip.amba.axi4._
 //import freechips.rocketchip.coreplex.CacheBlockBytes
 import freechips.rocketchip.diplomacy._
+import freechips.rocketchip.prci._
 import freechips.rocketchip.interrupts._
 import freechips.rocketchip.subsystem.{CacheBlockBytes, HasCrossing}
 import freechips.rocketchip.tilelink._

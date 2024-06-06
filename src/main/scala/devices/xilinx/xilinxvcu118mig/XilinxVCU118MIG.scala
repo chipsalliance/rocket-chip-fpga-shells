@@ -4,6 +4,7 @@ import chisel3._
 import chisel3.experimental.attach
 import freechips.rocketchip.amba.axi4._
 import freechips.rocketchip.diplomacy._
+import freechips.rocketchip.prci._
 import freechips.rocketchip.subsystem._
 import freechips.rocketchip.tilelink._
 import org.chipsalliance.cde.config.Parameters

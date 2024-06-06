@@ -6,6 +6,7 @@ import freechips.rocketchip.amba.axi4._
 import org.chipsalliance.cde.config.Parameters
 //import freechips.rocketchip.coreplex._
 import freechips.rocketchip.diplomacy._
+import freechips.rocketchip.prci._
 import freechips.rocketchip.subsystem._
 import freechips.rocketchip.tilelink._
 import sifive.fpgashells.ip.microsemi.polarfireddr3.{DDR3_Subsys, PolarFireEvalKitDDR3IOClocksReset, PolarFireEvalKitDDR3IODDR}
