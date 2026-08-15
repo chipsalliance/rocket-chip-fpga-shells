@@ -217,11 +217,11 @@ object LEDNexysVideoPinConstraints{
     "Y13"  // Sch=led[7]
   )
 }
-class LEDNexysVideoPlacedOverlay(val shell: NexysVideoShellBasicOverlays, name: String, val designInput: LEDDesignInput, val shellInput: LEDShellInput)
-  extends LEDXilinxPlacedOverlay(name, designInput, shellInput, packagePin = Some(LEDNexysVideoPinConstraints.pins(shellInput.number)))
-class LEDNexysVideoShellPlacer(val shell: NexysVideoShellBasicOverlays, val shellInput: LEDShellInput)(implicit val valName: ValName)
+class LEDNexysVideoPlacedOverlay(val shell: NexysVideoShellBasicOverlays, name: String, val designInput: LEDDesignInput, val shellInput: LEDShellInput, val ioStandard: String = "LVCMOS25")
+  extends LEDXilinxPlacedOverlay(name, designInput, shellInput, packagePin = Some(LEDNexysVideoPinConstraints.pins(shellInput.number)), ioStandard = ioStandard)
+class LEDNexysVideoShellPlacer(val shell: NexysVideoShellBasicOverlays, val shellInput: LEDShellInput, val ioStandard: String = "LVCMOS25")(implicit val valName: ValName)
   extends LEDShellPlacer[NexysVideoShellBasicOverlays] {
-  def place(designInput: LEDDesignInput) = new LEDNexysVideoPlacedOverlay(shell, valName.name, designInput, shellInput)
+  def place(designInput: LEDDesignInput) = new LEDNexysVideoPlacedOverlay(shell, valName.name, designInput, shellInput, ioStandard)
 }
 
 // 8 Switches
@@ -331,7 +331,7 @@ class WithNoNexysVideoShellDDR extends Config((site, here, up) => {
 abstract class NexysVideoShellBasicOverlays()(implicit p: Parameters) extends Series7Shell {
   // Order matters; ddr depends on sys_clock
   val sys_clock = Overlay(ClockInputOverlayKey, new SysClockNexysVideoShellPlacer(this, ClockInputShellInput()))
-  val led       = Seq.tabulate(8)(i => Overlay(LEDOverlayKey, new LEDNexysVideoShellPlacer(this, LEDMetas(i))(valName = ValName(s"led_$i"))))
+  val led       = Seq.tabulate(8)(i => Overlay(LEDOverlayKey, new LEDNexysVideoShellPlacer(this, LEDMetas(i), ioStandard = "LVCMOS25")(valName = ValName(s"led_$i"))))
   val switch    = Seq.tabulate(8)(i => Overlay(SwitchOverlayKey, new SwitchNexysVideoShellPlacer(this, SwitchShellInput(number = i))(valName = ValName(s"switch_$i"))))
   val button    = Seq.tabulate(5)(i => Overlay(ButtonOverlayKey, new ButtonNexysVideoShellPlacer(this, ButtonShellInput(number = i))(valName = ValName(s"button_$i"))))
   val ddr       = if (p(NexysVideoShellDDR)) Some(Overlay(DDROverlayKey, new DDRNexysVideoShellPlacer(this, DDRShellInput()))) else None
